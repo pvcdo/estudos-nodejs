@@ -1,0 +1,211 @@
+<h1 id="notas-de-aula">Notas de aula</h1>
+
+<p>Aqui tomarei notas das aulas do curso. Conteúdos anexos estão na <a href="https://drive.google.com/drive/u/0/folders/1-BDX1uVmXzaEx20gu1QcOFfwD1bsQh8O">pasta do drive</a>.</p>
+
+<p>Os códigos de exercícios, tarefas e estudos extras estão no <a href="https://github.com/pvcdo/estudos-nodejs">Github</a>.</p>
+
+<h2 id="se-o-1-introdu-o">Seção 1 - Introdução</h2>
+
+<h3 id="1-3-o-que-o-nodejs-">1.3 - O que é o NodeJS?</h3>
+
+<p>O nodeJS é uma biblioteca utilizada por um compilador, transformando um texto JavaScript em uma linguagem de baixo nível.</p>
+
+<p>O compilador é o V8 engine do Google que transforma o JS em C++. Linguagens de alto nível são mais pesadas para rodar, ao transformar o JS em C++ ganha-se em performance.</p>
+
+<h3 id="1-4-o-que-o-npm-">1.4 - O que é o NPM?</h3>
+
+<p>O npm é o gerenciador de pacotes do node (e também de outras bibliotecas javascript, como o react), ou seja, vai nos permitir baixar bibliotecas de terceiros ou aquelas não nativas que vão nos auxiliar.</p>
+
+<p>Também alguns comandos são disparados a partir do npm, ou seja, executar scripts.</p>
+
+<h3 id="1-8-cmder">1.8 - Cmder</h3>
+
+<p>É um cmd que simula o do Linux, com os mesmos comandos desse, o que trás uma gama de conhecimentos interessante para quem quer atuar na área de programação, uma vez que muitos serviços são baseados em linux. Outro ponto é que programas, como o docker, precisam de comandos que rodam melhor em um ambiente dessa forma.</p>
+
+<h3 id="1-10-executando-o-primeiro-programa">1.10 - Executando o primeiro programa</h3>
+
+<p>Os programas são salvos com a extensão ".js". Para executar o comando nós podemos executar via terminal o comando &gt;&gt; node &lt;&lt; dentro da pasta onde criamos o programa e passar o nome do arquivo.</p>
+
+<h3 id="1-11-utilizando-um-m-dulo">1.11 - Utilizando um módulo</h3>
+
+<p>Módulos são como classes que contém funções e variáveis para executarmos com o Node. Podemos usar módulos que já são disponibilizados pelo próprio node na sua intalação (módulos core); módulos de terceiros (baixados) e nossos próprios.</p>
+
+<p>Para usar módulos nós devemos dar um comando de importação (import ou require). O require é mais antigo que o import.</p>
+
+<h3 id="tarefa">TAREFA</h3>
+
+<p><a href="https://github.com/pvcdo/estudos-nodejs/tree/main/1_INTRO/tarefa">Github</a></p>
+
+<h2 id="se-o-2-fundamentos-de-node-js">Seção 2 - Fundamentos de Node.js</h2>
+
+<h3 id="2-18-o-que-s-o-m-dulos">2.18 - O que são módulos</h3>
+
+<p>São conjuntos de variáveis e funções (scripts) reaproveitáveis, ou seja, que podemos importar de algum lugar e usar no nosso código.</p>
+
+<ul>
+    <li>Internos - aqueles que nós desenvolvemos</li>
+    <li>Core modules - vem com a instalação do node.js</li>
+    <li>Externos - aqueles que instalamos via npm</li>
+</ul>
+
+<h4 id="2-19-m-dulos-internos">2.19 - Módulos internos</h4>
+
+<p><a href="https://github.com/pvcdo/estudos-nodejs/tree/main/2_FUNDAMENTOS/1_modulo_interno">Github</a></p>
+
+<h3 id="2-20-import-e-export">2.20 - Import e export</h3>
+
+<p>É a mesma coisa do export default e import do React. Para usarmos essa sintaxe, porém, o arquivo deve ser de extensão <b style="color: green">.msj</b></p>
+<p>[GitHub]</p>
+
+<p>Até o momento da gravação da aula o padrão é o uso do require (importação) e module.exports (exportação)</p>
+
+<h3 id="2-22-lendo-argumentos-da-linha-de-comandos">2.22 - Lendo argumentos da linha de comandos</h3>
+
+<p>Pode ser passado um ou mais argumentos na linha de comandos, logo após a solicitação de execução de um script. Esses argumentos são armazenados em um array nativo do node e que não precisa ser importado, esse array é o process.argv.</p>
+
+<h4 id="2-23-m-dulos-externos">2.23 - Módulos externos</h4>
+
+<p>Para instalar módulos externos nós temos que dar o comando >> npm init << para gerarmos o mapeamento dos módulos e criar a pasta node_modules, onde serão instalados os módulos baixados.</p>
+
+<p>Ao dar o comando npm init o sistema nos pergunta alguns dados para a criação do node_modules.</p>
+
+<p>Os módulos externos ajudam a executar mais facilmente coisas que nós poderíamos demorar muito para fazer.</p>
+
+<h3>Explorando o console</h3>
+
+<p>Não existe apenas o .log no console.</p>
+
+<p><a href=''>GitHub</a> -> 2-7-explorando-console</p>
+
+<h3>Chalk</h3>
+
+<p>É um módulo para estilizar console.log</p>
+
+<a href="https://www.npmjs.com/package/chalk">NPM</a>
+
+<h3>Lendo input de dados</h3>
+
+<p>Neste caso podemos usar o método core "readline" e seu método question</p>
+
+<a href="">GitHub - 2-9-readline</a>
+
+<h4 id="inquirer">Módulo externo - Inquirer</h4>
+
+<p>O professor promete ser um método mais fácil que o readline para gerar questionamentos ao usuário pela linha de comandos.</p>
+
+<p><a href="https://www.npmjs.com/package/inquirer">NPM</a></p>
+
+<h3 id="event_emitter">Event emitter</h3>
+
+<p>É uma classe do módulo events (que é um core module) e se comporta como os eventos do navegador (click, onkeydown, onkeyup, onmousedown, etc...), são gatilhos no script.</p>
+
+<p><a href="#event_emitter">Github</a></p>
+
+<h3>Códigos Síncronos e assíncronos</h3>
+
+<p>Esses termos se referem à ordem de execução dos métodos e funções declarados no nosso script. Se temos um método síncrono nós estamos indicando que ele deve ser finalizado antes de que o próximo método seja executado.</p>
+
+<p>Já um método assíncrono permite que o resto do código seja executado enquanto esse método não tem concluída a sua resposta.</p>
+
+<h3>Erros no node</h3>
+
+<p> Podemos usar o comando <b>throw</b>, que vai encerrar a execução do código e indicar o erro através da instância de um objeto Error; ou pedemos usar os blocos try...catch que vai tentar executar um código no try, que caso não passe irá ser criado um objeto de erro que poderá ser tratado no catch como um objeto.</p>
+
+<h2>Seção 3 - Core Modules</h2>
+
+<h3 id="core_modules_introducao">Introdução</h3>
+
+<p>Alguns core modules fundamentais são</p>
+
+<ul>
+    <li>
+        <b>http</b> - Usado para criar servidores http, ou seja, receber e retornar requisições e respostas
+    </li>
+    <li>
+        <b>path</b> - extrair caminho até algum arquivo, extensão entre outros
+    </li>
+    <li>
+        <b>fs</b> - leitura e escrita de arquivos e diretórios
+    </li>
+    <li>
+        <b>url</b>
+    </li>
+</ul>
+
+<h3>Método http</h3>
+
+<p>Podemos receber uma requisição e responder um html, por exemplo. Ou então podemos criar um servidor e determinar as postas.</p>
+
+<p><a href="">Github - 3_CORE_MODULES/1-http e 3_CORE_MODULES/2-retornando-html</a></p>
+
+<h3>Método url</h3>
+
+<p><a href="">GitHub - 3_CORE_MODULES\3-url e 4-http+url </a></p>
+
+<h3>Método fs</h3>
+
+<p><a href="#">GitHub - 6-escrevendo-arquivos</a></p>
+
+<h4>Escrevendo arquivo</h4>
+
+<p>fs.writeFile('arquivo.extensão',"algo a ser escrito no arquivo', função callback(erro,&lt conteúdo do arquivo &gt){})</p>
+
+<p>Esse método substitui tudo que por ventura estivesse escrito anteriormente no arquivo</p>
+
+<h4>Atualizando arquivo</h4>
+
+<p>fs.appendFile('arquivo.extensão',"algo a ser escrito no arquivo', função callback(erro,&lt conteúdo do arquivo &gt){})</p>
+
+<p>Essa função não substitui o que estava escrito anteriormente no arquivo, mas adiciona mais texto ou informações</p>
+
+<h4>Removendo arquivo</h4>
+
+<p>fs.unlink('arquivo.extensão',funcao de erro(erro)){}</p>
+
+<p>É importante colocar uma lógica verificando se existe erro, sob risco do comportamento do programa ser equivocado. Será emitido um erro caso não exista o arquivo que está se tentando excluir.</p>
+
+<h4>Renomeando arquivo</h4>
+
+<p>fs.rename('nome antigo', 'nome novo', função callback(erro){})</p>
+
+<h4>Rotas com Node.js puro</h4>
+
+<p><a href="#">Github - 10-roteamento</a></p>
+
+<h4>Stat - detalhes de um arquivo</h4>
+
+<p><a href="#">Github - 11-detalhes-arquivos</a></p>
+
+<h3>Módulo path</h3>
+
+<b style="color: red;">Consultei a <a target="_blank" href="https://nodejs.org/docs/latest-v14.x/api/path.html">documentação do node (versão 14 lts)</a> e não achei alguns dos comandos aqui estudados...</b>
+
+
+<h4>dirname, basename, extname</h4>
+
+<p><a href="#">Github - 12-path</a></p>
+
+<h4>path absoluto (resolve) e formar path (join)</h4>
+
+<p><a href="#">Github - 13-path-absoluto-join</a></p>
+
+<h4>existsSync e mkdirSync</h4>
+
+<p>fs.existsSync('pasta com caminho relativo') &rarr true se a pasta existe</p>
+<p>fs.mkdirSync('nome') &rarr cria a pasta com o nome especificado no diretório local</p>
+
+<h3>Módulo os</h3>
+
+<p>Informações do sistema operacional</p>
+
+<h2>Fundamentos do npm</h2>
+
+<h3>O que é o npm?</h3>
+
+<p>É o principal gerenciador de pacotes do node.js. Assim como ele tem o yarn também. Ele gerencia pacotes, onde podemos instalar pacotes e configurar.</p>
+
+<p>Toda criação de um projeto com npm gera um arquivo package.json, que informa quais foram as dependências instaladas entre outras configurações.</p>
+
+<h3>Criando um projeto</h3>
+
+<p>Para iniciar o projeto damos o comando &lt; npm init &gt; </p>
