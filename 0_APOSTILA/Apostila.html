@@ -1,4 +1,15 @@
-<h1 id="notas-de-aula">Notas de aula</h1>
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Apostila - NodeJS - Prof Matheus Battist</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.pikpng.com/pngl/b/430-4309640_js-logo-nodejs-logo-clipart.png" />
+    </head>
+    <body>
+
+<a id="topo" href="#fim">Ir para o fim da página</a>
+        <h1 id="notas-de-aula">Notas de aula</h1>
 
 <p>Aqui tomarei notas das aulas do curso. Conteúdos anexos estão na <a href="https://drive.google.com/drive/u/0/folders/1-BDX1uVmXzaEx20gu1QcOFfwD1bsQh8O">pasta do drive</a>.</p>
 
@@ -202,10 +213,40 @@
 
 <h3>O que é o npm?</h3>
 
-<p>É o principal gerenciador de pacotes do node.js. Assim como ele tem o yarn também. Ele gerencia pacotes, onde podemos instalar pacotes e configurar.</p>
+<p>É o principal gerenciador de pacotes do node.js. Assim como ele tem o yarn também. Com ele nós instalamos módulos externos para o nosso projeto. Nós podemos criar um projeto node sem usar o npm, porém nós gastaríamos mais tempo para criar módulos sem segurança e eficiência.</p>
 
 <p>Toda criação de um projeto com npm gera um arquivo package.json, que informa quais foram as dependências instaladas entre outras configurações.</p>
 
 <h3>Criando um projeto</h3>
 
 <p>Para iniciar o projeto damos o comando &lt; npm init &gt; </p>
+
+<p>Outra forma de iniciar um projeto node é dar um &lt; npm init -y &gt;, com esse comando são dadas as respostas padrão que o npm init exige.</p>
+
+<p>Quando nós instalamos o primeiro pacote é criada a pasta node_modules, que é onde os pacotes (dependências) terceiros ficarão armazenados </p>
+
+<p>Sempre quando formos rodar projetos baixados de outras pessoas temos que dar o comando npm install (npm i) que vai ler o package.json daquele projeto e instalar na nossa máquina os pacotes necessários para o projeto funcionar.</p>
+
+<h3>Instalando pacote como dev</h3>
+
+<p>Nós podemos instalar os pacotes para funcionarem apenas no momento que estamos desenvolvendo o nosso projeto (esses pacotes não sobem quando nós formos publicar o projeto). Para isso nos damos o comando <b> npm install &lt; pacote &gt; --save-dev </b>. Dessa forma, no package.json o pacote salvo como dev estará agrupado no atributo devDependencies.</p>
+
+<b style="color:green">O npx é um executador de pacotes npm, ele instala e roda um pacote.</b>
+
+<h3>Criando scripts</h3>
+
+<p>Scripts são séries de comandos configurados por nós para serem executados.</p>
+
+<p>Para criar um script nós vamos no package.json e dentro de "scripts" nós escrevemos o nome comando como atributo e o valor é o que será executado no terminal. Depois nós abrimos o terminal no diretório do projeto e damos o comando <b>npm run "nome-do-script"</b></p>
+
+<p>Por exemplo: ao dar o comando <b>npm run start</b> no diretório 5-scripts é executado o script start que está especificado no package.json do diretório (que no caso é executar <b>node index.js</b>)</p>
+
+<p>Colocando o nome do script como start, nós não precisamos escrever run bastando apenas escrever <b>npm start</b>. Isso também acontece com alguns outros poucos scripts especiais (como test).</p>
+
+<p></p>
+
+<a id="fim" href="#topo">Ir para o topo da página</a>
+
+</body>
+</html>
+
