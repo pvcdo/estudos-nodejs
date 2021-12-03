@@ -231,8 +231,6 @@
 
 <p>Nós podemos instalar os pacotes para funcionarem apenas no momento que estamos desenvolvendo o nosso projeto (esses pacotes não sobem quando nós formos publicar o projeto). Para isso nos damos o comando <b> npm install &lt; pacote &gt; --save-dev </b>. Dessa forma, no package.json o pacote salvo como dev estará agrupado no atributo devDependencies.</p>
 
-<b style="color:green">O npx é um executador de pacotes npm, ele instala e roda um pacote.</b>
-
 <h3>Criando scripts</h3>
 
 <p>Scripts são séries de comandos configurados por nós para serem executados.</p>
@@ -243,7 +241,46 @@
 
 <p>Colocando o nome do script como start, nós não precisamos escrever run bastando apenas escrever <b>npm start</b>. Isso também acontece com alguns outros poucos scripts especiais (como test).</p>
 
-<p></p>
+<h3>Pacotes globais</h3>
+
+<p>Nós podemos instalar um pacote de forma que ele fique na raiz do node do nosso pc e seja acessível a qualquer projeto dentro do nosso pc.</p>
+
+<p>Ele não gera, portanto uma inclusão no node_modules local, nem aparece no package.json.</p>
+
+<p>Alguns pacotes precisam ter suas pastas instaladas localmente e para acessar este tipo de pacote (que precisa de suas pastas por perto) mas que foi instalado globalmente, nós podemos usar o comando <b>npm link "nome_do_pacote_global"</b> </p>
+
+<p>Para isso nós damos o comando <b>npm install -g "nome_do_pacote"</b></p>
+
+<h3>NPX</h3>
+
+<b style="color:green">O npx é um executador de pacotes npm, ele instala e roda um pacote.</b>
+
+<P>Nós usamos esse comando para trabalhar com pacotes de scripts executáveis (como é o caso do create-react-app).</P>
+
+<h3>Remover pacotes</h3>
+
+<b>npm uninstall "nome_do_pacote"</b>
+
+<p>Ele também é removido do package.json.</p>
+
+<hr style="border-top: 2px green dashed; color:white"> 
+
+<h2>Projeto Account</h2>
+
+<a href="5_PROJ_ACCOUNTS">GitHub - 5_PROJ_ACCOUNTS</a>
+
+<h3>Setup inicial</h3>
+
+<p>O professor instalou chalk e inquirer.</p>
+
+
+
+
+<hr style="border-top: 2px green dashed; color:white"> 
+
+
+<!-- -------------- FIM DO DOCUMENTO ---------------- -->
+
 
 <a id="fim" href="#topo">Ir para o topo da página</a>
 
