@@ -42,6 +42,14 @@ function operation() {
         if(action === "Criar conta"){
             msgCreateAccount()
             buildAccount()
+        }else if(action === "Consultar saldo"){
+            consultAmount()
+        }else if(action === "Depositar"){
+            deposit()
+        }else if(action === "Sacar"){
+            
+        }else if(action === "Sair"){
+            exit()
         }
     })
     .catch((err) => { //np - será executado caso dê algum erro
@@ -49,34 +57,138 @@ function operation() {
     })
 }
 
-//nj - creat an account 
-function msgCreateAccount(){
-    console.log(chalk.bgGreen.black("Muito obrigado por escolher o nosso banco"))
-    console.log(chalk.green("Vamos começar a criação da sua conta!"))
-}
+//nj - global functions
 
-function buildAccount(){
-    inquirer.prompt([{
-        name: 'accountName',
-        message: "Escreva um nome para a sua conta"
-    }])
-    .then((resp) => {
-        const accountName = resp.accountName
-        
-        if(!fs.existsSync('./accounts')){
-            fs.mkdirSync('./accounts')
-        }
+    function checkAccount(accountName){
+        return fs.existsSync(`./accounts/${accountName}.json`)
+    }
 
-        if(fs.existsSync(`./accounts/${accountName}.json`)){
-            console.log(chalk.bgRed(`A conta ${accountName} já existe. Gentileza escolher outro nome de conta`))
-            buildAccount()
-            return
-        }else{
-            fs.writeFileSync(`./accounts/${accountName}.json`,'{"balance":0}',(err) => {
-                console.log(chalk.red(`Erro ${err}`))
+    function getAccount(accountName){
+        const accountTXT = fs.readFileSync(`./accounts/${accountName}.json`,{
+            encoding: 'utf-8', // aqui coloca a possibilidade de usar nossos caracteres especiais
+            flag: 'r' //aqui informa que o arquivo será somente leitura
+        }) //essa função no caso retornará o arquivo como um arquivo de texto
+        return JSON.parse(accountTXT) //aqui eu estou transformando o texto que nós recuperamos em um arquivo JSON
+    }
+
+//nj - create an account 
+    function msgCreateAccount(){
+        console.log(chalk.bgGreen.black("Muito obrigado por escolher o nosso banco"))
+        console.log(chalk.green("Vamos começar a criação da sua conta!"))
+    }
+
+    function buildAccount(){
+        inquirer.prompt([{
+            name: 'accountName',
+            message: "Escreva um nome para a sua conta (menu para ir para o menu / sair para fechar o programa)"
+        }])
+        .then((resp) => {
+            const accountName = resp.accountName
+
+            if(accountName === "menu"){
+                operation()
                 return
+            }
+
+            if(accountName === "sair"){
+                exit()
+            }
+            
+            if(!fs.existsSync('./accounts')){
+                fs.mkdirSync('./accounts')
+            }
+
+            if(fs.existsSync(`./accounts/${accountName}.json`)){
+                console.log(chalk.bgRed(`A conta ${accountName} já existe. Gentileza escolher outro nome de conta`))
+                buildAccount()
+                return
+            }else{
+                fs.writeFileSync(`./accounts/${accountName}.json`,'{"balance":0}',(err) => {
+                    console.log(chalk.red(`Erro ${err}`))
+                    return
+                })
+                console.log(chalk.bgGreen.black("Parabéns! Sua conta foi criada com sucesso!"))
+                operation()
+            }
+        })
+    }
+
+// nj - consult wallet
+
+    function consultAmount(){
+        inquirer.prompt([{
+            name:"accountName",
+            message:'Qual conta você quer consultar?'
+        }])
+        .then((answer) => {
+            const accountName = answer.accountName
+            if(!checkAccount(accountName)){ //verifica se a conta existe e caso não exista, dá um recado e volta para o início da função
+                console.log(chalk.bgRed.black(`A conta ${accountName} não existe. Gentileza escolher uma conta válida`))
+                return consultAmount()
+            }
+
+            const accountData = getAccount(accountName)
+            console.log(chalk.black.bgBlue(` A conta ${accountName} possui R$${accountData.balance} `))
+            operation()
+        })
+        .catch((err) => console.log(err + " - erro em consultAmount"))
+    }
+
+// nj - add an amount to user account
+
+    function deposit(){
+        inquirer.prompt([{
+            name: 'accountName',
+            message: 'Qual a conta que você quer depositar?'
+        }])
+        .then((answer) => {
+            const accountName = answer.accountName
+            if(!checkAccount(accountName)){
+                console.log(chalk.bgRed.black(`A conta ${accountName} não existe. Gentileza escolher uma conta válida`))
+                return deposit()
+            }
+            
+            inquirer.prompt([{
+                name: "amount",
+                message:"Quanto você deseja depositar?"
+            }])
+            .then((answer) => {
+                const amount = answer.amount
+                if(addAmount(accountName,amount)){
+                   return deposit()
+                }else{
+                    operation()
+                }
+                
             })
-            console.log(chalk.bgGreen.black("Parabéns! Sua conta foi criada com sucesso!"))
+            .catch(err => console.log(err + " no inquirer name amount"))
+        })
+        .catch(err => console.log(err + " no inquirer name accountName"))
+    }
+
+    function addAmount(accountName, amount){
+        if(!isNaN(amount)){
+            const accountData = getAccount(accountName)
+            const new_value = parseFloat(accountData.balance) + parseFloat(amount)
+
+            fs.writeFileSync(
+                `./accounts/${accountName}.json`,
+                `{"balance":${new_value}}`
+            )
+
+            console.log(chalk.green(`Foi depositado R$${amount} na conta ${accountName}`))
+        }else{
+            console.log(chalk.bgRed.black('Insira um valor de depósito válido!'))
+            return true
         }
-    })
+        
+    }
+
+// nj - withdraw
+
+// nj - exist of program
+
+function exit() {
+    console.log(chalk.bgBlue.black('Obrigado por usar o Accounts!'))
+    process.exit() // np - isso mata o programa
 }
