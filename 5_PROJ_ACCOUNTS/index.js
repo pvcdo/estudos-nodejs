@@ -47,7 +47,7 @@ function operation() {
         }else if(action === "Depositar"){
             deposit()
         }else if(action === "Sacar"){
-            
+            withdraw()
         }else if(action === "Sair"){
             exit()
         }
@@ -64,6 +64,11 @@ function operation() {
     }
 
     function getAccount(accountName){
+        /**
+         * 
+         * Retorna o objeto da conta.
+         *  */ 
+
         const accountTXT = fs.readFileSync(`./accounts/${accountName}.json`,{
             encoding: 'utf-8', // aqui coloca a possibilidade de usar nossos caracteres especiais
             flag: 'r' //aqui informa que o arquivo será somente leitura
@@ -118,12 +123,20 @@ function operation() {
     function consultAmount(){
         inquirer.prompt([{
             name:"accountName",
-            message:'Qual conta você quer consultar?'
+            message:'Qual conta você quer consultar?  (menu para ir para o menu / sair para fechar o programa)'
         }])
         .then((answer) => {
             const accountName = answer.accountName
+            if(accountName === "menu"){
+                operation()
+                return
+            }
+
+            if(accountName === "sair"){
+                exit()
+            }
             if(!checkAccount(accountName)){ //verifica se a conta existe e caso não exista, dá um recado e volta para o início da função
-                console.log(chalk.bgRed.black(`A conta ${accountName} não existe. Gentileza escolher uma conta válida`))
+                console.log(chalk.bgRed.black(` A conta ${accountName} não existe. Gentileza escolher uma conta válida `))
                 return consultAmount()
             }
 
@@ -139,12 +152,20 @@ function operation() {
     function deposit(){
         inquirer.prompt([{
             name: 'accountName',
-            message: 'Qual a conta que você quer depositar?'
+            message: 'Qual a conta que você quer depositar?  (menu para ir para o menu / sair para fechar o programa)'
         }])
         .then((answer) => {
             const accountName = answer.accountName
+            if(accountName === "menu"){
+                operation()
+                return
+            }
+
+            if(accountName === "sair"){
+                exit()
+            }
             if(!checkAccount(accountName)){
-                console.log(chalk.bgRed.black(`A conta ${accountName} não existe. Gentileza escolher uma conta válida`))
+                console.log(chalk.bgRed.black(` A conta ${accountName} não existe. Gentileza escolher uma conta válida `))
                 return deposit()
             }
             
@@ -167,8 +188,9 @@ function operation() {
     }
 
     function addAmount(accountName, amount){
-        if(!isNaN(amount)){
-            const accountData = getAccount(accountName)
+        if(!isNaN(amount) && amount){
+            let accountData = getAccount(accountName)
+
             const new_value = parseFloat(accountData.balance) + parseFloat(amount)
 
             fs.writeFileSync(
@@ -177,18 +199,85 @@ function operation() {
             )
 
             console.log(chalk.green(`Foi depositado R$${amount} na conta ${accountName}`))
+
+            accountData = getAccount(accountName)
+            console.log(chalk.black.bgBlue(` A conta ${accountName} possui R$${accountData.balance} `))
         }else{
-            console.log(chalk.bgRed.black('Insira um valor de depósito válido!'))
+            console.log(chalk.bgRed.black(' Insira um valor de saque válido! '))
             return true
         }
         
     }
 
-// nj - withdraw
+// nj - withdraw an amount from user account
+
+    function withdraw(){
+        inquirer.prompt([{
+            name: 'accountName',
+            message: 'De qual a conta que você quer sacar? (menu para ir para o menu / sair para fechar o programa)'
+        }])
+        .then((answer) => {
+            const accountName = answer.accountName
+            if(accountName === "menu"){
+                operation()
+                return
+            }
+
+            if(accountName === "sair"){
+                exit()
+            }
+            if(!checkAccount(accountName)){
+                console.log(chalk.bgRed.black(` A conta ${accountName} não existe. Gentileza escolher uma conta válida `))
+                return withdraw()
+            }
+
+            inquirer.prompt([{
+                name: "amount",
+                message:"Quanto você deseja sacar?"
+            }])
+            .then((answer) => {
+                const amount = answer.amount
+                if(removeAmount(accountName,amount)){
+                   return withdraw()
+                }else{
+                    operation()
+                }
+                
+            })
+            .catch(err=>console.log(err + ' erro no amount do withdraw'))
+
+        })
+        .catch(err=>console.log(err + ' erro no withdraw'))
+
+    }
+
+    function removeAmount(accountName,amount){
+        if(!isNaN(amount) && amount){
+            let accountData = getAccount(accountName)
+            if(amount <= accountData.balance){
+                const new_value = parseFloat(accountData.balance) - parseFloat(amount)
+
+                fs.writeFileSync(
+                    `./accounts/${accountName}.json`,
+                    `{"balance":${new_value}}`
+                )
+
+                console.log(chalk.green(` Foi sacado R$${amount} da conta ${accountName} `))
+            }else{
+                console.log(chalk.bgRed.black(` A conta ${accountName} não tem saldo suficiente para esse saque. `))
+            }
+            accountData = getAccount(accountName)
+            console.log(chalk.black.bgBlue(` A conta ${accountName} possui R$${accountData.balance} `))
+        }else{
+            console.log(chalk.bgRed.black(' Insira um valor de saque válido! '))
+            return true
+        }
+        
+    }
 
 // nj - exist of program
 
 function exit() {
-    console.log(chalk.bgBlue.black('Obrigado por usar o Accounts!'))
+    console.log(chalk.bgBlue.black(' Obrigado por usar o Accounts! '))
     process.exit() // np - isso mata o programa
 }
