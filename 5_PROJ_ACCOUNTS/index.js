@@ -21,6 +21,7 @@ operation()
 function operation() {
 
     // np - A assinatura do objeto do inquirer.prompt exige a criação dos parâmetros com os nomes corretos (choices, message, type, name)
+    console.log(chalk.bgBlueBright.bold(" Programar listagem de contas "))
 
     inquirer.prompt([{
         type: 'list',

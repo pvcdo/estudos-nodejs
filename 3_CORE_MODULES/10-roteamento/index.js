@@ -4,8 +4,9 @@ const url = require('url')
 
 const port = 3000
 
-const server = http.createServer((req, res) => {
-  var q = url.parse(req.url,true)
+const server = http.createServer((req, res) => { // esta função será executada quando o servidor for acessado pelo navegador, usando o localhost:3000 (3000 é o número da porta que foi usada)
+  var q = url.parse(req.url,true) // um método que transforma a url em um objeto
+  //console.log(q.pathname[1])
   var filename = q.pathname.substring(1)
 
   if (filename.includes('html')) {
@@ -31,6 +32,6 @@ const server = http.createServer((req, res) => {
   }
 })
 
-server.listen(port, () => {
+server.listen(port, () => { // toda vez que uma rota for executada no localhost:3000 será disparada o método createServer
   console.log(`Servidor rodando na porta: ${port}`)
 })
