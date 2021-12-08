@@ -289,6 +289,48 @@
 
 <p>As rotas são as url's que nós acessamos. Estão presentes depois da barra, no fim do domínio. A rota raiz é a /. Cada rota está atrelada a uma funcionalidade, ou seja, ao ser acessada, dispara uma lógica.</p>
 
+<p><a href="#">GitHub - 6_EXPRESS\2-setup</a></p>
+
+<h3>Renderizando HTML</h3>
+
+<p>Para renderizar um html temos que passar o comando sendFile('documento com caminho completo')</p>
+
+<p><a href="#">GitHub - 6_EXPRESS\3-render-html</a></p>
+
+<h3>Nodemon - atualização automática</h3>
+
+<p>Esse módulo faz com que cada vez que salvarmos um documento e atualizarmos a página que está rodando o projeto, essa atualização seja já renderizada no navegador, sem precisar matar o projeto e reiniciá-lo para ver as alterações.</p>
+
+<p>O ideal é salvar esse pacote para o ambiente de desenvolvimento, portanto sua instalação ideal é <b>npm i --save-dev nodemon</b></p>
+
+<p>Depois de instalar o nodemon, nós vamos no package.json e criamos o script start passando os seguintes valores para ele <span style="color:orangered">"nodemon .index.js ((ou outro documento que estejamos utilizando)) localhost 3000 ((ou outra porta que estivermos utilizando))"</span></p>
+
+<p>Desta forma o projeto será executado não mais utilizando o comando node index.js, mas sim o comando <b>npm start</b></p>
+
+<p><a href="#">GitHub - 6_EXPRESS\4-nodemon</a></p>
+
+<h3>Middlewares</h3>
+
+<p>Códigos que podem ser executados entre uma ação e outra. Por exemplo, verificar se o usuário está autenticado.</p>
+
+<p>Utilizamos o método <span style="color:green">use</span> do Express para utilizar middlewares.</p>
+
+<p>O método <span style="color:green">use</span> espera uma função que tem 3 parâmetro (requisição, resposta, next) e a partir dela é feita a lógica de middleware</p>
+
+<p><a href="#">GitHub - 6_EXPRESS\5-middleware</a></p>
+
+<h3>Parâmetros pela url</h3>
+
+<p>É possível recuperar e trabalhar com parâmetros passados pela url da requisição.</p>
+
+<p><a href="#">GitHub - 6_EXPRESS\6-params-url</a></p>
+
+<h3>Enviando dados pelo método POST</h3>
+
+<p>É um método de envio de dados de um formulário para uma url.</p>
+
+
+
 
 <!-- -------------- FIM DO DOCUMENTO ---------------- -->
 

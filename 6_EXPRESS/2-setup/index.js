@@ -10,6 +10,6 @@ app.get('/h1',(req,res) => { // define o que fazer quando for acessada a rota /h
     res.send('<h1>Teste de h1</h1>') // emite uma resposta ao usuário com um título h1
 })
 
-app.listen(port,()=>{
+app.listen(port,()=>{ // a partir da porta estabelecida o navegador fica observando se haverá alguma mudança de rota, executando os get quando isso ocorrer
     console.log(`O servidor está rodando na porta ${port}`)
 })
