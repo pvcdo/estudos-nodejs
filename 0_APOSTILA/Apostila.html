@@ -327,8 +327,27 @@
 
 <h3>Enviando dados pelo método POST</h3>
 
-<p>É um método de envio de dados de um formulário para uma url.</p>
+<p>É um método de envio de dados de um formulário para um banco de dados através de uma lógica (action) estabelecida em uma url.</p>
 
+<p><a href="#">GitHub - 6_EXPRESS\7-post-dados</a></p>
+
+<h3>Módulo de rotas</h3>
+
+<p>Nós podemos separar as rotas passadas pelo app.get e app.post tirando do documento de lógica principal e colocar em uma pasta. Depois disso colocamos um middleware, a partir do app.use, para ficar verificando a rota passada e ir para a pasta que controla essa rota.</p>
+
+<p>No arquivo de rotas nós temos que usar ao invés de app.get ou app.post router.get e router.post, sendo esse router um método importado de express. Temos que no final do arquivo de rotas fazer a exportação de router. É nessário também no arquivo de rotas atualizar o templatesPath.</p>
+
+<p>Para isso funcionar, temos que exportar as rotas do documento de rotas para o documento da aplicação principal. </p> 
+
+<p><a href="#">GitHub - 6_EXPRESS\8-modulo-rotas</a></p>
+
+<h3>Colocando CSS</h3>
+
+<p>Para colocar os estilos css nós vamos colocar no arquivo principal da aplicação o comando <b>app.use(express.static("path relativo da pasta que armazenará todos os documentos estáticos, não apenas as folhas de estilo"))</b></p>
+
+<p>Já nos aquivos html que estivermos escrevendo, nós vamos chamar a folha de estilo através da tag link e o href será passado como se já estivéssemos dentro da pasta que armazena os estáticos.</p>
+
+<p><a href="#">GitHub - 6_EXPRESS\9-css</a></p>
 <!-- -------------- FIM DO DOCUMENTO ---------------- -->
 
 

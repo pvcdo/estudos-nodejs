@@ -1,8 +1,18 @@
+//primeira forma de exportar
 const meuModulo = require('./meu_modulo')
 const soma = meuModulo.soma
 
 soma(2,5)
 soma(5,6)
+
+/*
+
+//segunda forma de exportar
+const soma = require('./meu_modulo')
+
+soma(2,5)
+soma(5,6)
+*/
 
 /*
 Na linha 1 temos a importação por meio do require do módulo criado em outro arquivo. 

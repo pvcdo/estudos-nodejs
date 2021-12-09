@@ -1,8 +1,17 @@
+// primeira forma de exportar
 module.exports = {
     soma(a,b){
         console.log(a+b)
     }
 }
+
+// segunda forma de exportar
+/*function soma(a,b){
+    console.log(a+b)
+}
+
+module.exports = soma
+*/
 
 /*
 

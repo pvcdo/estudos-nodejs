@@ -1,24 +1,43 @@
-//Express
 const express = require('express')
-
-//módulos internos
-const path = require('path')
-
 const app = express()
 const port = 3000
 
-const templatePath = path.join(__dirname,'templates')
+const path = require('path')
 
-app.get('/users/:id', (req,res) => { //ao usar o símbolo de : na url nós estamos dizendo ao express que isso é um parâmetro que queremos trabalhar
-  const id = req.params.id //ao buscar req.params serão considerados todas as variáveis na url que vieram juntas do :
-  console.log(`Estamos buscando o usuário ${id}`)
-  res.sendFile(`${templatePath}/users.html`)
+const basePath = path.join(__dirname, 'templates')
+
+// ler o body (ou seja, ler o corpo da requisição, para conseguir acessar os atributos enviados pelo post)
+app.use( //esse middleware lê o 
+  express.urlencoded({
+    extended: true,
+  }),
+)
+
+app.use(express.json())
+
+app.get('/users/add', (req, res) => {
+  res.sendFile(`${basePath}/userform.html`)
 })
 
-app.get('/',(req,res) => { 
-    res.sendFile(`${templatePath}/index.html`)
+app.post('/users/save', (req, res) => {
+  console.log(req.body) // body é um atributo da requisição enviada pelo post. Nela têm-se acesso a todos os atributos do objeto enviado pelo post com os dados do formulário
+  const name = req.body.name
+  const age = req.body.age
+
+  console.log(name)
+  console.log(age)
 })
 
-app.listen(port,()=>{ 
-    console.log(`O servidor está rodando na porta ${port}`)
+app.get('/users/:id', (req, res) => {
+  console.log(`Carregando usuário: ${req.params.id}`)
+
+  res.sendFile(`${basePath}/users.html`)
+})
+
+app.get('/', (req, res) => {
+  res.sendFile(`${basePath}/index.html`)
+})
+
+app.listen(port, () => {
+  console.log(`App rodando na porta:${port}`)
 })
