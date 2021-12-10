@@ -1,9 +1,27 @@
+body{
+    margin:0;
+}
+
+#container{
+    display: flex;
+    margin:0;
+}
+
+aside{
+    margin:0;
+    width:400px;
+    background-color:#333333;
+    color:#FFF;
+}
+
+main{
+    margin: 30px 30px 30px 80px;
+}
+
 #notas-de-aula, div{
     margin-top: 0;
     padding-top: 0;
 }
-
-
 
 .botoes-mov{
     display: flex;
