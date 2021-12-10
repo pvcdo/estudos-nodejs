@@ -1,0 +1,28 @@
+#notas-de-aula, div{
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+
+.botoes-mov{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.botao-mov{
+    width: 40px;
+    height: 40px;
+    background-color: #8ad5d8;
+    border:none;
+    margin-top: 10px;
+}
+
+.botao-mov a{
+    text-decoration: none;
+    color:black;
+}
+
