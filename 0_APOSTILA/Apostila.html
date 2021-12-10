@@ -18,17 +18,21 @@
         <div id="topo"></div>
         
        <div class="botoes-mov">
-            <button class="botao-mov">
-                <a href="#topo">
-                    <i class="fas fa-angle-double-up fa-2x"></i>
-                </a>
-            </button>
             
-            <button class="botao-mov">
-                <a href="#fim">
+            <a href="#topo">
+                <button class="botao-mov">
+                    <i class="fas fa-angle-double-up fa-2x"></i>
+                </button>
+            </a>
+            
+            
+                
+            <a href="#fim">
+                <button class="botao-mov">
                     <i class="fas fa-angle-double-down fa-2x"></i>
-                </a>
-            </button>
+                </button>
+            </a>
+                
         </div>
 
         <div id='container'>
@@ -38,7 +42,7 @@
 
         <main>
                     
-            <h2 id="notas-de-aula">Notas de aula</h2>
+            <h1 id="notas-de-aula">Notas de aula</h1>
 
                 <p>Aqui tomarei notas das aulas do curso. Conteúdos anexos estão na <a href="https://drive.google.com/drive/u/0/folders/1-BDX1uVmXzaEx20gu1QcOFfwD1bsQh8O">pasta do drive</a>.</p>
 
@@ -379,6 +383,56 @@
                     <p>Já nos aquivos html que estivermos escrevendo, nós vamos chamar a folha de estilo através da tag link e o href será passado como se já estivéssemos dentro da pasta que armazena os estáticos.</p>
 
                     <p><a href="#">GitHub - 6_EXPRESS\9-css</a></p>
+
+            <h2>Seção 7 - Template Engines</h2>
+
+                <h3>O que é Template Engine?</h3>
+
+                    <p>Template Engine (criador de template) é a definição de uma programação para definir o que será exibido na view, ou seja, o que será construído no html</p>
+
+                    <p>Através dessa ferramenta nós podemos inserir variáveis do back no front. Essencial para projetos que usam banco de dados (ou seja, que não são estáticos).</p>
+
+                    <p>Existem vários pacotes de programas para fazer o template engine.</p>
+
+                    <p>Nós vamos utilizar o Handlebars.</p>
+
+                <h3>Handlebars</h3>
+
+                    <p>A filosifia desse pacote é colocar menos lógica de programação na view.</p>
+
+                    <p>Chaves duplas no html indica a utilização do Handlebars.</p>
+
+                    <p>É um módulo dentro do express, embora ele também é utilizado tanto em outras frames de js quanto em outras linguagens.</p>
+
+                    <p>Para trabalhar com ele precisamos instalar o express e o handlebars através de <b>npm i express express-handlebars</b>.</p>
+
+                    <p>Os arquivos que anteriormente eram .html agora são .handlebars com as mesmas tags e forma de escrever um documento html</p>
+
+                    <p>Para utilizar o handlebars nós seguimos o padrão estabelecido em <a href="#">GitHub - 7_TEMPLATE_ENGINE\1-instalacao-handlebars</a></p>
+
+                <h3>Criando layouts</h3>
+
+                    <p>Nesta etapa nós preparamos as páginas modelo (template) onde serão inseridos os dados dinamicamente.</p>
+
+                    <p>Para inserir os dados de um handlebars para o outro temos que utilizar no que vai receber os dados a tag {{{body}}}</p>
+
+                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\2-criando-layouts</a></p>
+
+                    <p><span style="color:red">OBS: a forma como estamos estruturando os diretórios no projeto do GitHub estão seguindo o padrão handlebars, por isso não precisam de configurações especiais.</span></p>
+
+                <h3>Passando dados para a view</h3>
+
+                    <p>Dentro do get nós podemos criar variáveis (ou receber dados do banco) que podem ser colocadas como parâmetros do render e esses dados podem ser acessados na view de destino.</p>
+
+                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\3-dados-view</a></p>
+
+                <h3>Condicionais</h3>
+
+                    <p>Nós podemos usar dentro do .handlebars o comando {{#if 'booleano'}} programação {{/if}}</p>
+
+                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\4-if-else</a></p>
+
+
 
         </main>
         </div>
