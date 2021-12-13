@@ -6,20 +6,26 @@ const app = express()
 app.engine('handlebars',exphbs.engine()) // middleware que vai rodar quando o método render do response de um get for rodado
 app.set('view engine','handlebars') // o professor não explicou o que significa isso, mas imagino que seja algo obrigatório para o correto uso do handlebars como criador de templates
 
+app.get('/dashboard', (req,res)=>{
+    const items = ['item 1','item 2','item 3']
+
+    res.render('dashboard',{items})
+})
+
 app.get('/',(req,res)=>{
     const admin = {
         name: 'Paulo',
         surname: 'Oliveira',
-        grlfd: 'Laís',
-        son: 'Bernardo'
     }
 
     const time = "Cruzeiro"
 
-    res.render('home', {admin,time}) // podemos observar que em comparação com o 1-instalacao-handlebars agora não temos mais o layout:false, indicando que agora estamos sim utilizando um layout
+    const auth = true
+
+    res.render('home', {admin,time, auth}) //estou enviando as variáveis admin, time e auth para a página home.handlebars, que está na pasta views (padrão do handlebars)
 })
 
 app.listen(3000,() => {
-    console.log('App rodando perfeitamente!')
+    console.log('App rodando perfeitamente na porta 3000!')
 })
 

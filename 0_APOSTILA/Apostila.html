@@ -35,7 +35,7 @@
                 
         </div>
 
-        <div id='container'>
+    <div id='container'>
         <aside>
             Lateral
         </aside>
@@ -48,7 +48,7 @@
 
                 <p>Os códigos de exercícios, tarefas e estudos extras estão no <a href="https://github.com/pvcdo/estudos-nodejs">Github</a>.</p>
 
-            <h2 id="se-o-1-introdu-o">Seção 1 - Introdução</h2>
+            <h2 id="se-o-1-introdu-o"><span style="color:green"><i class="fab fa-node-js"></i> </span>Seção 1 - Introdução</h2>
 
                 <h3 id="1-3-o-que-o-nodejs-">1.3 - O que é o NodeJS?</h3>
 
@@ -80,7 +80,7 @@
 
                     <p><a href="https://github.com/pvcdo/estudos-nodejs/tree/main/1_INTRO/tarefa">Github</a></p>
 
-            <h2 id="se-o-2-fundamentos-de-node-js">Seção 2 - Fundamentos de Node.js</h2>
+            <h2 id="se-o-2-fundamentos-de-node-js"><span style="color:green"><i class="fab fa-node-js"></i> </span>Seção 2 - Fundamentos de Node.js</h2>
 
                 <h3 id="2-18-o-que-s-o-m-dulos">2.18 - O que são módulos</h3>
 
@@ -156,7 +156,7 @@
 
                     <p> Podemos usar o comando <b>throw</b>, que vai encerrar a execução do código e indicar o erro através da instância de um objeto Error; ou pedemos usar os blocos try...catch que vai tentar executar um código no try, que caso não passe irá ser criado um objeto de erro que poderá ser tratado no catch como um objeto.</p>
 
-            <h2>Seção 3 - Core Modules</h2>
+            <h2><span style="color:green"><i class="fab fa-node-js"></i> </span>Seção 3 - Core Modules</h2>
 
                 <h3 id="core_modules_introducao">Introdução</h3>
 
@@ -244,7 +244,7 @@
 
                     <p>Informações do sistema operacional</p>
 
-            <h2>Fundamentos do npm</h2>
+            <h2><span style="color:green"><i class="fab fa-node-js"></i> </span>Fundamentos do npm</h2>
 
                 <h3>O que é o npm?</h3>
 
@@ -300,7 +300,7 @@
 
             <hr style="border-top: 2px green dashed; color:white"> 
 
-            <h2>Projeto Account</h2>
+            <h2><span style="color:green"><i class="fab fa-node-js"></i> </span>Projeto Account</h2>
 
                 <a href="5_PROJ_ACCOUNTS">GitHub - 5_PROJ_ACCOUNTS</a>
 
@@ -310,7 +310,7 @@
 
             <hr style="border-top: 2px green dashed; color:white"> 
 
-            <h2>Seção 6 - Introdução ao Express</h2>
+            <h2><span style="color:green"><i class="fab fa-node-js"></i> </span>Seção 6 - Introdução ao Express</h2>
 
                 <p>Framework para back-end para nodejs. Podemos criar API's e page reloaders.</p>
 
@@ -376,15 +376,15 @@
 
                     <p><a href="#">GitHub - 6_EXPRESS\8-modulo-rotas</a></p>
 
-                <h3>Colocando CSS</h3>
+                <h3 id='express-css'>Colocando CSS</h3>
 
-                    <p>Para colocar os estilos css nós vamos colocar no arquivo principal da aplicação o comando <b>app.use(express.static("path relativo da pasta que armazenará todos os documentos estáticos, não apenas as folhas de estilo"))</b></p>
+                    <p>Para colocar os estilos css nós vamos colocar no arquivo principal da aplicação o comando <b>app.use(express.static("path relativo da pasta que armazenará todas as pastas com documentos estáticos, não apenas as folhas de estilo. Geralmente esta pasta é a ./public"))</b></p>
 
                     <p>Já nos aquivos html que estivermos escrevendo, nós vamos chamar a folha de estilo através da tag link e o href será passado como se já estivéssemos dentro da pasta que armazena os estáticos.</p>
 
                     <p><a href="#">GitHub - 6_EXPRESS\9-css</a></p>
 
-            <h2>Seção 7 - Template Engines</h2>
+            <h2 id='template-engines'><span style="color:green"><i class="fab fa-node-js"></i> </span>Seção 7 - Template Engines</h2>
 
                 <h3>O que é Template Engine?</h3>
 
@@ -416,7 +416,7 @@
 
                     <p>Para inserir os dados de um handlebars para o outro temos que utilizar no que vai receber os dados a tag {{{body}}}</p>
 
-                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\2-criando-layouts</a></p>
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\2-criando-layouts</a></p>
 
                     <p><span style="color:red">OBS: a forma como estamos estruturando os diretórios no projeto do GitHub estão seguindo o padrão handlebars, por isso não precisam de configurações especiais.</span></p>
 
@@ -424,23 +424,70 @@
 
                     <p>Dentro do get nós podemos criar variáveis (ou receber dados do banco) que podem ser colocadas como parâmetros do render e esses dados podem ser acessados na view de destino.</p>
 
-                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\3-dados-view</a></p>
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\3-dados-view</a></p>
 
-                <h3>Condicionais</h3>
+                <h3>Estruturas Condicionais</h3>
 
-                    <p>Nós podemos usar dentro do .handlebars o comando {{#if 'booleano'}} programação {{/if}}</p>
+                    <p>Nós podemos usar dentro do .handlebars o comando {{#if 'condição'}} programação da condição === true {{/if}}</p>
 
-                    <a href="#">GitHub - 7_TEMPLATE_ENGINE\4-if-else</a></p>
+                    <p>Para usar o else damos {{#if 'condição'}} programação da condição === true {{else}} programação da condição === false {{/if}}</p>
 
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\4-if-else</a></p>
 
+                <h3>Estruturas de repetição</h3>
+
+                    <p>Utilizamos o comando each para percorrer cada um dos itens de um array, sendo que cada item é referenciado dentro da estrutura de repetição o comando this</p>
+
+                    <p>{{#each 'array'}}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;{{this}}</p>
+                    <p>{{/each}}</p>
+
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\5-loop-each</a></p>
+                    
+                <h3>Utilizando with</h3>
+
+                    <p>Simplifica a chamada de atributos de um objeto passado para o front.</p>
+
+                    <p>No exemplo de <a href="#">GitHub - 7_TEMPLATE_ENGINE\6-with</a> temos o objeto post que é exportado para a página blogpost.handlebars e nela, com o with nós encapsulamos todos os atributos deste objeto.</p>
+
+                    <p>{{#with 'objeto'}}</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;{{'atributo'}}</p>
+                    <p>{{/with}}</p>
+                    
+                <h3>Partials</h3>
+
+                    <p>Usado para criar como se fossem componentes de react.</p>
+
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\7-partials</a></p>
+
+                <h3>CSS com handlebars</h3>
+
+                    <p>Inicialmente é igual ao <a href="#express-css">CSS com Express</a>, porém neste caso nós vamos fazer o link do css no views/layouts/main.handlebars.</p>
+
+                    <p><a href="#">GitHub - 7_TEMPLATE_ENGINE\8-css</a></p>
+
+                    <p>Neste caso todos os documentos serão afetados pelo css que está no main.handlebars, uma vez que todos os conteúdos estão sendo renderizados nesta página.</p>
+
+        <div id="fim"></div>
+        
+        <div style="background-color:rgb(230, 248, 238);margin: 0;">
+        <h2 style="color:red">Aprofundar em:</h2>
+
+            <ul>
+                <li>
+                    <a href="#template-engines">Template Engines</a>: Como utilizar mais de um layout?
+                </li>
+            </ul>
+        </div>
 
         </main>
-        </div>
+    </div>
 
 <!-- -------------- FIM DO DOCUMENTO ---------------- -->
 
 
-    <div id="fim"></div>
+    
+                
 
 </body>
 </html>
