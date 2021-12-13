@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    background-color: mediumaquamarine;
+    padding: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+ul{
+    display: flex;
+    list-style: none;
+}
+
+li{
+
+    margin-right: 15px;
+}
+
+a{
+    
+    text-decoration: none;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: midnightblue;
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+main{
+    padding: 30px;
+}
+
+.produto{
+    padding: 10px 0;
+}
