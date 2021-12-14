@@ -9,7 +9,7 @@ const path = require('path')
 const basePath = path.join(__dirname, 'templates')
 
 // ler o body (ou seja, ler o corpo da requisição, para conseguir acessar os atributos enviados pelo post)
-  app.use( //esse middleware lê o 
+  app.use(
     express.urlencoded({
       extended: true,
     }),
