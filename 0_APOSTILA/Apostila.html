@@ -264,7 +264,7 @@
 
                 <h3>Instalando pacote como dev</h3>
 
-                    <p>Nós podemos instalar os pacotes para funcionarem apenas no momento que estamos desenvolvendo o nosso projeto (esses pacotes não sobem quando nós formos publicar o projeto). Para isso nos damos o comando <b> npm install &lt; pacote &gt; --save-dev </b>. Dessa forma, no package.json o pacote salvo como dev estará agrupado no atributo devDependencies.</p>
+                    <p>Nós podemos instalar os pacotes para funcionarem apenas no momento que estamos desenvolvendo o nosso projeto (esses pacotes não sobem quando nós formos publicar o projeto). Para isso nos damos o comando <b> npm install --save-dev &lt; pacote &gt;</b>. Dessa forma, no package.json o pacote salvo como dev estará agrupado no atributo devDependencies.</p>
 
                 <h3>Criando scripts</h3>
 
@@ -488,7 +488,46 @@
 
                     <H3>Instalação do MySQL no Windows</H3>
 
-                        <p>Vai ser instalado com o XAMPP.</p>
+                        <p style="background-color: yellow;color:red"> O professor usou o Xampp para trabalhar com o banco de dados local, eu vou usar diretamente a configuração do MySQL. </p>
+                        <div class="inativo" style='border: red 1px solid'>
+                            <p>Vai ser instalado com o XAMPP.</p>
+
+                            <p>Para utilizá-lo nós temos que dar o start no painel do xampp</p>
+                        </div>
+                        
+
+                    <h3>Executando o MySQL pelo terminal</h3>
+                        <div class="inativo">
+                        <p>Para conseguir executar o mysql no terminal nós temos que adicionar o caminho da pasta bin do mysql do xampp no path das variáveis de ambiente.</p>
+
+                        <p>Depois do processo de definir a variável de ambiente pode ser necessário reiniciar o pc.</p>
+
+                        <p>Para confirmar se o mysql está ok nós temos que estar com o mysql startado no painel do xampp e dar o comando <b>mysql -u root</b>, que faz o chamado do mysql com o usuário root, que é o padrão criado pelo próprio programa. Esse comando gera uma mensagem de boas vindas do maria db.</p>
+
+                        <p>Para desconectar do banco damos o comando <b>exit</b></p>
+                        </div> <!--fim do inativo-->
+
+                        <p>Para usar o mysql no terminal nós temos que adicionar o caminho da pasta bin do server do mysql no path das variáveis de ambiente. Depois disso, no terminal, damos o comando <b>mysql -h localhost -u root -p</b> será solicitada a senha do nosso mysql e depois estaremos dentro.</p>
+
+                    <h3>Instalação no Linux</h3>
+
+                        <p>A instalação no linux é mais simples. Voltaremos novamente em outro momento para aprender.</p>
+
+                    <h3>Workbench</h3>
+
+                        <p>É um software da empresa MySQL (Oracle) que cria uma interface gráfica para trabalhar com o MySQL.</p>
+
+                        <p>Existem outras ferramentas, mas ele usará esta no curso.</p>
+
+                        <p>Temos que instalá-lo a partir do download do instalador na <a href="https://dev.mysql.com/downloads/windows/installer/8.0.html">página do MySQL</a>. Foi baixada a versão community (não a web-community).</p>
+
+                    <h3>HeidiSQL</h3>
+
+                        <P>No momento do curso, o HeidiSQL era uma alternativa ao Workbench. É só dar um google e baixar.</P>
+
+                    <h3>Conectando o Node ao MySQL</h3>
+
+                        <p>Primeiramente temos que instalar o driver (pacote) do mysql através do npm, depois conectar o projeto ao banco, passando o host, user, password e nome do banco.</p>
 
         <div id="fim"></div>
         
