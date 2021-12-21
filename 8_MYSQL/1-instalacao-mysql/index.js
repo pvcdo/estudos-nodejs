@@ -2,7 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars')
 const mysql = require('mysql')
 
-//const senhaMySQL = require('./conn')
+const senhaMySQL = require('./conn')
 
 const app = express()
 
@@ -18,7 +18,7 @@ app.get('/',(req,res)=>{
 const conn = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Password',
+    password: senhaMySQL,
     database: 'nodemysql',
 })
 
