@@ -553,6 +553,34 @@
 
                         <p><a href="#">github - 8_MYSQL\3-lendo-dados</a></p>
 
+                    <h3>Editando dados</h3>
+
+                        <p><a href="#">GitHub - 8_MYSQL\4-edicao-dados</a></p>
+
+                    <h3>Excluindo dados</h3>
+
+                        <p><a href="#">GitHub - 8_MYSQL\5-deletando-dados</a></p>
+
+                    <h3>Connetion Pool</h3>
+
+                        <p>É um recursos para otimizar as conexões com o banco, criando um cache, que permite a consulta de dados "mais recentes" sem a necessidade de ir no banco fazer as querys.</p>
+
+                        <p>O driver mysql que utilizamos aqui no node já tem esse recurso.</p>
+
+                        <p>Para usá-lo nos usamos o método mysql.createPool, passando os mesmos argumentos que createConnection com a diferença que aqui também definimos um connectionLimit, que vai matar conexões inativas ou desnecessárias mantendo apenas o número especificado de conexões.</p>
+
+                        <p>Esse recurso é importante para utilizar memória apenas nas ações necessárias evitando inclusive a queda da aplicação.</p>
+
+                        <p>Ao usar o pool nós podemos descartar, portanto o createConnection e o connect realizado por ele, e trocar os conn, adivindos do connect por pool.</p>
+
+                        <p><a href="#">GitHub - 8_MYSQL\6-connection-pool</a></p>
+
+                    <h3>Preparar query</h3>
+
+                        <p>Evita SQL Injection, nós vamos colocar duas interrogações nos nomes das colunas e uma interrogação no valor do atributo do dado. Depois nós colocamos a ordem de substituição das interrogações em um array e passamos esse array no método de query pro banco.</p>
+
+                    
+
 
 
         <div id="fim"></div>
