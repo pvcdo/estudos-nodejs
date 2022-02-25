@@ -19,11 +19,43 @@ app.use(express.static('public'))
 app.engine('handlebars',exphbs.engine())
 app.set('view engine','handlebars')
 
-//rota "home"
-    app.get('/',(req,res)=>{
-        res.render('home')
+app.get('/users/:id', async (req, res) => {
+    
+    const id = req.params.id
+
+    const user = await User.findOne({
+        raw: true,
+        where: {id} //podderia ser também where:{id:id}, mas eu imagino que dará no mesmo devido às regras de declaração de objeto do javascript
     })
 
+    res.render('userview', {user})
+})
+
+app.get('/users/create', (req, res) => {
+    res.render('adduser')
+})
+
+app.post('/users/create', async(req, res) =>{
+    const name = req.body.name
+    const occupation = req.body.occupation
+    let newsletter = req.body.newsletter
+
+    if(newsletter === "on"){ //quando o checkbox está marcado seu valor é a string "on", caso contrário é null
+        newsletter = true
+    }else{
+        newsletter = false
+    }
+
+    await User.create({name,occupation,newsletter})
+
+    res.redirect('/')
+})
+
+//rota "home"
+app.get('/', async(req,res)=>{
+    const users = await User.findAll({raw:true}) //raw:true indica que o retorno não terá algumas informações de metadados que para nós são desnecessárias
+    res.render('home', {users})
+})
 
 conn.sync() //não é necessário especificar que é necessário usar os models criados. O próprio sequelize vai verificar a existência de User aqui no index e vai levá-lo em consideração quando da execução de sync
     .then(() => {
