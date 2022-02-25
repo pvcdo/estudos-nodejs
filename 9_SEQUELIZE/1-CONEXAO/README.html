@@ -1,0 +1,45 @@
+<ol>
+    <li>ligar o mysql no xamp</li>
+    <li>colei tudo que estava em ../../7-preparando-queries</li>
+    <li>em package.json tirou o drive do mysql</li>
+    <li>fez a instalação do sequelize pelo npm</li>
+    <li>em views ele removeu todos documentos menos home
+        <ul>
+            <li>em home ele tirou todo o conteúdo e deixou apenas um h1 com "Olá Sequelize"</li>
+        </ul>
+    </li>
+    <li>em views/layouts/main.handlebars ele mudou o titulo, na navbar ele deixou apenas o item de cadastrar</li>
+    <li>em db/conn.js ele passou o seguinte:
+        <pre>
+            const { Sequelize } = require('sequelize') 
+
+            const sequelize = new Sequelize(
+                'nodesequelize2', //banco
+                'root', //usuário
+                '', //senha do banco
+                {
+                    host: 'localhost',
+                    dialect: 'mysql', //qual banco eu quero integrar nesse projeto
+                }
+            )
+
+            try {
+            sequelize.authenticate()
+            console.log('Conectamos com o Sequelize!')
+            } catch (error) {
+            console.error('Não foi possível conectar:', error)
+            }
+
+            module.exports = sequelize
+        </pre>
+        <ul>
+            <li>o primeiro parâmetro é o banco (nodesequelize2)</li>
+            <li>esse banco é criado dentro de um gui do mysql, no nosso caso estamos usando o workbench</li>
+        </ul>
+    </li>
+    <li>em index nós alteramos a chamada de conexão, de pool para conn</li>
+    <li>ainda em index ele excluiu todas as rotas, deixando apenas a rota '/' que é a principal, deixou o app.listen</li>
+    <li>temos que instalar o pacote npm mysql2 no projeto, que é uma dependência que o sequelize usa</li>
+    <li>depois disso, já podemos rodar nosso index e em teoria tem que dar certo a conexão.</li>
+
+</ol>

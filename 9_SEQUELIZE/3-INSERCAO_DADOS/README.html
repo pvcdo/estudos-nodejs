@@ -1,0 +1,10 @@
+<ol>
+    <li>criou uma viwe adduser.handlebars</li>
+    <li>em adduser colocou uma form post que recebe um nome do usuário, ocupação e um checkbox para o usuário indicar se que receber novidades</li>
+    <li>colocou as regras do css necessárias</li>
+    <li>em index.js ele colocou uma rota get para /users/create que renderiza a página adduser</li>
+    <li>em layout/main ele direcionou o menu "cadastrar" para a rota /users/create</li>
+    <li>em index ele colocou uma rota post também para /users/create atribuindo variáveis aos valores dos campos name, occupation e newletter, que vem no body da requisição, e fazendo tratamento desses valores</li>
+    <li>para fazer um registro em uma tabela no banco de dados a partir do sequelize basta usar o método create do Model que representa a tabela no banco e como parâmetro desse método create passar um objeto contendo os atributos esperados pelo model</li>
+    <li>o callback da rota post é async e a criação do registro no banco (User.create) é await, isso para que</li>
+</ol>
