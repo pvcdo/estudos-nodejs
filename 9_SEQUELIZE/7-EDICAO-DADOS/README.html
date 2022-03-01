@@ -10,7 +10,7 @@
     </li>
     <li>em home ele colocou uma tag a que irá redirecionar para /users/edit/{{this.id}}</li>
     <li>em index ele criou a rota get /users/edit/:id, com callback sync que recebe o id passado na url, usa o método findOne de User como await e passa seu retorno para a const user, esse método com where e raw:true, no final renderiza a edituser, passando a const user para ela</li>
-    <li>ainda em index criamos uma rota post /users/update que pega os parâmetros que vem no body da requisição, faz um tratamento condicional para mudar o valor de newsletter para true ou false, depois nós passamos dentro de um objeto os parâmetros vindos do body como argumentos do método update do model User; ao final redirecionamos para a rota '/'</li>
+    <li>ainda em index criamos uma rota post /users/update que pega os parâmetros que vem no body da requisição, faz um tratamento condicional para mudar o valor de newsletter para true ou false, depois nós passamos dentro de um objeto os parâmetros vindos do body como argumento do método update do model User; ao final redirecionamos para a rota '/'</li>
     <li>o callback da rota /users/update é sync e o método update é await</li>
     <li>é possível perceber que no banco a data de update e creation são diferentes, indicando que o sequelize cuidou de atualizar esses campos</li>
 </ol>
