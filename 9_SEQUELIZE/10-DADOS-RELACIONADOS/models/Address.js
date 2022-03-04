@@ -1,0 +1,20 @@
+const {DataTypes} = require('sequelize');
+const db = require('../db/conn')
+const User = require('./Users')
+
+const Address = db.define('Address', {
+  street: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  number: {
+    type: DataTypes.STRING,
+  },
+  city: {
+    type: DataTypes.STRING,
+  },
+})
+
+Address.belongsTo(User)
+
+module.exports = Address

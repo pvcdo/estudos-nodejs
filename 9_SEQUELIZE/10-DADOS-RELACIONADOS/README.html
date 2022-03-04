@@ -2,7 +2,11 @@
     <li>começou como cópia da pasta anterior</li>
     <li>em views/edituser ele criou uma div que vai encapsular o formulário de inserção de endereço</li>
     <li>esse formulário é um post que tem action /adress/create</li>
-    <li>dentro desse form ele colou um input hidden com name="UserId" e value={{user.id}}</li>
+    <li>dentro desse form ele colou um input hidden com name="UserId" e value={{user.id}}
+        <ul>
+            <li>o name é case sensitive e deve ser escrito do mesmo jeito que é apresentado aqui (que no caso é o mesmo jeito que a coluna se apresenta no banco)</li>
+        </ul>
+    </li>
     <li>ele também criou form-control e inputs para inserção da rua, número e cidade</li>
     <li>ele inseriu css para estilizar o espaço de inserção de endereço</li>
     <li>em index.js ele criou a rota post /adress/create, que recebe e trabalha os dados passados no body da requisição, cria um objeto de endereço com esses dados</li>
