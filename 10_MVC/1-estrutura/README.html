@@ -5,6 +5,6 @@
     <li>depois dos pacotes instalados ele foi em package.json e criou o script start definindo o comando do nodemon</li>
     <li>criou as pastas do mvc, além de public, routes e db na raiz</li>
     <li>criou no mysql a partir do workbench o banco que vamos nos conectar</li>
-    <li>criou db/conn.js que tenta fazer a conexão com o banco de dados utilizando o sequelize de acordo com o estudado em <a href="">9_SEQUELIZE</a>. Utilizarei promise para fazer essa conexão ou tratar seu erro.</li>
+    <li>criou db/conn.js que cria uma instância de sequelize e tenta fazer a conexão com o banco de dados com ela (de acordo com o estudado em <a href="">9_SEQUELIZE</a>). Utilizarei promise para fazer essa conexão ou tratar seu erro. Ao final é exportada a instância</li>
     <li>em index ele vai importar express, express-handlebars, vai chamar o banco, vai definir handlebars como template engine, middleware para ler o urlencoded, definiu o static entre outras configs e escutou a porta 3000</li>
 </ol>
