@@ -5,7 +5,7 @@
             <li>no método User.findOne nós removemos o atributo raw e incluímos o atributo "include: Address"</li>
             <li>dessa forma, o retorno de findOne também retornará a tabela address</li>
             <li>por ter alterado o raw, nós vamos receber um objeto grande e cheio de atributos e objetos além da tabela, portanto temos que, no res.render alterar o objeto que é passado para a página para --- user: user.get({plain:true}) ---</li>
-            <li>esse método get vem do objeto retornado pelo findOne sem raw, já o valor user (de user.get) imagino ser o nome da tabela no mysql</li>
+            <li>esse método get vem do objeto retornado pelo findOne sem o raw, já o valor user (de user.get) imagino ser o nome da tabela no mysql</li>
             <li>toda essa parte serve para que não precisemos alterar as variáveis na página edituser.handlebars</li>
         </ol>
     </li>
