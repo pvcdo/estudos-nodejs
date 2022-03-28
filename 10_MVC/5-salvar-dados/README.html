@@ -1,0 +1,11 @@
+<ol>
+    <li>começou como cópia da pasta anterior</li>
+    <li>em taskRoutes foi criada a rota post /add com o método TaskController.createTaskSave como callback</li>
+    <li>em TaskController criou o método static async createTaskSave</li>
+        <ul>
+            <li>o método createTaskSave será assíncrono pois queremos esperar sua resposta para continuarmos com o fluxo</li>
+            <li>é criado um objeto task com os atributos title, description e done, os dois primeiros vindos no body da requisição e o último com o valor de false</li>
+            <li>depois é chamado o método Task.create(task) em modo await</li>
+            <li>redirecionamos a página para /tasks</li>
+        </ul>
+</ol>
