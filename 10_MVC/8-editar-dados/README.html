@@ -1,0 +1,22 @@
+<ol>
+    <li>começou como cópia da pasta anterior</li>
+    <li>em router foi criada a rota get /edit/:id com o callback como TaskController.updateTask</li>
+    <li>updateTask é async</li>
+    <li>o id vai ser recebido pelos parâmetros da url</li>
+    <li>é executado o método findOne de Task como await. O retorno desse método é recebido pela constante task</li>
+    <li>o método findOne recebe como parâmetros where e raw:true</li>
+    <li>é renderizada a página task/edit que recebe a const task gerada pelo updateTask</li>
+    <li>é criada a views/edit baseada em views/create, onde a action do form post é alterada para /tasks/edit</li>
+    <li>é criada a rota post /edit de callback TaskController.updateTaskPost</li>
+    <li>em TaskController foi criado o método async updateTaskPost que recebe o id, title e description da task pelo body da requisição. title e description são utilizados para a criação de um objeto task dentro do método</li>
+    <li>é chamado o método update da classe Task, onde é passado como primeiro parâmetro o objeto task, com os dados a serem atualizados e um where procurando o id da tarefa</li>
+    <li>ao final é redirecionado para /tasks</li>
+    <li>é criada a rota post /updateStatus com o callback TaskController.toggleTaskStatus</li>
+    <li>toggleTaskStatus é um método async para dar um update em um task específico no valor do atributo done para true ou false dependendo do valor que ele estava inicialmente</li>
+    <li>em views/all o ícone de check vai ser agora um form post com action para /tasks/updateStatus</li>
+        <ul>
+            <li>esse form tem dois input hidden (id e done) e um botão</li>
+        </ul>
+    <li>o professor fez algumas alterações em css e no views/all para gerar uma visualização de tarefas feitas</li>
+        
+</ol>

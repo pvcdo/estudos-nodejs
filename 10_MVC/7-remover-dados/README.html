@@ -1,0 +1,11 @@
+<ol>
+    <li>começou como cópia da pasta anterior</li>
+    <li>em routes ele criou uma rota post para /remove com callback sendo o método TaskController.removeTask</li>
+    <li>em TaskController ele criou o método async removeTask</li>
+    <li>removeTask recebe o id da tarefa a ser removida pelo body da requisição</li>
+    <li>para remover o dado do banco nós utilizamos o método destroy do sequelize como await passando o where como id</li>
+    <li>no final damos um redirect para /tasks</li>
+    <li>em views/all ele alterou o link onde estava sendo exibido o ícone de lixeira para um form post com action para /tasks/remove</li>
+    <li>dentro desse form ele criou um input type hidden que recebe como valor o id da task e um button type submit com innerHTML sendo o ícone da lixeira</li>
+    <li>ele deu uma ajeitada no css</li>
+</ol>
