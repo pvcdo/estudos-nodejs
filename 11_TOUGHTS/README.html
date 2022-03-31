@@ -1,0 +1,51 @@
+<!-- Transformar esse html em md -->
+
+<h1>Projeto Toughts</h1>
+
+<h2>Apresentação</h2>
+
+<p>Trata-se de um projeto de uma rede social onde os usuários podem ver "pensamentos" uns dos outros. Para postar um pensamento é necessário que o usuário esteja autenticado, para tanto é necessário se registrar.</p>
+
+<!-- ******************** -->
+<!-- INÍCIO PRATICAR -->
+
+<h2>Setup</h2>
+
+<p>Instalação dos pacotes:
+    <ul>
+        <li>bcryptjs (criptografia de senhas)</li>
+        <li>connect-flash (gerar mensagens "toast", flash-messages)</li>
+        <li>cookie-parser, cookie-session (manter sessão na máquina do cliente para que o sistema saiba que o usuário está logado)</li>
+        <li>express</li>
+        <li>express-handlebars</li>
+        <li>express-flash (flash-messages)</li>
+        <li>express-session (autenticação no express)</li>
+        <li>mysql2 (para conseguir trabalhar com o sequelize)</li>
+        <li>sequelize</li>
+        <li>nodemon</li>
+        <li>session-file-store (salvar sessões e mantê-las em arquivos)</li>
+    </ul>
+</p>
+<p>Criou o index.js na raiz e criou as pastas do mvc, views/layouts, routes, db, public, public/css, sessions</p>
+
+<h2>Estrutura</h2>
+
+<p>Em package.json nós criamos o script start que executa nodemon</p>
+
+<p>Em index.js nós chamamos express, express-handlebars, express-session, session-file-store e express-flash, sendo os retornos das chamadas atribuídos cada um a uma constante
+    <ul>
+        <li>a chamada de session-file-store parece retornar uma função, então temos que executar a função de retorno, passando a express-session como parâmetro</li>
+    </ul>
+</p>
+
+<p>Ainda em index nós declamamos a constante app que é o retorno de express.</p>
+
+<p>Criamos db/conn.js onde tentamos criar a conexão com a tabela toughts do banco de dados e fazer a exportação do módulo de conexão.</p>
+
+<p>Em index nós chamamos a conexão e realizamos o método sync.</p>
+    
+<!-- ******************** -->
+<!-- FIM PRATICAR -->
+
+
+
