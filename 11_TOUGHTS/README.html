@@ -6,10 +6,9 @@
 
 <p>Trata-se de um projeto de uma rede social onde os usuários podem ver "pensamentos" uns dos outros. Para postar um pensamento é necessário que o usuário esteja autenticado, para tanto é necessário se registrar.</p>
 
-<!-- ******************** -->
-<!-- INÍCIO PRATICAR -->
-
 <h2>Setup</h2>
+
+<p>O primeiro passo é dar o npm init para conseguirmos trabalhar com npm no projeto.</p>
 
 <p>Instalação dos pacotes:
     <ul>
@@ -40,17 +39,17 @@
 
     <p>Ainda em index nós declamamos a constante app que é o retorno de express.</p>
 
-    <p>Criamos db/conn.js onde tentamos criar a conexão com a tabela toughts do banco de dados e fazer a exportação do módulo de conexão.</p>
+    <p>Criamos no mysql um banco de dados. Criamos db/conn.js onde tentamos criar a conexão com a tabela toughts do banco de dados a partir do sequelize e caso dê certo nós fazemos a exportação do módulo de conexão.</p>
 
     <p>Em index nós chamamos o script de conexão (db/conn) e realizamos o método sync dele.</p>
 
-    <p>Definiu o app.engine de handlebars, deu um app.set de view engine, definiu como será recebida a resposta do body com o app.use e habilitou o uso do json</p>
+    <p>Definiu o app.engine de handlebars, deu um app.set de view engine, definiu como será recebida a resposta do body com o app.use (express.urlencoded) e habilitou o uso do json</p>
 
     <p>Usou, com o app.use, um middleware de session, que determina onde o express vai salvar as sessões. Nesse middleware é passada a session que recebe por sua vez um objeto com suas configurações. Uma das configurações foi o store, que é uma instância de FileStore.</p>
 
     <p>Na configuração store da session temos que especificar o caminho onde os dados de session dos usuários logados serão salvos. Para tal nós temos que fazer uso dos core modules, path e os. Temos também a configuração de cookie</p>
 
-    <p>Ele também deu um use de flash. Configurou a pasta public para static do express. Ele também criou um middleware para identificar se o usuário está com uma sessão ativa.</p>
+    <p>Ele também deu um use de flash(). Configurou a pasta public para static do express. Ele também criou um middleware para identificar se o usuário está com uma sessão ativa.</p>
 
     <p>Em views/layouts/main.handlebars ele criou uma estrutura básica html que recebe em seu body o {{{body}}} do handlebars.</p>
 
@@ -58,7 +57,7 @@
 
     <p>Criados os models User.js e Toughts.js.</p>
 
-    <p>Nos models ele importou DataTypes de sequelize e db de db/conn e definiu a classe de conexão com o banco de dados a partir de sequelize. Em index os models foram chamados.</p>
+    <p>Nos models ele importou DataTypes de sequelize e db de db/conn e definiu a classe de conexão com o banco de dados. Em index os models foram chamados.</p>
 
     <p>No model de tought ele tem que chamar o model de user e dar os comandos Tought.belongsTo(User) e User.hasMany(Tought) para fazer a relação entre as tabelas.</p>
 
@@ -70,15 +69,15 @@
 
     <p>Foi colocada uma navbar com a logo e os links de Pensamentos, Entrar e Registrar. Body do handlebars estará dentro de uma div de classe container. Abaixo da div.container nós colocamos um footer.</p>
 
-    <p>Em index é importado toughtsRoutes e dado um app.use('/toughts', toughtsRoutes). É também dado o app.get para / onde é chamado o método ToughtController.showToughts. Assim a página inicial do projeto será a exibição dos pensamentos também.</p>
-
     <p>É criado o ToughtController onde são importados os models e exportado a class ToughtController. Dentro dessa classe é criado o método estático asyn showToughts, que renderiza toughts/home</p>
 
     <p>Foi criado routes/toughtsRoutes.js que chama express, express.Router() (onde seu retorno é a constante router) e ToughtController. Foi criada nesse documento uma rota get / que direciona para ToughtController.showToughts. Ao final é exportada a constante router.</p>
 
-    <p>É criada views/toughts/home.handlebars</p>
+    <p>Em index é importado toughtsRoutes e dado um app.use('/toughts', toughtsRoutes). É também dado o app.get para / onde é chamado o método ToughtController.showToughts, dessa forma, todas as requisições get que tiverem como primeiro caminho /toughts usarão o toughtsRoutes para direcionar as ações. Assim a página inicial do projeto será a exibição dos pensamentos também.</p>
 
-    
-    
+    <p>É criada views/toughts/home.handlebars</p>
+<!-- ******************** -->
+<!-- INÍCIO PRATICAR -->
+
 <!-- ******************** -->
 <!-- FIM PRATICAR -->
