@@ -76,8 +76,32 @@
     <p>Em index é importado toughtsRoutes e dado um app.use('/toughts', toughtsRoutes). É também dado o app.get para / onde é chamado o método ToughtController.showToughts, dessa forma, todas as requisições get que tiverem como primeiro caminho /toughts usarão o toughtsRoutes para direcionar as ações. Assim a página inicial do projeto será a exibição dos pensamentos também.</p>
 
     <p>É criada views/toughts/home.handlebars</p>
-<!-- ******************** -->
+
+    <!-- ******************** -->
 <!-- INÍCIO PRATICAR -->
+
+<h2>CSS</h2>
+
+    <p>Foram estilizados navbar, container e footer. referenciando os elementos de layouts/main</p>
+
+
+<h2>Autenticação</h2>
+
+    <p>Criação de usuários e senhas, permitir que o sistema faça login e logout (também excluir a conta).</p>
+
+    <p>Criou routes/authRoutes.js e controllers/AuthController. Em AuthController é exportada a classe de mesmo nome onde ele declarou os métodos static login e register, elas renderizam auth/login e auth/register respectivamente.</p>
+
+    <p>Foram criadas views/auth/login e views/auth/register.</p>
+
+    <p>Em authRoutes fazemos as chamadas de router como em toughtsRoutes, colocando AuthController onde couber e usando as actions login e register nas rotas get declaradas.</p>
+
+    <p>Em index ele importou a rota authRoutes e depois deu o app.use para / sendo direcionando para authRoutes. <span style="color:red">Eu entendi que quando passarmos qualquer rota que não seja /toughts ela irá para a rota de auth, e não sendo achada disparará o erro. app.get que existe também em index será executado por não termos nenhuma action em AuthController associada à rota raiz.</span></p>
+
+    <h3>Registro</h3>
+
+        <p>Em views/auth/register foi criada uma div.auth-container e dentro dela um form port com action /register. Nesse form, cada par label/input é envelopado por uma div.form-control. São colocados os campos de nome, email, senha e confirmação de senha, além do botão de Registrar e um link Já tem conta (que redireciona para /login).</p>
+
+        <p>Foram inseridas regras de css para as classes .auth-container e .form-control e para os elementos que estão envolvidos por essas classes.</p>
 
 <!-- ******************** -->
 <!-- FIM PRATICAR -->

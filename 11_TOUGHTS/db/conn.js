@@ -10,7 +10,6 @@ const {Sequelize} = require ('sequelize');
     }
   )
 
-
   try{
     sequelize.authenticate()
     console.log('Conectamos ao sequelize!')
