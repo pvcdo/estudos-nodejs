@@ -77,9 +77,6 @@
 
     <p>É criada views/toughts/home.handlebars</p>
 
-    <!-- ******************** -->
-<!-- INÍCIO PRATICAR -->
-
 <h2>CSS</h2>
 
     <p>Foram estilizados navbar, container e footer. referenciando os elementos de layouts/main</p>
@@ -87,23 +84,33 @@
 
 <h2>Autenticação</h2>
 
-    <p>Criação de usuários e senhas, permitir que o sistema faça login e logout (também excluir a conta).</p>
+    <p>O objetivo é a criação de usuários e senhas, permitir que o sistema faça login e logout (também excluir a conta).</p>
 
     <p>Criou routes/authRoutes.js e controllers/AuthController. Em AuthController é exportada a classe de mesmo nome onde ele declarou os métodos static login e register, elas renderizam auth/login e auth/register respectivamente.</p>
 
     <p>Foram criadas views/auth/login e views/auth/register.</p>
 
-    <p>Em authRoutes fazemos as chamadas de router como em toughtsRoutes, colocando AuthController onde couber e usando as actions login e register nas rotas get declaradas.</p>
+    <p>Em authRoutes fazemos as chamadas de router como em toughtsRoutes, colocando AuthController onde couber e usando as actions login e register de AuthController nas rotas get declaradas.</p>
 
-    <p>Em index ele importou a rota authRoutes e depois deu o app.use para / sendo direcionando para authRoutes. <span style="color:red">Eu entendi que quando passarmos qualquer rota que não seja /toughts ela irá para a rota de auth, e não sendo achada disparará o erro. app.get que existe também em index será executado por não termos nenhuma action em AuthController associada à rota raiz.</span></p>
+    <p>Em index ele importou a rota authRoutes e depois deu o app.use para / sendo direcionando para authRoutes. <span style="color:red">Eu entendi que quando passarmos qualquer rota que não seja /toughts ela irá para a rota de auth (por estamos usando app.use('/', authRoutes), e não sendo achada a rota disparará o erro. app.get que existe também em index será executado por não termos nenhuma action em AuthController associada à rota raiz. app.get deve ficar depois dos middlewares de rota, pois só será executado se não houver a rota especificada em authRoutes</span></p>
 
     <h3>Registro</h3>
 
-        <p>Em views/auth/register foi criada uma div.auth-container e dentro dela um form port com action /register. Nesse form, cada par label/input é envelopado por uma div.form-control. São colocados os campos de nome, email, senha e confirmação de senha, além do botão de Registrar e um link Já tem conta (que redireciona para /login).</p>
+        <p>Em views/auth/register foi criada uma div.auth-container e dentro dela um form post com action /register. Nesse form, cada par label/input é envelopado por uma div.form-control. São colocados os campos de nome, email, senha e confirmação de senha, além do botão de Registrar e um link Já tem conta (que redireciona para /login).</p>
 
         <p>Foram inseridas regras de css para as classes .auth-container e .form-control e para os elementos que estão envolvidos por essas classes. Essas classes serão utilizadas em todos os formulários que fazermos no projeto, inserindo o conceito de padronização de formulários que a maioria dos projetos segue.</p>
 
-        <p>Em authRoutes nós criamos a rota post /register</p>
+    <!-- ******************** -->
+<!-- INÍCIO PRATICAR -->
+
+        <p>Em authRoutes nós criamos a rota post /register executando o método AuthController.registerPost.</p>
+
+        <p>Em AuthController criamos o método static async (já que vamos trabalhar com o banco) registerPost. Como vamos ter trabalhar com o usuário nós temos que importar, em AuthController, o model do usuário, e como temos que criptografar e decriptografar senhas, vamos importar o bcryptjs.</p>
+
+        <p>No método registerPost nós vamos receber os parâmetros enviados pelo body da requisição e fazer a comparação entre a senha e a confirmação da senha. Se a senha for diferente da confirmação é executado na requisição o método fash que recebe como parâmetros a chave da mensagem e o conteúdo da mensagem em si. Em seguida é renderizado auth/register e depois damos um return.</p> 
+        
+        <p>O módulo flash irá criar o objeto messages que poderá ser acessado no front. Esse objeto terá os atributos/valores indicados no back-end. Portanto, em layouts, na div.container, antes de {{{body}}}, nós vamos verificar se existe o objeto messages com a chave especificada por nós. Caso haja nós vamos renderizar uma div.message com o consteúdo da mensagem</p>
+
 
 <!-- ******************** -->
 <!-- FIM PRATICAR -->

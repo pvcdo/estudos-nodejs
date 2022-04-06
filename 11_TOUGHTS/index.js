@@ -60,10 +60,14 @@ const Tought = require('./models/Tought')
 
 //Routes
 const toughtsRoutes = require('./routes/toughtsRoutes')
+const authRoutes = require('./routes/authRoutes')
+
 const ToughtsController = require('./controllers/ToughtsController')
 
 app.use('/toughts', toughtsRoutes)
-app.use('/', ToughtsController.showToughts)
+app.use('/', authRoutes)
+
+app.get('/', ToughtsController.showToughts)
 
 conn
   //.sync({force:true})
