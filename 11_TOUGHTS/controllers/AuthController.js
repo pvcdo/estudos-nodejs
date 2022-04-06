@@ -13,7 +13,7 @@ module.exports = class AuthController{
     const {nome, email, senha, confirmSenha} = req.body
 
     if(senha !== confirmSenha){
-      req.flash('message', 'A confirmação de senha é diferente da senha digitada')
+      req.flash('message', 'Há divergência entre a senha fornecida e sua confirmação')
       res.render('auth/register')
       return
     }
