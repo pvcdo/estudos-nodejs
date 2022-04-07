@@ -108,9 +108,6 @@
         
         <p>O módulo flash irá criar o objeto messages que poderá ser acessado no front. Esse objeto terá os atributos/valores indicados no back-end. Portanto, em layouts, na div.container, antes de {{{body}}}, nós vamos verificar se existe o objeto messages com a chave especificada por nós. Caso haja nós vamos renderizar uma div.message com o consteúdo da mensagem</p>
 
-<!-- ******************** -->
-<!-- INÍCIO PRATICAR -->
-
         <p>Em views/auth/register podemos incluir um campo para que o usuário escolha um nome de usuário (nickname) e que tenha futuramente uma validação para verificar se aquele nome já foi utilizado. Geralmente esse tipo de validação é "em tempo real", simultânea à digitação do nickname.</p>
 
         <p>Em AuthController.registerPost faremos a verificação se o usuário já existe no sistema. Para isso damos um findOne no model User passando o where de email.</p>
@@ -147,5 +144,19 @@
     
     <p>Em tr importamos hauth e o colocamos como segundo argumento da rota get de dashboard. Esse helper não permitirá que a rota /toughts/dashboard seja acessada por usuários deslogados.</p>
 
+<h2>Criação de pensamentos</h2>
+
+    <p>Em tr criamos a rota get('/add', checkAuth, ToughtController.createTought). Já em tc, o método createTought vai renderizar views/toughts/create. A view create é composta por uma div.tough-form-container que encapsula um link que direciona para /toughts/dashboard, um h1 e um form(post) que direciona para /toughts/add. Dentro desse form, cada par label/input é encapsulado por uma div.form-control ao final do form temos um input:submit para criar o pensamento.</p>
+    
+    <p>Foram feitas estilizações css para CREATE / EDIT FORM </p>
+
+    <p>Voltamos para tr e criamos a rota post('/add', checkAuth, ToughtController.createToughtSave), além desse método async em tc. O método consiste na criação de um objeto tought que tem como atributos title (vindo de body) e UserId (vindo da session). Damos um await Tought.create passando o objeto tought, depois uma flash para falar que o pensamento foi registrado e damos um redirect para dashboard dentro de session.save.</p>
+
+<h2>Resgatando pensamentos</h2>
+
+    <p>Em tc vamos ampliar o método dashboard. Recuperamos o id do usuário a partir da session e damos um findOne passando esse ainda no findOne, colocamos include: Tought para pegar os pensamentos associados àquele userid, além de um plain: true, para formatar a resposta. Caso não exista o usuário, haverá o redirecionamento para /login. Caso o usuário exista nós vamos dar um map em user.Toughts resgatando apenas seu atributo dataValues e atribuindo a um objeto de pensamentos. Depois disso renderizamos a dashboard enviando esse objeto de pensamentos e em dashboard nós vamos fazer each de handlebars para mostrar cada um dos pensamentos.</p>
 
 
+
+<!-- ******************** -->
+<!-- INÍCIO PRATICAR -->
