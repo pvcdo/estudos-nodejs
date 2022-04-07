@@ -154,9 +154,28 @@
 
 <h2>Resgatando pensamentos</h2>
 
-    <p>Em tc vamos ampliar o método dashboard. Recuperamos o id do usuário a partir da session e damos um findOne passando esse ainda no findOne, colocamos include: Tought para pegar os pensamentos associados àquele userid, além de um plain: true, para formatar a resposta. Caso não exista o usuário, haverá o redirecionamento para /login. Caso o usuário exista nós vamos dar um map em user.Toughts resgatando apenas seu atributo dataValues e atribuindo a um objeto de pensamentos. Depois disso renderizamos a dashboard enviando esse objeto de pensamentos e em dashboard nós vamos fazer each de handlebars para mostrar cada um dos pensamentos.</p>
-
-
+    <p>Em tc vamos ampliar o método dashboard. Recuperamos o id do usuário a partir da session e damos um findOne passando esse ainda no findOne, colocamos include: Tought para pegar os pensamentos associados àquele userid, além de um plain: true, para formatar a resposta. Caso não exista o usuário, haverá o redirecionamento para /login. Caso o usuário exista nós vamos dar um map em user.Toughts resgatando apenas seu atributo dataValues e atribuindo a um objeto de pensamentos. Depois disso renderizamos a view dashboard (vd) enviando esse objeto de pensamentos e em dashboard nós vamos fazer each de handlebars para mostrar cada um dos pensamentos.</p>
 
 <!-- ******************** -->
 <!-- INÍCIO PRATICAR -->
+
+    <p>vd -> li { span.label ; span.actions { a.btn:/ = Editar ; form(post):/remove { input:hidden=this.id ; input.btn:submit=Excluir } }. Atualizar o css para se adequer ao vd.</p>
+
+    <p>tc -> dashboard -> emptyToughts false ; if toughts.length 0 = emptyToughts true </p>
+
+    <p>vd -> {{if emptyToughts}} = p ;; css</p>
+
+<h2>Removendo pensamentos</h2>
+
+    <p>tr = post('/remove', checkAuth, tc.removeTought) ; tc = static async removeTought (rt) = req.body.id [é o id do pensamento] ; Tought.destroy where:id, UserId:session.id ; flash ; session.save(redirect vd) /p>
+
+<h2>Editar pensamentos</h2>
+
+    <p>tr = get('/edit/:id',checkAuth,tc.updateTought) ; tc.updateTought = { req.params.id ; Tought.findOne { where: id , raw: true} ; render toughts/edit passando tought } </p>
+
+    <p>vd -> up a.btn:/ = Editar => a.btn:/toughts/edit/{{this.id}} = Editar</p>
+
+    <p>/views/toughts/edit = views/toughts/create -> h1 ; alterar action do form para edição ; colocar input:hidden = {{tought.id}} dentro do form ; input do form = {{tought.title}} </p>
+
+
+

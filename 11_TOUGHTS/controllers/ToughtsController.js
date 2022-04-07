@@ -19,9 +19,8 @@ module.exports = class ToughtsController{
       },
     )
       .then((user) => {
-        const toughts = []
-        user.Toughts.map((tought) => {
-          toughts.push(tought.dataValues)
+        const toughts = user.Toughts.map((tought) => {
+          return tought.dataValues
         })
         //console.log(toughts)
         res.render('toughts/dashboard' , {toughts})
