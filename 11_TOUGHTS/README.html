@@ -159,23 +159,36 @@
 <!-- ******************** -->
 <!-- INÍCIO PRATICAR -->
 
-    <p>vd -> li { span.label ; span.actions { a.btn:/ = Editar ; form(post):/remove { input:hidden=this.id ; input.btn:submit=Excluir } }. Atualizar o css para se adequer ao vd.</p>
+    <p>Na view de dashboard alteramos a li retornada pelo each da seguinte forma:</p>
 
-    <p>tc -> dashboard -> emptyToughts false ; if toughts.length 0 = emptyToughts true </p>
+        <pre>
+            li
+                span class="label"/span
+                span class="actions"
+                    a href="/" class="btn"Editar/a
+                    form action="/remove" method="post"
+                        input type="hidden" name="id" value="{{this.id}}"
+                        input type="submit" value="Excluir"
+                    /form
+                /span
+            /li
+        </pre>
+        
+    <p>Depois atualizamos o css para se adequer à dashboard.</p>
 
-    <p>vd -> {{if emptyToughts}} = p ;; css</p>
+    <p>Em ToughtsController atualizamos o método dashboard criando a const emptyToughts e atribuindo a ela o valor de false. Verificamos se o retorno de findOne é igual a 0, sendo alteramos o valor de emptyToughts para true. Passamos emptyToughts para a renderização de dashboard e damos um if na página da view para gerar um p informando sobre a inexistência de mensagens. Temos que ajustar o css para ficar tudo dentro da formatação.</p>
 
 <h2>Removendo pensamentos</h2>
 
-    <p>tr = post('/remove', checkAuth, tc.removeTought) ; tc = static async removeTought (rt) = req.body.id [é o id do pensamento] ; Tought.destroy where:id, UserId:session.id ; flash ; session.save(redirect vd) /p>
+    <p>Adicionamos a rota post('/remove', checkAuth, tc.removeTought) em toughtsRoutes e este método em ToughsController. Este é um método static async que recebe um id no corpo da requisição no caso o id do pensamento, de posse desse id nós damos executamos o método Tought.destroy passando where:id e o id do usuário obtido por req.session.userid. Com a promise do destroy resolvida, passamos uma flash-message e redirecionamos para a rota /dashboard dentro de session.save.</p>
 
 <h2>Editar pensamentos</h2>
 
-    <p>tr = get('/edit/:id',checkAuth,tc.updateTought) ; tc.updateTought = { req.params.id ; Tought.findOne { where: id , raw: true} ; render toughts/edit passando tought } </p>
+    <p>Adicionamos a rota get('/edit/:id',checkAuth,tc.updateTought) em toughtsRoutes e este método em ToughsController. Esse método recebe o id do pensamento como parâmetro da url. Usamos esse id no where de Tought.findOne atribuindo também raw:true. Resolvido o findOne renderizamos toughts/edit passando o objeto retornado por findOne.</p>
 
-    <p>vd -> up a.btn:/ = Editar => a.btn:/toughts/edit/{{this.id}} = Editar</p>
+    <p>Na view de dashboard atribuímos ao link de editar a rota /toughts/edit/{{this.id}</p>
 
-    <p>/views/toughts/edit = views/toughts/create -> h1 ; alterar action do form para edição ; colocar input:hidden = {{tought.id}} dentro do form ; input do form = {{tought.title}} </p>
+    <p>Criamos views/toughts/edit que inicialmente é uma cópia views/toughts/create, sendo atualizada onde cabe. No form colocamos input:hidden = {{tought.id}} e atribuímos ao input do form o value {{tought.title}}.</p>
 
 
 
