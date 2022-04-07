@@ -113,35 +113,39 @@
 
         <p>Em views/auth/register podemos incluir um campo para que o usuário escolha um nome de usuário (nickname) e que tenha futuramente uma validação para verificar se aquele nome já foi utilizado. Geralmente esse tipo de validação é "em tempo real", simultânea à digitação do nickname.</p>
 
-        <p>Outra validação que será feita em registerPost é se o usuário já existe no sistema. Para isso damos um findOne no model User passando o where de email.</p>
+        <p>Em AuthController.registerPost faremos a verificação se o usuário já existe no sistema. Para isso damos um findOne no model User passando o where de email.</p>
 
-        <p>Verificado se a senha está correta com a sua confirmação e que o email do usuário ainda não foi utilizado, podemos tratar a senha passada, gerando uma hash, para que esta, baseada na senha fique persistida de forma segura no banco de dados. Para isso nós utilizamos o método bcrypt.genSaltSync(10) que irá gerar 10 caracteres aleatórios para serem incorporados à geração da hash, e depois o método bcrypt.genHashSync() que recebe como parâmetros a senha cadastrada e o salt.</p>
+        <p>Verificado se a senha está correta com a sua confirmação e que o email do usuário ainda não foi utilizado, podemos tratar a senha passada, gerando uma hash, para que esta, baseada na senha fique persistida de forma segura no banco de dados. Para isso nós utilizamos o método bcrypt.genSaltSync(10) que irá gerar 10 caracteres aleatórios para serem incorporados à geração da hash, e depois o método bcrypt.hashSync() que recebe como parâmetros a senha cadastrada e o salt.</p>
         
         <p>Para tentar realizar a criação do usuário no banco de dados, nós passamos como parâmetro do método await User.create() o objeto com o nome, o email e a senha, que no caso será o retorno do método bcrypt.genHashSync(). O objeto retorno desse método é recebido por uma constante (createdUser).</p>
         
         <p>Após o método de criação do usuário nós criamos req.session.userid = createdUser.userId, criamos uma flash-message para indicar essa criação e damos o método save em req.session, passando para esta uma arrow function que executa o redirecionamento para /, ou seja, já com o usuário autenticado.</p>
 
-        <p>Em layouts/main nós criamos uma condicional que vê se o usuário está autenticado, e a partir disso faz alterações na navbar. Quando o usuário está autenticado aparece na navbar os links para dashboard e sair (logout).</p>
-
-    <h3>Login</h3>
-
-        <p>Criamos views/auth/login (vlogin), nele colocamos uma form post que direciona para a action /login. Os pares label/input (email e senha) são envelopados por div.form-control, além disso, no form tem um input submit de login e um link para direcionar para registro em caso de usuários não registrados.</p>
-
-        <p>Em authRoutes (ar) é criada a rota post('/login', AuthController.loginPost). Já em AuthController (ac) é criado o método static asyn loginPost que recebe o email e senha enviados no corpo da requisição e faz a verificação se o e-mail fornecido está cadastrado no banco de dados a partir do método User.findOne, cujo retorno é passado para uma const (user). Caso não seja retornado nenhum valor para user é criada uma flash-message e o usuário é redirecionado para /login, além de dado um return para matar o método. Tendo um usuário com o e-mail cadastrado é verificado se o e-mail corresponde ao usuário retornado a partir do método bcrypt.compareSync(senha, user.password). Se o retorno desse método for false nós damos uma flash-message e o usuário é redirecionado para /login, além de dado um return para matar o método. Depois das verificações, é iniciada e salvada a sessão.</p>
+        <p>Em layouts/main nós criamos uma condicional que vê se o usuário está autenticado, e a partir disso faz alterações na navbar. Quando o usuário está autenticado aparece na navbar os links para dashboard (/toughts/dashboard) e sair (/logout).</p>
 
     <h3>Logout</h3>
+
+        <p>A intenção de criar a rota de logout primeiro é para que durante o desenvolvimento nós consigamos já fazer o logout depois do registro do usuário, sem precisar dar um refresh na aplicação.</p>
 
         <p>Criamos em authRoutes a rota get /logout com o método AuthController.logout.</p>
 
         <p>O método AuthController.logout nós executamos o método destroy de req.session e depois redirecionamos para /login.</p>
 
+    <h3>Login</h3>
+
+        <p>Criamos views/auth/login (vlogin), nele colocamos uma form post que direciona para a action /login. Os pares label/input (email e senha) são envelopados por div.form-control, além disso, no form tem um input submit de login e um link para direcionar para registro em caso de usuários não registrados.</p>
+
+        <p>Em authRoutes (ar) é criada a rota post('/login', AuthController.loginPost). Já em AuthController (ac) é criado o método static asyn loginPost que recebe o email e senha enviados no corpo da requisição e faz a verificação se o e-mail fornecido está cadastrado no banco de dados a partir do método User.findOne, cujo retorno é passado para uma const (user). Caso não seja retornado nenhum valor para user é criada uma flash-message e o usuário é redirecionado para /login, além de dado um return para matar o método. Tendo um usuário com o e-mail cadastrado é verificado se a senha corresponde ao usuário retornado a partir do método bcrypt.compareSync(senha, user.password). Se o retorno desse método for false nós damos uma flash-message e o usuário é redirecionado para /login, além de dado um return para matar o método. Depois das verificações, é iniciada e salvada a sessão.</p>
+
 <h2>Dashboard</h2>
 
     <p>Criamos em toughtsRoutes (tr) a rota get('/dashboard', ToughtController.dashboard). Em ToughtController (tc) nós criamos static asyn dashboard.</p>
         
-    <p>Criamos também a views/toughts/dashboard. Nela criamos uma div.title-container que vai conter um título h2 e um link a.btn direcionando para /toughts/add. Fora da div.title-container nós vamos colocar um h3}.</p>
+    <p>Criamos também a views/toughts/dashboard. Nela criamos uma div.title-container que vai conter um título h2 e um link a.btn direcionando para /toughts/add. Fora da div.title-container nós vamos colocar um h3.</p>
     
     <p>Criamos ./helpers/auth.js (hauth) que faz o modules.export da função checkAuth que é um middleware onde recebemos userid de session. Caso não exista valor em req.session.userid redirecionamos para /login e damos next depois da verificação.</p>
     
-    <p>Em tr importamos hauth e o colocamos como segundo argumento da rota get de dashboard</p>  
+    <p>Em tr importamos hauth e o colocamos como segundo argumento da rota get de dashboard. Esse helper não permitirá que a rota /toughts/dashboard seja acessada por usuários deslogados.</p>
+
+
 
