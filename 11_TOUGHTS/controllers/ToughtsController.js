@@ -22,10 +22,16 @@ module.exports = class ToughtsController{
         const toughts = user.Toughts.map((tought) => {
           return tought.dataValues
         })
-        //console.log(toughts)
-        res.render('toughts/dashboard' , {toughts})
+        
+        let emptyToughts = false
+
+        if(toughts.length === 0){
+          emptyToughts = true
+        }
+
+        res.render('toughts/dashboard' , {toughts , emptyToughts})
       })
-      .catch(e => console.error(e))
+      .catch(e => console.error("Deu o erro" + e))
   }
 
   static createTought(req,res){
@@ -46,5 +52,46 @@ module.exports = class ToughtsController{
         })
       })
       .catch(e => console.error(e))
+  }
+
+  static async removeTought(req,res){
+    const toughtid = req.body.id
+    const userId = req.session.userid
+
+    Tought.destroy({
+      where:{
+        id: toughtid,
+        UserId: userId
+      }
+    })
+      .then(() => {
+        req.flash('message', 'Pensamento excluído')
+        req.session.save(() =>{
+          res.redirect('/toughts/dashboard')
+        })
+      })
+      .catch(e => console.error(e))
+  }
+
+  static updateTought(req,res){
+      const id = req.params.id
+      const UserId = req.session.userid
+
+      Tought.findOne({where:{id, UserId}, raw:true})
+        .then((tought) => {
+          res.render('toughts/edit', {tought})
+        })
+
+      
+  }
+
+  static async updateToughtPost(req,res){
+    const {id, userId, title} = req.body
+
+    Tought.update({title}, {where: {id, UserId: userId}})
+      .then(() => {
+        req.flash('message', 'Pensamento atualizado')
+        res.redirect('/toughts/dashboard')
+      })
   }
 }

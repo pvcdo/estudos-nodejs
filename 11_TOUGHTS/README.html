@@ -144,51 +144,59 @@
     
     <p>Em tr importamos hauth e o colocamos como segundo argumento da rota get de dashboard. Esse helper não permitirá que a rota /toughts/dashboard seja acessada por usuários deslogados.</p>
 
-<h2>Criação de pensamentos</h2>
+    <h3>Criação de pensamentos</h3>
 
-    <p>Em tr criamos a rota get('/add', checkAuth, ToughtController.createTought). Já em tc, o método createTought vai renderizar views/toughts/create. A view create é composta por uma div.tough-form-container que encapsula um link que direciona para /toughts/dashboard, um h1 e um form(post) que direciona para /toughts/add. Dentro desse form, cada par label/input é encapsulado por uma div.form-control ao final do form temos um input:submit para criar o pensamento.</p>
-    
-    <p>Foram feitas estilizações css para CREATE / EDIT FORM </p>
+        <p>Em tr criamos a rota get('/add', checkAuth, ToughtController.createTought). Já em tc, o método createTought vai renderizar views/toughts/create. A view create é composta por uma div.tough-form-container que encapsula um link que direciona para /toughts/dashboard, um h1 e um form(post) que direciona para /toughts/add. Dentro desse form, cada par label/input é encapsulado por uma div.form-control ao final do form temos um input:submit para criar o pensamento.</p>
+        
+        <p>Foram feitas estilizações css para CREATE / EDIT FORM </p>
 
-    <p>Voltamos para tr e criamos a rota post('/add', checkAuth, ToughtController.createToughtSave), além desse método async em tc. O método consiste na criação de um objeto tought que tem como atributos title (vindo de body) e UserId (vindo da session). Damos um await Tought.create passando o objeto tought, depois uma flash para falar que o pensamento foi registrado e damos um redirect para dashboard dentro de session.save.</p>
+        <p>Voltamos para tr e criamos a rota post('/add', checkAuth, ToughtController.createToughtSave), além desse método async em tc. O método consiste na criação de um objeto tought que tem como atributos title (vindo de body) e UserId (vindo da session). Damos um await Tought.create passando o objeto tought, depois uma flash para falar que o pensamento foi registrado e damos um redirect para dashboard dentro de session.save.</p>
 
-<h2>Resgatando pensamentos</h2>
+    <h3>Resgatando pensamentos</h3>
 
-    <p>Em tc vamos ampliar o método dashboard. Recuperamos o id do usuário a partir da session e damos um findOne passando esse ainda no findOne, colocamos include: Tought para pegar os pensamentos associados àquele userid, além de um plain: true, para formatar a resposta. Caso não exista o usuário, haverá o redirecionamento para /login. Caso o usuário exista nós vamos dar um map em user.Toughts resgatando apenas seu atributo dataValues e atribuindo a um objeto de pensamentos. Depois disso renderizamos a view dashboard (vd) enviando esse objeto de pensamentos e em dashboard nós vamos fazer each de handlebars para mostrar cada um dos pensamentos.</p>
+        <p>Em tc vamos ampliar o método dashboard. Recuperamos o id do usuário a partir da session e damos um findOne passando esse ainda no findOne, colocamos include: Tought para pegar os pensamentos associados àquele userid, além de um plain: true, para formatar a resposta. Caso não exista o usuário, haverá o redirecionamento para /login. Caso o usuário exista nós vamos dar um map em user.Toughts resgatando apenas seu atributo dataValues e atribuindo a um objeto de pensamentos. Depois disso renderizamos a view dashboard (vd) enviando esse objeto de pensamentos e em dashboard nós vamos fazer each de handlebars para mostrar cada um dos pensamentos.</p>
+
+        <p>Na view de dashboard alteramos a li retornada pelo each da seguinte forma:</p>
+
+            <pre>
+                li
+                    span class="label" {{this.title}} /span
+                    span class="actions"
+                        a href="/" class="btn"Editar/a
+                        form action="/remove" method="post"
+                            input type="hidden" name="id" value="{{this.id}}"
+                            input type="submit" value="Excluir" class="btn"
+                        /form
+                    /span
+                /li
+            </pre>
+            
+        <p>Depois atualizamos o css para se adequar à dashboard.</p>
+
+        <p>Em ToughtsController atualizamos o método dashboard criando a const emptyToughts e atribuindo a ela o valor de false. Verificamos se o retorno de findOne é igual a 0, sendo alteramos o valor de emptyToughts para true. Passamos emptyToughts para a renderização de dashboard e damos um if na página da view para gerar um p informando sobre a inexistência de mensagens. Temos que ajustar o css para ficar tudo dentro da formatação.</p>
+
+    <h3>Removendo pensamentos</h3>
+
+        <p>Adicionamos a rota post('/remove', checkAuth, tc.removeTought) em toughtsRoutes e este método em ToughsController. Este é um método static async que recebe um id no corpo da requisição no caso o id do pensamento, de posse desse id nós damos executamos o método Tought.destroy passando where:id e o id do usuário obtido por req.session.userid. Com a promise do destroy resolvida, passamos uma flash-message e redirecionamos para a rota /dashboard dentro de session.save.</p>
+
+    <h3>Editar pensamentos</h3>
+
+        <p>Adicionamos a rota get('/edit/:id',checkAuth,tc.updateTought) em toughtsRoutes e este método em ToughsController. Esse método recebe o id do pensamento como parâmetro da url. Usamos esse id no where de Tought.findOne atribuindo também raw:true. Resolvido o findOne renderizamos toughts/edit passando o objeto retornado por findOne.</p>
+
+        <p>Na view de dashboard atribuímos ao link de editar a rota /toughts/edit/{{this.id}</p>
+
+        <p>Criamos views/toughts/edit que inicialmente é uma cópia views/toughts/create, sendo atualizada onde cabe, principalmente a action do form. No form colocamos input:hidden = {{tought.id}} e atribuímos ao input do form o value {{tought.title}}. O método a ser executado é definido por uma rota post. No método, recebemos os dados passados no corpo da requisição e fazemos o método update de Tought, passando como primeiro parâmetro com o objeto de pensamento atualizado (no nosso caso apenas o title do pensamento) e como segundo parâmetro o where para procurar onde deve ser feita a atualização. Resolvido o update, passamos uma flash e redirecionamos para dashboard.</p>
+
 
 <!-- ******************** -->
 <!-- INÍCIO PRATICAR -->
+    
+<h2>Mostrando todos os pensamentos na home</h2>
 
-    <p>Na view de dashboard alteramos a li retornada pelo each da seguinte forma:</p>
+    <p>tc -> showToughts = Tought.findAll include User = map get plain:true (para juntar os objetos do User dentro do objeto de pensamento) ; render home {toughts}</p>
 
-        <pre>
-            li
-                span class="label"/span
-                span class="actions"
-                    a href="/" class="btn"Editar/a
-                    form action="/remove" method="post"
-                        input type="hidden" name="id" value="{{this.id}}"
-                        input type="submit" value="Excluir"
-                    /form
-                /span
-            /li
-        </pre>
-        
-    <p>Depois atualizamos o css para se adequer à dashboard.</p>
+    <p>views/home (vh) = .home-header{h1} ; form(get):/{input:text ; input submit = Buscar} ; .order-container{span ; form(get):/{ input hidden = this.search ; input hiden = new; button submit seta pra cima } ; form(get):/{ input hidden = this.search ; input hiden = old; button submit seta pra baixo } ; a:/=Limpar } ; .toughts-container each { { figure {blockquote this.title } ; figcaption span this.User.name } }</p>
 
-    <p>Em ToughtsController atualizamos o método dashboard criando a const emptyToughts e atribuindo a ela o valor de false. Verificamos se o retorno de findOne é igual a 0, sendo alteramos o valor de emptyToughts para true. Passamos emptyToughts para a renderização de dashboard e damos um if na página da view para gerar um p informando sobre a inexistência de mensagens. Temos que ajustar o css para ficar tudo dentro da formatação.</p>
-
-<h2>Removendo pensamentos</h2>
-
-    <p>Adicionamos a rota post('/remove', checkAuth, tc.removeTought) em toughtsRoutes e este método em ToughsController. Este é um método static async que recebe um id no corpo da requisição no caso o id do pensamento, de posse desse id nós damos executamos o método Tought.destroy passando where:id e o id do usuário obtido por req.session.userid. Com a promise do destroy resolvida, passamos uma flash-message e redirecionamos para a rota /dashboard dentro de session.save.</p>
-
-<h2>Editar pensamentos</h2>
-
-    <p>Adicionamos a rota get('/edit/:id',checkAuth,tc.updateTought) em toughtsRoutes e este método em ToughsController. Esse método recebe o id do pensamento como parâmetro da url. Usamos esse id no where de Tought.findOne atribuindo também raw:true. Resolvido o findOne renderizamos toughts/edit passando o objeto retornado por findOne.</p>
-
-    <p>Na view de dashboard atribuímos ao link de editar a rota /toughts/edit/{{this.id}</p>
-
-    <p>Criamos views/toughts/edit que inicialmente é uma cópia views/toughts/create, sendo atualizada onde cabe. No form colocamos input:hidden = {{tought.id}} e atribuímos ao input do form o value {{tought.title}}.</p>
-
+    <p>Trabalhar o css de vh</p>
 
 
