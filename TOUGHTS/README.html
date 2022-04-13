@@ -193,18 +193,16 @@
     
 <h2>Mostrando todos os pensamentos na home</h2>
 
-    <p>tc -> showToughts = Tought.findAll include User = map get plain:true (para juntar os objetos do User dentro do objeto de pensamento) ; render home {toughts}</p>
+    <p>Em ToughtsController nós atualizamos o método showToughts incluindo um findAll em Tought, passando o parâmetro include passando como valor User. Temos que dar um map no retorno (que é um array de objetos) de findAll resgatando o valor retornado pelo método get({plain:true}) em cada objeto e incluindo esse valor em um array que será passado na renderização da home.</p>
 
-    <p>views/home (vh) = .home-header{h1} ; form(get):/{input:text ; input submit = Buscar} ; .order-container{span ; form(get):/{ input hidden = this.search ; input hiden = new; button submit seta pra cima } ; form(get):/{ input hidden = this.search ; input hiden = old; button submit seta pra baixo } ; a:/=Limpar } ; .toughts-container each { { figure {blockquote this.title } ; figcaption span this.User.name } }</p>
+    <p>Em views/home colocamos um h1 seguido por um form(get) com action para /. Nesse form teremos um input text com placehoder de busca e um input submit de valor "Buscar". Abaixo teremos uma div com classe order-container dentro dela um span seguido de um form form(get) com action para /, que por sua vez tem um input hidden com valor de this.search seguido de outro input hidden de name order com o valor de "new", ao final um button submit com o código de bootstrap icons de uma seta pra cima. Depois disso teremos uma outra estrutura semelhante agora com uma seta para baixo, alterando o input hidden de new para old. Ao final um link com o valor "Limpar. Depois disso, teremos uma div.toughts-container que receberá um each do handlebars e dentro dela serão colocadas as tags figure, blockquote (com innerHTML de this.title), além de um figcaption englobando um span de this.User.name. Tudo isso com css estilizando.</p>
 
-    <p>Trabalhar o css de vh</p>
+    <p>Voltamos em showToughts e declaramos const {Op} = require('sequelize'). Op serve para dar opções do sql, como o like, que usaremos aqui. Antes da lógica de resgate de dados da tabela Toughts, declaramos a let search = '' que irá alterar de valor se houver um req.query.search, havendo seach receberá seu valor. req.query é usado para obter os valores depois de ? passados na url. Em findAll colocaremos o parâmetro where onde buscaremos pelo title like seach (a query deve receber a sintaxe exigida pelo sequelize, através do operador Op declarado). Declararemos também uma const para receber o valor de toughts.lenght que receberá o número de registros retornados pela query. A renderização de home contará com o valor de search e de toughts.lenght.</p>
 
-    <p>tc -> showToughts { const {Op} = require('sequelize') Op serve para dar opções do sql, como o like, que usaremos aqui ; module.exports{ let search = '' if req.query.search { search } req.query é usado para obter os valores depois de ? passados na url ; findAll -> {where:{title}} ; const toughts.lenght ;  res.render -> {search , toughts.lenght} } }</p>
-
-    <p>vh -> .home-header { {{{if search}}}{h1{span} ; {{{if toughts.length}}}{p toughts.length} } {{{else}}} {h1{span}} } </p>
+    <p>Na view home nós colocaremos dentro da div.home-header um if que indicará se houve resultados da busca e se sim quantos foram, a partir dos dados search e toughts.lenght passados pelo back-end.</p>
 
     <h3>Ordenação dos pensamentos</h3>
 
-    <p>tc -> showToughts{ module.exports { let order = 'DESC' ; if query.order = old => order = 'ASC' else order 'DESC' ; findAll -> order: {['createdAt', order]} } }</p>
+    <p>Ao final, em showToughts antes de findAll nós declaramos a let order = 'DESC' e depois condicionamos seu valor à existência ou não do parâmetro req.query.order, que sendo old fará order assumir o valor de 'ASC', senão, 'DESC'. findAll receberá o parâmetro order: {['createdAt', order]}.</p>
 
 

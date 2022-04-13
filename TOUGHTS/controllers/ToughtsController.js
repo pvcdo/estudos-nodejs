@@ -1,9 +1,43 @@
 const User = require('../models/User')
 const Tought = require('../models/Tought')
+const {Op} = require('sequelize')
+const { search } = require('../routes/toughtsRoutes')
 
 module.exports = class ToughtsController{
   static async showToughts(req,res){
-    res.render('toughts/home')
+    
+    let search = ''
+
+    if(req.query.search){
+      search = req.query.search
+    }
+
+    let order = 'DESC'
+
+    if(req.query.order === 'old'){
+      order = 'ASC'
+    }else{
+      order = 'DESC'
+    }
+    
+    Tought.findAll({
+      include:User,
+      where:{
+        title:{[Op.like]:`%${search}%`}
+      },
+      order:[['createdAt', order]]
+    })
+      .then((toughtData) => {
+        let toughts = toughtData.map(tought => {
+          return tought.get({plain:true})
+        })
+        let toughtsLength = toughts.length
+        if(toughtsLength === 0){
+          toughtsLength = false
+        }
+        res.render('toughts/home', {toughts, search, toughtsLength})
+      })
+      .catch(e => console.error("Meu erro!!!!!!!" + e))
   }
 
   static async dashboard(req,res){
