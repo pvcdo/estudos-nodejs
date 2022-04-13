@@ -1,0 +1,19 @@
+<ol>
+    <li>no cmder damos o comando mongo</li>
+    <li>o comando "show dbs" mostra os bancos de dados que temos no computador</li>
+    <li>o comando "use nome_banco" cria um banco e o torna ativo. Este banco só estará visível pelo "show dbs" quando ele tiver documents</li>
+    <li>"db.nome_coleção.insertOne({chave1: valor1, chave2: valor2 })" cria um document em uma collection no banco ativo
+        <ul>
+            <li>caso a collection não exista ela será criada</li>
+            <li>a chave passada no método insertOne é sem aspas, já o valor pode ser, dependendo do tipo (strings recebem aspas, booleanos e outros não)</li>
+            <li>os valores podem ser de diversos tipos, conforme especificado <a href="https://www.mongodb.com/docs/manual/reference/bson-types/">aqui</a></li>
+        </ul>
+    </li>
+    <li>a partir da inserção de documents (dados) no banco ele já será exibido através do comando "show dbs"</li>
+    <li>para recuperar um document usamos o comando "db.nome_coleção.findOne()"
+        <ul>
+            <li>em findOne podemos passar um objeto com os critérios para encontrarmos um dado específico</li>
+            <li>se houver mais de um ele retornará apenas um</li>
+        </ul>
+    </li>
+</ol>

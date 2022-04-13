@@ -1,0 +1,13 @@
+<ol>
+    <li>instalar o pacote mongodb via npm</li>
+    <li>além dele vamos instalar o express, express-handlebars e o nodemon</li>
+    <li>criamos index.js na raiz</li>
+    <li>declaramos express e express-handlebars na index.js</li>
+    <li>damos o app.engine pra handlebars e o app.set, além do app.use com express.urlencoded e o app.use de express.json()</li>
+    <li>na raiz criamos db/conn.js</li>
+    <li>em db/conn.js declaramos {MongoClient} de mongodb, declaramos também uri = "mongodb://localhost:27017/nome_banco" e client = new MongoClient(uri)</li>
+    <li>ainda em conn.js criamos a async function run que vai tentar executar await client.connect() e dar um console.log de confirmação de conexão</li>
+    <li>depois da função, executamos run() e ao final exportamos client</li>
+    <li>em index.js importamos conn e ao final damos um app.listen na porta 3000</li>
+    <li>no package.json criamos o script start com nodemon</li>
+</ol>
