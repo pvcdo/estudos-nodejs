@@ -8,8 +8,8 @@
     <li>Em HistoriesController (hc) criamos o método static createHistory. Nele renderizamos a view histories/new</li> 
     <li>Em historiesRoutes (hr) criamos a rota get('/new',hc.createHistory)</li>
     <li>Criamos a views/histories/new.handlebars que terá um h1 de título e um form(post) com action para /histories/new. Esse form terá dois div.form-control que abarcam um conjunto label/input[text] e um conjunto label/textarea e ao final um input[submit].btn com value "Escrever"</li>
-    <li>Em layouts/main importamos o styles.css</li>
+    <li>Em layouts/main importamos o styles.css e colocamos o {{{body}}} dentro de uma .container</li>
     <li>Ainda em layouts/main colocamos na nav um link para /histories/new</li>
     <li>Em hr criamos a rota post('/new', hc.createHistoryPost)</li>
-    <li>Em hc criamos o método createHistoryPost que vai declarar as constantes para receber os inputs passados pelo formulário através do corpo da requisição e uma constante history que será uma instância de History. Em seguida, executamos o método save de history e redirecionamos para a home(/histories)/li>
+    <li>Em hc criamos o método createHistoryPost que vai declarar as constantes para receber os inputs passados pelo formulário através do corpo da requisição e uma constante history que será uma instância de History. Em seguida, executamos o método save de history e redirecionamos para a home(/histories)</li>
 </ol>

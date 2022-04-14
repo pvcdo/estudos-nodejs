@@ -12,10 +12,19 @@ module.exports = class StoriesController{
   static createStoryPost(req,res){
     const {title, storyArea} = req.body
 
-    const story = new Story(title, storyArea)
+    if(title && story){
+      const story = new Story(title, storyArea)
 
-    story.save()
+      story.save()
 
-    res.redirect('/stories')
+      res.redirect('/stories')
+    }else{
+      res.redirect('/stories/error')
+    }
+
+  }
+
+  static pageError(req,res){
+    res.render('stories/error')
   }
 }
