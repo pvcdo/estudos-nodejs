@@ -1,6 +1,6 @@
 <ol>
     <li>copiei a pasta anterior</li>
-    <li>no model Storie (ms) = static getStories { const stories = . conn.db().collection('nome_colecao').find().toArray() ; return stories }</li>
-    <li>sc -> home = { Story.getStories then render stories/home }</li>
+    <li>no model Storie (ms) = static getStories { const stories = conn.db().collection('nome_colecao').find().toArray() ; return stories }</li>
+    <li>sc -> home = { Story.getStories then render stories/home -{stories}- }</li>
     <li>home -> each stories { this.title , this.caption }</li>
 </ol>

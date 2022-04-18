@@ -1,0 +1,7 @@
+<ol>
+    <li>copiei a pasta anterior</li>
+    <li>sr = post('/remove/:id', sc.removeStory)</li>
+    <li> sc = static async removeStory { id = param ; await Story.removeStoryById(id) ; render '/stories'  } </li>
+    <li>sm = async removeStoryById { conn....deleteOne({_id: ObjectId(id)}) ; return }</li>
+    <li>view story = {--- form(post):'/stories/remove/{{this._id}}{ input[submit].btn=Excluir }</li>
+</ol>
