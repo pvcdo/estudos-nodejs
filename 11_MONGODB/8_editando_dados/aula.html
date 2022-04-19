@@ -1,7 +1,21 @@
 <ol>
     <li>copiei a pasta anterior</li>
-    <li>sr = get('/edit/:id',sc.editStory)</li>
-    <li>sc = async editStory{ const id = params ; const story = await Story.getStoryById(id) ; render 'stories/edit' -{story}-}</li>
-    <li>views/stories/edit ~~ views/stories/new = alterar o necessário </li>
-    <li>view home = --- .actions { a:'/stories/edit/{{this._id}}'=Editar } </li>
+    <li>Em sr criamos a rota get('/update/:id',sc.updateStory)</li>
+    <li>sc = async updateStory{ const id = params ; const story = await Story.getStoryById(id) ; render 'stories/update' -{story}-}</li>
+    <li>views/stories/update ~~ views/stories/new = alterar o necessário </li>
+    <li>view story = --- .actions { a:'/stories/update/{{this._id}}'=Editar } </li>
+
+    <!--começar aqui-->
+
+    <li>view update = form{ input[hidden]#id={{story._id}} }</li>
+    <li>views/stories/update = {form(post):update}</li>
+    <li>sr = post('/update',sc.updateStoryPost)</li>
+    <li>sc = asyn updateStoryPost { const id, title, caption, storyArea = req.body ; const story = new Story(title, caption, storyArea) ; await story.updateStoryById(id) ; redirect `/${id}`}</li>
+    <li>sm = updateStoryById(id) { connn.....updateOne({_id:ObjectId(id)},{$set:this}) ; return }
+        <ul>
+            <li>cabe ressaltar que não é um método static, assim, ele pode ser utilizado em um objeto instanciado</li>
+            <li>$set é um operador do mongoDB que no caso serve para inserir dados. Existem outros operadores como filtar entre outros</li>
+            <li>ele deu um $set this, indicando que será passado para o mongo todas as variáveis/constantes do escopo de onde a função está sendo chamada</li>
+        </ul>
+    </li>
 </ol>
