@@ -1,7 +1,7 @@
 <ol>
     <li>copiei a pasta anterior</li>
-    <li>sr = post('/remove/:id', sc.removeStory)</li>
-    <li> sc = static async removeStory { id = param ; await Story.removeStoryById(id) ; render '/stories'  } </li>
-    <li>sm = async removeStoryById { conn....deleteOne({_id: ObjectId(id)}) ; return }</li>
-    <li>view story = {--- form(post):'/stories/remove/{{this._id}}{ input[submit].btn=Excluir }</li>
+    <li>Em routes criei o método get('/remove/:id', sc.removeStory)</li>
+    <li>Em sc criei o método static async removeStory que recebe o id pelo parâmetro da requisição e dá um await no método Story.removeStoryById(id), redirecionando ao final para '/stories'</li>
+    <li>No model nós criamos o método async removeStoryById que vai executar o método nativo das coleções deleteOne({_id: ObjectId(id)}) e ao final damos um retorno vazio</li>
+    <li>Na view story criei um link que direciona para /stories/remove/id para girar o fluxo criado</li>
 </ol>

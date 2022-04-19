@@ -1,9 +1,12 @@
 <ol>
     <li>copiei a pasta anterior</li>
-    <li>sr = get('/:id', StoriesControllers.getStory)</li>
-    <li>sc = async getStory { const id req.params ; const story = await Story.getStoryById(id) ; render 'stories/story' -{story}- } } </li>
-    <li>sm = const {ObjectId} require mongodb ; Story{ async getStoryById(id) { conn.db().collection('nome').findOne({_id:ObjectId(id)}) then (story) return story } </li>
-    <li> stories/story.handlebars { .story-page { a=voltar ; h1 ; 'campos' } } </li>
-    <li>view home = { --- h1 ; .stories ; .story { --- a:/stories/{{this._id}}=Ler }</li>
-    <li>ajustar css</li>
+    <li>Em sr criamos a rota get('/:id', StoriesControllers.getStory)</li>
+    <li>Em sc criamos o método async getStory que declara a const id que vem nos parâmetros da requisição, em seguida a const story que recebe o retorno do método await Story.getStoryById(id) e ao final é renderizada a view 'stories/story' passando a const story</li>
+    <li>No model Story declaramos a const {ObjectId} que é um atributo importado de mongodb. Depois, na classe Story que está sendo exportada criamos o método async getStoryById(id) onde é declarada a const story que aguarda o retorno de conn.db().collection('nome').findOne({_id:ObjectId(id)}) sendo ao final retornada a const Story
+        <ul>
+            <li>ObjectId é como se fosse um tipo de dado em MongoDb</li>
+        </ul>
+    </li>
+    <li>Criamos na view estilizada stories/story.handlebars que consiste em uma div.story-page com um link para voltarmos à página home e estruturas para renderizar o conteúdo da história</li>
+    <li>Na view home colocamos um link para acessarmos o conteúdo da história</li>
 </ol>

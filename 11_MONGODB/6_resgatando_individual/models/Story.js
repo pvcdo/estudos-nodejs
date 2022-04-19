@@ -1,4 +1,5 @@
 const conn = require('../db/conn')
+const {ObjectId} = require('mongodb')
 
 class Story{
   constructor(title, caption, story){
@@ -21,6 +22,11 @@ class Story{
     const stories = conn.db().collection('stories').find().toArray()
 
     return stories
+  }
+
+  static async getStoryById(id){
+    const story = await conn.db().collection('stories').findOne({_id:ObjectId(id)})
+    return story
   }
 }
 

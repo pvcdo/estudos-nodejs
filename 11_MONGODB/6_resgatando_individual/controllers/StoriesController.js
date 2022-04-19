@@ -34,6 +34,14 @@ module.exports = class StoriesController{
 
   }
 
+  static async getStory(req,res){
+    const id = req.params.id
+
+    const story = await Story.getStoryById(id)
+
+    res.render('stories/story', {story})
+  }
+
   static pageError(req,res){
     res.render('stories/error')
   }

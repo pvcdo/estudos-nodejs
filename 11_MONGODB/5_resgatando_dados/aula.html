@@ -1,6 +1,6 @@
 <ol>
     <li>copiei a pasta anterior</li>
-    <li>no model Storie (ms) = static getStories { const stories = conn.db().collection('nome_colecao').find().toArray() ; return stories }</li>
-    <li>sc -> home = { Story.getStories then render stories/home -{stories}- }</li>
-    <li>home -> each stories { this.title , this.caption }</li>
+    <li>no model Storie (ms) criei o método static getStories que declara uma const stories (que recebe o retorno do método conn.db().collection('nome_colecao').find().toArray()) e ao final retorna stories.</li>
+    <li>No método home de StoriesController nós executamos o método getStories do model Story e quando ele estiver resolvido nós renderizamos stories/home passando o retorno de getStories</li>
+    <li>Na view home nós recebemos o array com os objetos passados pelo método StoriesControllers.home, percorremos cada um dos seus elementos e renderizamos o title e o caption.</li>
 </ol>
