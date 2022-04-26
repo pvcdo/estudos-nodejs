@@ -1,5 +1,5 @@
 <ol>
     <li>copiou a aula anterior</li>
-    <li>sr -> descomentar rota post /update</li>
-    <li>sc -> async sc.editStoryPost = { const = req.body ; const story = obj{const req.body} ; Story.updateOne({_id:id}, story) }</li>
+    <li>Em storiesRoutes nós descomentamos a rota post /update</li>
+    <li>Em StoriesController nós atualizamos o método async updateStoryPost onde nós declaramos um objeto const story com os parâmetros vindos do body da requisição e depois passamos esse objeto como segundo parâmetro do método updateOne de Story, que terá como primeiro parâmetro um objeto com par _id:id (onde id é um dos parâmetro do body)</li>
 </ol>

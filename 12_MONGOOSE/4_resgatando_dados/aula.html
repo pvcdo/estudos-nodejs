@@ -1,7 +1,7 @@
 <ol>
     <li>copiou a aula anterior</li>
-    <li>sr -> descomentar rota get /</li>
-    <li>sc -> descomentar sc.home -> { const Stories = Story.find().lean() then }
+    <li>Em storiesRoutes nós descomentamos a rota get /</li>
+    <li>Em StoriesController descomentamos e alteramos o método home onde para recuperarmos os dados do banco nós damos o comando find().lean() em Story que retorna uma promise que resolvida retorna o resultado os dados do banco
         <ul>
             <li>lean é um método que vai formatar o retorno de find para que possa ser iterado pelo handlebars</li>
         </ul>
