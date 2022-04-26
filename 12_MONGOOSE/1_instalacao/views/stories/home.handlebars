@@ -1,0 +1,12 @@
+<h1>Bem vindo à Leex</h1>
+{{#if stories}}
+  {{#each stories}}
+    <div class="story">
+      <h3>{{this.title}}</h3>
+      <h6>{{this.caption}}</h6>
+      <a href="/stories/{{this._id}}">Ler</a>
+    </div>
+  {{/each}}
+{{else}}
+  <p>Não há nenhuma história escrita... <a href="/stories/new">clique aqui</a> para começar uma!!</p>
+{{/if}}
