@@ -1,16 +1,15 @@
 const Story = require('../models/Story')
 
 module.exports = class StoriesController{
-  /*static async home(req,res){
-    Story.getStories()
+  static async home(req,res){
+    Story.find().lean()
       .then((stories) => {
         if(stories.length === 0){
           stories = false
         }
         res.render('stories/home', {stories})
       })
-      .catch(e => console.error('Erro em StoriesController.home!!!!!!!!!!!!!!!!!11'))
-  }*/
+  }
 
   static createStory(req,res){
     res.render('stories/new')

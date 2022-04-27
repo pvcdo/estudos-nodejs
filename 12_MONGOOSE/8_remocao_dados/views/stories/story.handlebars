@@ -1,0 +1,14 @@
+<div class="story-page">
+  <div class="story-content">
+    <h1>{{story.title}}</h1>
+    <h3>{{story.caption}}</h3>
+    <p>{{story.story}}</p>
+  </div>
+  <div class="story-controls">
+    <a href="/stories">Voltar</a>
+    <a href="/stories/update/{{story._id}}">Editar</a>
+    <form action="/stories/remove/{{story._id}}" method="post">
+      <input type="submit" value="Excluir">
+    </form>
+  </div>
+</div>

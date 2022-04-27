@@ -1,0 +1,19 @@
+<h1>Editar história</h1>
+
+<form action="/stories/update" method="post" id="formStory">
+  <input type="hidden" name="id" value="{{story._id}}">
+  <div class="form-control">
+    <label for="title">Título</label>
+    <input type="text" name="title" id="title" value="{{story.title}}">
+  </div>
+  <div class="form-control">
+    <label for="caption">Subtítulo</label>
+    <input type="text" name="caption" id="caption" value="{{story.caption}}">
+  </div>
+  <div class="form-control">
+    <textarea name="storyArea" form="formStory" cols="30" rows="10">{{story.story}}</textarea>
+  </div>
+  <a href="/stories/{{story._id}}" class="btn">Voltar</a>
+  <input class="btn" type="submit" value="Reescrever">
+</form>
+

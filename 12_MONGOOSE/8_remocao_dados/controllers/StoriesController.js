@@ -1,16 +1,15 @@
 const Story = require('../models/Story')
 
 module.exports = class StoriesController{
-  /*static async home(req,res){
-    Story.getStories()
+  static async home(req,res){
+    Story.find().lean()
       .then((stories) => {
         if(stories.length === 0){
           stories = false
         }
         res.render('stories/home', {stories})
       })
-      .catch(e => console.error('Erro em StoriesController.home!!!!!!!!!!!!!!!!!11'))
-  }*/
+  }
 
   static createStory(req,res){
     res.render('stories/new')
@@ -34,18 +33,19 @@ module.exports = class StoriesController{
 
   }
 
-  /*static async getStory(req,res){
+  static async getStory(req,res){
     const id = req.params.id
 
-    const story = await Story.getStoryById(id)
-
-    res.render('stories/story', {story})
+    Story.findById(id).lean()
+      .then(story => {
+        res.render('stories/story', {story})
+      })
   }
 
   static async removeStory(req,res){
     const id = req.params.id
 
-    await Story.removeStoryById(id)
+    await Story.deleteOne({_id:id})
 
     res.redirect('/stories')
   }
@@ -53,10 +53,21 @@ module.exports = class StoriesController{
   static async updateStory(req,res){
     const id = req.params.id
 
-    const story = await Story.getStoryById(id)
+    Story.findById(id).lean()
+      .then(story => {
+        res.render('stories/update',{story})
+      })
+  }
 
-    res.render('stories/update',{story})
-  }*/
+  static async updateStoryPost(req,res){
+    const {id, title, caption, storyArea} = req.body
+
+    const story = {id,title,caption,story:storyArea}
+
+    await Story.updateOne({_id:id},story)
+
+    res.redirect('/stories/'+id)
+  }
 
   static pageError(req,res){
     res.render('stories/error')
