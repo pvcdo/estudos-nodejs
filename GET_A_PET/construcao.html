@@ -1,0 +1,42 @@
+<h2>Configuração do projeto</h2>
+
+<p>get-a-pet -> pastas (server; client)</p>
+<p>pasta client (client) -> npm i bcrypt cookie-parser cors express jsonwebtoken mongoose multer nodemon
+    <ul>
+        <li>bcrypt = criptografia de senhas</li>
+        <li>cookie-parser = </li>
+        <li>cors = para podermos mandar requisições para o nosso mesmo domínio. Quando lidamos com front e back há conflitos que este módulo trata</li>
+        <li>jsonwebtoken = autenticação de usuários</li>
+        <li>multer = upload de fotos (singular e multiplos)</li>
+    </ul>
+</p>
+<p>client -> index.js = estrutura padrão</p>
+<p>client -> pastas mvc (menos a de views), db, helpers (funções auxiliares para serem acessadas em várias rotas), public, public/img/users, public/img/pets, routes</p>
+<p>index = const express ; const cors ; const app ; app.use(express.json()) ; app.use(cors({credentials: true, origin: 'http://localhost:3000'})) ; app.use(express.static('public')) ; app.listen(5000)
+    <ul>
+        <li>Não precisaremos de express.urlencoded porque a comunicação será toda por json</li>
+        <li>em cors, o origin é o ip do front-end. Como o front e o back estão em localhost o navegador acusaria um erro, que é solucionado com esse middleware</li>
+    </ul>
+</p>
+<p>package.json -> script start nodemon</p>
+
+<h2>Criando models</h2>
+
+<p>db/conn.js = { const mongoose ; mongoose.connect(uri) then {console ; module.exports = mongoose} }</p>
+<p>models/User.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}
+    <ul>
+        <li>o timestamps vai criar os campos createdAt e updatedAt, registrando quando o dado foi criado e atualizado, respectivamente</li>
+    </ul>
+</p>
+<p>models/Pet.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}</p>
+
+<h2>Criando rotas de usuários</h2>
+
+<p>routes/UserRoutes.js (ur)</p>
+<p>controllers/UserController.js (uc)</p>
+<p>index -> app.use('/users',require('./routes/UserRoutes'))</p>
+<p>UserRoutes = { const router ; router.post('/register', uc.register) ; module.exports = router }</p>
+<p>uc = { const User = require(model) ; exports = class UserController { static async register { res.json 'Estamos registrando um usuário' } } }</p>
+<p>no postman criar a collection pro projeto, dentro dessa collection outras duas, uma para Users e outra para Pets</p>
+<p>criar a variável url com o valor http://localhost:5000</p>
+<p>testar a rota register de user no postman</p>
