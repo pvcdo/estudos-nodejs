@@ -1,0 +1,38 @@
+<h2>Criando a primeira api</h2>
+
+<ol>
+  <li>npm init -y</li>
+  <li>npm i express nodemon</li>
+  <li>script start em package.json</li>
+  <li>index.js = { const express ; const app ; app.use(express.urlencoded) ; app.use(express.json()) ; app.get('/', res.json({objJS})) ; app.listen } </li>
+</ol>
+
+<h2>Postman</h2>
+
+<ul>
+  <li>criar collection</li>
+  <li>na collection clicamos em "add request"</li>
+  <ol>
+    <li>Rota get</li>
+    <ol>
+      <li><h6>Rota /</h6></li>
+      <li>em index utilizaremos a rota get / que retorna um objeto com apenas um par atributo valor</li>
+      <li>escolhemos um nome para a requisição, o verbo get e passamos a rota</li>
+      <li>com as informações básicas configuradas e salvas podemos enviar a requisição</li>
+    </ol>
+    <li>Rota post</li>
+      <ol>
+        <h6>Rota /createproduct</h6>
+        <li>em index criamos a rota post /createproduct que declara duas consts que vem do body da requisição, depois damos um console de cada uma dessas const</li>
+        <li>escolhemos um nome para a requisição, o verbo post e passamos a rota</li>
+        <li>escolhemos a opção de configurar o body, escolhemos o formato raw e escrevemos o objeto JSON com os parâmetros esperados pela API</li>
+      </ol>
+  </ol>
+  
+</ul>
+
+<h2>Status da resposta</h2>
+
+<p>Podemos ver os status de requisição na documentação do mozilla.</p>
+
+<p>Para utilizar status na api nós utilizamos o método .status(código) na resposta da rota, antes da utilização do método json que é a resposta propriamente dita.</p>
