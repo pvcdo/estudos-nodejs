@@ -1,7 +1,7 @@
 <h2>Configuração do projeto</h2>
 
 <p>get-a-pet -> pastas (server; client)</p>
-<p>pasta client (client) -> npm i bcrypt cookie-parser cors express jsonwebtoken mongoose multer nodemon
+<p>pasta server (server) -> npm i bcrypt cookie-parser cors express jsonwebtoken mongoose multer nodemon
     <ul>
         <li>bcrypt = criptografia de senhas</li>
         <li>cookie-parser = </li>
@@ -10,8 +10,7 @@
         <li>multer = upload de fotos (singular e multiplos)</li>
     </ul>
 </p>
-<p>client -> index.js = estrutura padrão</p>
-<p>client -> pastas mvc (menos a de views), db, helpers (funções auxiliares para serem acessadas em várias rotas), public, public/img/users, public/img/pets, routes</p>
+<p>server -> pastas mvc (menos a de views), db, helpers (funções auxiliares para serem acessadas em várias rotas), public, public/img/users, public/img/pets, routes</p>
 <p>index = const express ; const cors ; const app ; app.use(express.json()) ; app.use(cors({credentials: true, origin: 'http://localhost:3000'})) ; app.use(express.static('public')) ; app.listen(5000)
     <ul>
         <li>Não precisaremos de express.urlencoded porque a comunicação será toda por json</li>
