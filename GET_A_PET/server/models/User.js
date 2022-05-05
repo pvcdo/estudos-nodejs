@@ -16,6 +16,10 @@ const User = mongoose.model(
       type: String,
       required: true
     },
+    confirm_password:{
+      type: String,
+      required: true
+    },
     image:{
       type: String,
     },

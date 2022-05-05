@@ -39,3 +39,27 @@
 <p>no postman criar a collection pro projeto, dentro dessa collection outras duas, uma para Users e outra para Pets</p>
 <p>criar a variável url com o valor http://localhost:5000</p>
 <p>testar a rota register de user no postman</p>
+
+<h2>Validação de usuários</h2>
+
+<p>uc.register -> receber os atributos de usuário a partir de req.body ; fazer as validações: 
+    <ul>
+        <li>todos atributos vieram</li>
+        <li>senha e confirmação de senha iguais</li>
+        <li>se o usuário já existe no banco de dados (User.findOne({email})</li>
+    </ul>
+</p>
+<p>todas falhas de verificação retornam um status de 422</p>
+
+<h2>Registrando usuário no banco</h2>
+
+<p>uc -> import bcrypt</p>
+<p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try new_user = await user.save() status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
+
+<h2>Retornando o token JWT (json web token)</h2>
+
+<p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token = jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user_id})} ; module.exports = createUserToken }</p>
+
+<p>uc -> require create-user-token</p>
+
+<p>uc.register -> apagar try catch final e dar um createUserToken passando o usuário registrado, req e res</p>
