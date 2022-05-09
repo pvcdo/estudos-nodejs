@@ -40,13 +40,16 @@
 <p>criar a variável url com o valor http://localhost:5000</p>
 <p>testar a rota register de user no postman</p>
 
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
 <h2>Validação de usuários</h2>
 
-<p>uc.register -> receber os atributos de usuário a partir de req.body ; fazer as validações: 
+<p>uc.register -> receber os atributos de usuário a partir de req.body ; validar se: 
     <ul>
         <li>todos atributos vieram</li>
         <li>senha e confirmação de senha iguais</li>
-        <li>se o usuário já existe no banco de dados (User.findOne({email})</li>
+        <li>usuário já existe no banco de dados (User.findOne({email})</li>
     </ul>
 </p>
 <p>todas falhas de verificação retornam um status de 422</p>
@@ -63,3 +66,24 @@
 <p>uc -> require create-user-token</p>
 
 <p>uc.register -> apagar try catch final e dar um createUserToken passando o usuário registrado, req e res</p>
+
+<h2>Função de login no sistema</h2>
+
+<p>ur -> post('/login', uc.login)</p>
+
+<p>uc ->  async login { const email, password = req.body ; validações email e senha ; checar User.findOne({email}) ; checar bcrypt.compare(senha_front, user.password) /*o primeiro atributo é a senha que foi fornecida no formulário de login, o segundo a senha que está no banco de dados para aquele usuário*/ ; await createUserToken(user) }</p>
+
+<h2>Verificando usuário pelo token</h2>
+
+<p>uc -> async checkUser { let currentUser ; console.log(req.headers.authorization) ;/*as: auth*/ if(req.headers.authorization){}else{currentUser = null} ; req.status(200).send(currentUser) ; } </p>
+
+<p>ur -> get('checkUser', uc.checkUser)</p>
+
+<p>postman -> get {{url}}/users/checkUser ; get-a-pet => variables => TOKEN => token de post users/login ; get checkUser => authorization => type = bearer token = {{TOKEN}} /*ao enviar deve aparecer o token no cmd*/ </p>
+
+<p>helpers/get-token.js -> { const getToken(req){ const authHeader = req.headers.authorization ; const token = authHeader.split 1 ; return token } ; module.exports = getToken } </p>
+
+<p>uc -> import helpers/get-token ; import jwt</p>
+
+<p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await User.findById(decoded.id) ; currentUser.password = undefined }</p>
+
