@@ -10,6 +10,4 @@ app.use(express.static('public'))
 
 app.use('/users',require('./routes/UserRoutes'))
 
-app.listen(5000,()=>{
-  console.log('Rodando servidor na porta 5000')
-})
+app.listen(5000)

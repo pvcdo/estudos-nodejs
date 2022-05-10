@@ -57,11 +57,11 @@
 <h2>Registrando usuário no banco</h2>
 
 <p>uc -> import bcrypt</p>
-<p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try new_user = await user.save() status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
+<p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try new_user = await user.save();  res.status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
 
 <h2>Retornando o token JWT (json web token)</h2>
 
-<p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token = jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user_id})} ; module.exports = createUserToken }</p>
+<p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token = jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user._id})} ; module.exports = createUserToken }</p>
 
 <p>uc -> require create-user-token</p>
 

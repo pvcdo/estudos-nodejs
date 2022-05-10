@@ -1,35 +1,28 @@
-const mongoose = require('mongoose')
+const mongoose = require('../db/conn') //repare que aqui a trabalharemos com o objeto retornado pela conexão com o mongoose, diferentemente da aula de mongoose, onde trabalhamos diretamente com o objeto mongoose raiz
 const { Schema } = mongoose
 
 const User = mongoose.model(
   'User',
   new Schema({
-    name:{
+    name: {
       type: String,
-      required: true
+      required: true,
     },
-    email:{
+    email: {
       type: String,
-      required: true
+      required: true,
     },
-    password:{
+    password: {
       type: String,
-      required: true
+      required: true,
     },
-    confirm_password:{
-      type: String,
-      required: true
-    },
-    image:{
+    image: {
       type: String,
     },
-    phone:{
+    phone: {
       type: String,
-      required:true
-    }
-  },{
-    timestamps: true
-  })
+    },
+  }, {timestamps: true}),
 )
 
 module.exports = User

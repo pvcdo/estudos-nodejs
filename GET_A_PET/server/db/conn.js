@@ -1,11 +1,10 @@
 const mongoose = require('mongoose')
 
-const uri = 'http://localhost:27017/get-a-pet'
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/get-a-pet')
+  console.log('Conectou com Mongoose!')
+}
 
-mongoose.connect(uri)
-  .then(()=>{
-    console.log('Conectado ao mongoose')
-    module.exports(mongoose)
-  })
-  .catch((e)=>console.error("Errooooooo " + e))
-  
+main().catch((err) => console.log(err))
+
+module.exports = mongoose
