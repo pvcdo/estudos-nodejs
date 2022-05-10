@@ -40,9 +40,6 @@
 <p>criar a variável url com o valor http://localhost:5000</p>
 <p>testar a rota register de user no postman</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h2>Validação de usuários</h2>
 
 <p>uc.register -> receber os atributos de usuário a partir de req.body ; validar se: 
@@ -86,4 +83,61 @@
 <p>uc -> import helpers/get-token ; import jwt</p>
 
 <p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await User.findById(decoded.id) ; currentUser.password = undefined }</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h2>Pegar usuário pelo id</h2>
+
+<p>ur -> get('/:id',uc.getUserById)</p>
+
+<p>uc -> async getUserById { const id = req.params ; const user = await User.findById(id).select("-password") ; if(!user){res.status(422).json("nao encontrado") return } ; res.status(200).json(user)  } 
+    <ul>
+        <li>o método select usado no findById indica que vamos excluir o campo password do retorno do método findById</li>
+        <li>outra forma já abordada de não termos o password exposto é atribuirmos undefined à user.password</li>
+    </ul>
+</p>
+
+<h2>Verificação do token do usuário</h2>
+
+<p>ur -> patch('/update/:id',uc.updateUser)
+    <ul>
+        <li>patch é um método http usado para atualizar dados</li>
+    </ul>
+</p>
+
+<p>Vamos criar uma função helper para verificar o token do usuário, caso exista um token e este seja válido o usuário poderá entrar na rota de update</p>
+
+<p>//verify-token.js
+    const jwt = require("jsonwebtoken");
+    const getToken = require("./get-token")
+
+    // middleware to validate token
+    const checkToken = (req, res, next) => {
+        if(!req.headers.authorization){
+            return res.status(401).json({ message: "Acesso negado!" });
+        } 
+
+        const token = getToken(req)
+        if(!token){
+            return res.status(401).json({ message: "Acesso negado!" });
+        }
+
+        try {
+            const verified = jwt.verify(token, "nossosecret");
+            req.user = verified;
+            next(); // to continue the flow
+        } catch (err) {
+            res.status(400).json({ message: "O Token é inválido!" });
+        }
+    };
+
+    module.exports = checkToken;
+</p>
+
+<p>ur -> import verify-token</p>
+
+<p>ur -> .patch('/update/:id',verify-token, ... ) </p>
+
+<p>uc -> async updateUser(r,r){ res.status(200).json("deu certo") }</p>
 
