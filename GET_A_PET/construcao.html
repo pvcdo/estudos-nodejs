@@ -84,9 +84,6 @@
 
 <p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await User.findById(decoded.id) ; currentUser.password = undefined }</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h2>Pegar usuário pelo id</h2>
 
 <p>ur -> get('/:id',uc.getUserById)</p>
@@ -141,3 +138,60 @@
 
 <p>uc -> async updateUser(r,r){ res.status(200).json("deu certo") }</p>
 
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h2>Atualizações usuário</h2>
+
+<p>// helpers/get-user-by-token.js
+    const jwt = require("jsonwebtoken");
+    const User = require("../models/User")
+
+    const getUserByToken = (token) => {
+        if(!token){
+            return res.status(401).json({ message: "Acesso negado!" });
+        } 
+
+        const verified = jwt.verify(token,"nossosecret")
+        const _id = verified.id
+        const user = await User.findOne({_id})
+        return user
+    };
+
+    module.exports = getUserByToken;
+</p>
+
+<p>uc -> import get-user-by-token</p>
+
+<p>uc.updateUser = { const id = params ; const user = await get-user-by-token(get-token(req)) ; const {name,email,phone,password,confirm_password} = body ; let image = "" ; validações de name, email e phone dos const.body ; após cada validação o valor do atributo do usuário será atualizado para o valor enviado pelo body } </p>
+
+<p>postman</p>
+
+<p>uc.updateUser = { ... ; validação de password e confirm ; try{ await User.findOneAndUpdate({_id:id}, {$set:user}, {new:true}) }catch(e){res de erro} } 
+    <ul>
+        <li>no objeto $set:user eu entendo que serão atualizados todos os atributos do documento encontrado pelo filtro que foi passado como primeiro parâmetro do método findOneAndUpdate</li>
+    </ul>
+</p>
+
+<p>postman tentando dar login com dados velhos e novos</p>
+
+<h2>Upload de imagem</h2>
+
+<p>// helper/image-upload.js
+    <ul>
+        <li>usou regex para validar se a imagem enviada era jpg ou png</li>
+    </ul>
+</p>
+
+<p>ur -> const {imgUpload} = require image-upload</p>
+
+<p>ur.patch('/update/:id',...,imgUpload.single('image'),...}
+    <ul>
+        <li>o método single é usado para imagens únicas, ainda utilizaremos envio de várias imagens para os pets através do multer</li>
+        <li>no caso o middleware imgUpload vai ver se foi recebido pelo formulário</li>
+    </ul>
+</p>
+
+<p>uc.updateUser -> { ... ; apagar let image ; if(req.file){user.image = req.file.filename} }</p>
+
+<p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente de text que é o padrão)</p>
