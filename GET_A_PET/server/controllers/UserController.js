@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const createUserToken = require('../helpers/create-user-token')
 const getToken = require('../helpers/get-token')
+const getUserByToken = require('../helpers/get-user-by-token')
 
 module.exports = class UserController{
 
@@ -143,8 +144,56 @@ module.exports = class UserController{
   }
 
   static async updateUser(req,res){
-    return res.status(200).json({
-      message: "Já deu tudo certo"
-    })
+    const id = req.params.id
+    const user = await getUserByToken(getToken(req))
+
+    if(req.file){
+      user.image = req.file.filename
+    }
+
+    const {name, email,phone, password, confirmpassword} = req.body
+
+    if(!name){
+      res.status(401).json({message:"O nome é obrigatório"})
+      return
+    }
+    user.name = name
+
+    if(!email){
+      res.status(401).json({message:"O e-mail é obrigatório"})
+      return
+    }
+    user.email = email
+
+    if(!phone){
+      res.status(401).json({message:"O telefone é obrigatório"})
+      return
+    }
+    user.phone = phone
+
+    if(password !== confirmpassword){
+      res.status(401).json({message:"As senhas não conferem"})
+      return
+    }else if(password === confirmpassword && password != null){
+      const salt = await bcrypt.genSalt(12)
+      const passwordHash = await bcrypt.hash(password,salt)
+      user.password = passwordHash
+    }
+
+    try{
+      const userUpdated = await User.findOneAndUpdate(
+        {_id:id},
+        {$set:user},
+        {new:true}
+      )
+      res.status(200).json({
+        message:"Usuário atualizado com sucesso!",
+        data: userUpdated
+      })
+    }catch(e){
+      res.status(500).json({message: e})
+    }
+
+    return res.status(200).json(user)
   }
 }
