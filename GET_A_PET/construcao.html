@@ -138,9 +138,6 @@
 
 <p>uc -> async updateUser(r,r){ res.status(200).json("deu certo") }</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h2>Atualizações usuário</h2>
 
 <p>// helpers/get-user-by-token.js
@@ -229,3 +226,70 @@
 <p>uc.updateUser -> { ... ; apagar let image ; if(req.file){user.image = req.file.filename} }</p>
 
 <p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente de text que é o padrão)</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h2>Iniciando rota de pets</h2>
+
+<p>routes/PetRoutes.js (pr)</p>
+
+<p>pr -> const PetController</p>
+
+<p>pr -> post('create',pc.create)</p>
+
+<p>PetController (pc)</p>
+
+<p>pc -> const User ; const Pet</p>
+
+<p>pc.create(r,r)=>{res.json sucesso}</p>
+
+<p>index -> const PetRoutes ; app.use('/pets',pr)</p>
+
+<p>postman/pets -> post /pets/create</p>
+
+<h2>Salvando pets no sistema</h2>
+
+<p>pr -> const verifyToken
+    <ul><li>não queremos que alguem não autenticado salve um pet</li></ul>
+</p>
+
+<p>pr -> post('create',verifyToken,...)</p>
+
+<p>postman -> testar post create sem e com token em authorization</p>
+
+<p>pc.create -> const name, age, weight, color = req.body ; const avaiable = true ; validações dos req.body</p>
+
+<p>postman.post(create) -> body-raw-completar o body</p>
+
+<p>pc -> //helpers = { const getToken ; const getUserByToken }</p>
+
+<p>pc.create -> //get pet owner = { const token = await getToken(req) ; const user = await getUserByToken(token) }  ; //create a pet = { const pet = new Pet({atributos + user}) } ; try{ const newPet = await pet.save() ; json {sucesso ; newPet} }catch(e){json erro}</p>
+
+<h2>Upload de múltiplas imagens</h2>
+
+<p>pr -> const {imgUpload} = require(helpers/image-upload)</p>
+
+<p>pr -> post('create',...,imgUpload.array('images'),...)  </p>
+
+<p>pc.create -> { const images = req.files ; verificar se images veio na requisição ; //depois de new Pet = { images.forEach((image) => { pet.images.push(image.filename) }) } } </p>
+
+<p>helpers/image-upload -> incrementar o nome da imagem, uma vez que as imagens são upadas muito rapidamente e o nome é baseado no horário de envio (ele usou Math.random para solucionar isso)</p>
+
+<p>postman -> post.create = body-form_data</p>
+
+<h2>Função de resgatar todos os Pets</h2>
+
+<p>pr -> get('/',pc.getAll ) </p>
+
+<p>pc.getAll(r,r){ const pets = await Pet.find().sort('-createdAt') //nesse caso ele vai ordenar do mais último cadastrado ao primeiro (Z à A) ; json{sucesso, pets} }</p>
+
+<p> postman -> get./pets/ </p>
+
+<h2>Resgatar todos os pets do usuário logado</h2>
+
+<p>pr -> get('/mypets', verifyToken, pc.getAllUserPets) </p>
+
+<p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets = Pet.find('user_id':user_id).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
+
+<p>postman</p>
