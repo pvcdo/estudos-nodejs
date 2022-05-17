@@ -9,5 +9,6 @@ app.use(cors({credentials:true,origin:'http://localhost:3000'}))
 app.use(express.static('public'))
 
 app.use('/users',require('./routes/UserRoutes'))
+app.use('/pets',require('./routes/PetRoutes'))
 
 app.listen(5000)

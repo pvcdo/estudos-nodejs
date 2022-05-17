@@ -20,7 +20,7 @@ const Pet = mongoose.model(
       type: String,
       required: true
     },
-    image:{
+    images:{
       type: Array,
       required: true
     },
@@ -28,7 +28,7 @@ const Pet = mongoose.model(
       type: Boolean,
       required: true
     },
-    user: Object,
+    owner: Object,
     adopter: Object,
   },{
     timestamps: true

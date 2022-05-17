@@ -1,5 +1,6 @@
 const multer = require('multer')
 const path = require('path')
+const getToken = require('./get-token')
 
 //Configuração do destino para o armazenamento de imagens
 const imageStorage = multer.diskStorage({
@@ -13,7 +14,8 @@ const imageStorage = multer.diskStorage({
     cb(null,`public/img/${folder}/`)
   },
   filename: function(req,file,cb){
-    cb(null,Date.now() + path.extname(file.originalname))
+    const user = getToken(req).substr(0,5)
+    cb(null,Date.now() + user + Math.floor(Math.random()*1000) + path.extname(file.originalname))
   }
 })
 

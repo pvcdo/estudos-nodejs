@@ -274,7 +274,7 @@
 
 <p>pc.create -> { const images = req.files ; verificar se images veio na requisição ; //depois de new Pet = { images.forEach((image) => { pet.images.push(image.filename) }) } } </p>
 
-<p>helpers/image-upload -> incrementar o nome da imagem, uma vez que as imagens são upadas muito rapidamente e o nome é baseado no horário de envio (ele usou Math.random para solucionar isso)</p>
+<p>helpers/image-upload -> incrementar o nome da imagem, uma vez que as imagens são upadas muito rapidamente e o nome é baseado no horário de envio (ele usou Math.random para solucionar isso e eu adicionei os 5 primeiros caracteres do token do usuário)</p>
 
 <p>postman -> post.create = body-form_data</p>
 
@@ -290,6 +290,6 @@
 
 <p>pr -> get('/mypets', verifyToken, pc.getAllUserPets) </p>
 
-<p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets = Pet.find('user_id':user_id).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
+<p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets = Pet.find({'user_id':user_id}).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
 
 <p>postman</p>
