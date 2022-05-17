@@ -227,9 +227,6 @@
 
 <p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente de text que é o padrão)</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h2>Iniciando rota de pets</h2>
 
 <p>routes/PetRoutes.js (pr)</p>
@@ -291,5 +288,46 @@
 <p>pr -> get('/mypets', verifyToken, pc.getAllUserPets) </p>
 
 <p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets = Pet.find({'user_id':user_id}).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
+
+<p>postman</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h2>Resgatar todos os pets com processo de adoção pelo usuário</h2>
+
+<p>pr -> get('/myadoptions',verifyToken,pc.getAllUserAdoptions)</p>
+
+<p>pc.getAllUserAdoptions(rr){ token ; user(token) ; const pets = await Pet.find("adopter._id":user._id).sort() }</p>
+
+<p>postman</p>
+
+<h2>Resgatar pet pelo id</h2>
+
+<p>pr -> get('/:id',pc.getPetById)</p>
+
+<p>pc -> //helpers = { const ObjectId = require('mongoose').Types.ObjectId }
+    <ul>
+        <li>é um helper do mongoose que confere se o id é válido</li>
+    </ul>
+</p>
+
+<p>pc ->getPetById(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; status.json sucesso+pet } </p>
+
+<p>postman</p>
+
+<h2>Deletar um pet</h2>
+
+<p>pr -> delete('/:id',verifyToken,pc.deletePet)</p>
+
+<p>pc ->deletePet(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; token ; const user = getUserByToken ; if(pet.owner._id.toString() !== user._id.toString()){ status.json erro } ; await Pet.findByIdAndRemove(id) ; status200.json sucesso } </p>
+
+<p>postman</p>
+
+<h2>Atualização do pet</h2>
+
+<p>pr -> patch('/:id',verifyToken,imageUpload.array('images'),pc.updatePet)</p>
+
+<p>pc -> updatePet(rr){ const id ; const {atributos do pet} = req.body ; const images = req.files ; const updateData = {} ; checar se o pet existe ; checar se o pet é do usuário logado ; verificar cada campo que vem do body, caso passe ele entra em updateData ; a verificação do images é se o array tem tamanho diferente de 0, sendo maior que 0 { updateData.images = [] ; images.forEach((image) => { updateData.images.push(image.filename) }) } ; await Pet.findByIdAndUpdate(id,updateData) ; status.json sucesso } </p>
 
 <p>postman</p>
