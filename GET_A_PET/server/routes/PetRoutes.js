@@ -7,9 +7,15 @@ const PetControllers = require('../controllers/PetControllers.js')
 const verifyToken = require('../helpers/verify-token')
 const {imageUpload} = require('../helpers/image-upload')
 
-router.get('/',PetControllers.getAll)
-router.get('/mypets',verifyToken,PetControllers.getAllUserPets)
-
 router.post('/create',verifyToken,imageUpload.array('images'),PetControllers.create)
+
+router.get('/',PetControllers.getAll)
+router.get('/:id',PetControllers.getPet)
+router.get('/mypets',verifyToken,PetControllers.getAllUserPets)
+router.get('/myadoptions',verifyToken,PetControllers.getAllUserAdoptions)
+
+router.patch('/:id',verifyToken,imageUpload.array('images'),PetControllers.updatePet)
+
+router.delete('/:id',verifyToken,PetControllers.deletePet)
 
 module.exports = router
