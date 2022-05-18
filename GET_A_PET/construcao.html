@@ -1,6 +1,11 @@
-<h2>Configuração do projeto</h2>
+<h1>Criação do sistema</h1>
 
+<h2>Configuração geral</h2>
 <p>get-a-pet -> pastas (server; client)</p>
+
+<h2>Server (side) / Back-end </h2>
+
+<h3>Início</h3>
 <p>pasta server (server) -> npm i bcrypt cookie-parser cors express jsonwebtoken mongoose multer nodemon
     <ul>
         <li>bcrypt = criptografia de senhas</li>
@@ -19,7 +24,7 @@
 </p>
 <p>package.json -> script start nodemon</p>
 
-<h2>Criando models</h2>
+<h3>Criando models</h3>
 
 <p>db/conn.js = { const mongoose ; mongoose.connect(uri) then {console ; module.exports = mongoose} }</p>
 <p>models/User.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}
@@ -29,7 +34,7 @@
 </p>
 <p>models/Pet.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}</p>
 
-<h2>Criando rotas de usuários</h2>
+<h3>Criando rotas de usuários</h3>
 
 <p>routes/UserRoutes.js (ur)</p>
 <p>controllers/UserController.js (uc)</p>
@@ -40,7 +45,7 @@
 <p>criar a variável url com o valor http://localhost:5000</p>
 <p>testar a rota register de user no postman</p>
 
-<h2>Validação de usuários</h2>
+<h3>Validação de usuários</h3>
 
 <p>uc.register -> receber os atributos de usuário a partir de req.body ; validar se: 
     <ul>
@@ -51,12 +56,12 @@
 </p>
 <p>todas falhas de verificação retornam um status de 422</p>
 
-<h2>Registrando usuário no banco</h2>
+<h3>Registrando usuário no banco</h3>
 
 <p>uc -> import bcrypt</p>
 <p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try new_user = await user.save();  res.status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
 
-<h2>Retornando o token JWT (json web token)</h2>
+<h3>Retornando o token JWT (json web token)</h3>
 
 <p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token = jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user._id})} ; module.exports = createUserToken }</p>
 
@@ -64,13 +69,13 @@
 
 <p>uc.register -> apagar try catch final e dar um createUserToken passando o usuário registrado, req e res</p>
 
-<h2>Função de login no sistema</h2>
+<h3>Função de login no sistema</h3>
 
 <p>ur -> post('/login', uc.login)</p>
 
 <p>uc ->  async login { const email, password = req.body ; validações email e senha ; checar User.findOne({email}) ; checar bcrypt.compare(senha_front, user.password) /*o primeiro atributo é a senha que foi fornecida no formulário de login, o segundo a senha que está no banco de dados para aquele usuário*/ ; await createUserToken(user) }</p>
 
-<h2>Verificando usuário pelo token</h2>
+<h3>Verificando usuário pelo token</h3>
 
 <p>uc -> async checkUser { let currentUser ; console.log(req.headers.authorization) ;/*as: auth*/ if(req.headers.authorization){}else{currentUser = null} ; req.status(200).send(currentUser) ; } </p>
 
@@ -84,7 +89,7 @@
 
 <p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await User.findById(decoded.id) ; currentUser.password = undefined }</p>
 
-<h2>Pegar usuário pelo id</h2>
+<h3>Pegar usuário pelo id</h3>
 
 <p>ur -> get('/:id',uc.getUserById)</p>
 
@@ -95,7 +100,7 @@
     </ul>
 </p>
 
-<h2>Verificação do token do usuário</h2>
+<h3>Verificação do token do usuário</h3>
 
 <p>ur -> patch('/update/:id',uc.updateUser)
     <ul>
@@ -138,7 +143,7 @@
 
 <p>uc -> async updateUser(r,r){ res.status(200).json("deu certo") }</p>
 
-<h2>Atualizações usuário</h2>
+<h3>Atualizações usuário</h3>
 
 <p>// helpers/get-user-by-token.js
     const jwt = require("jsonwebtoken");
@@ -172,7 +177,7 @@
 
 <p>postman tentando dar login com dados velhos e novos</p>
 
-<h2>Upload de imagem</h2>
+<h3>Upload de imagem</h3>
 
 <p>// helper/image-upload.js
     const multer = require("multer");
@@ -227,7 +232,7 @@
 
 <p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente de text que é o padrão)</p>
 
-<h2>Iniciando rota de pets</h2>
+<h3>Iniciando rota de pets</h3>
 
 <p>routes/PetRoutes.js (pr)</p>
 
@@ -245,7 +250,7 @@
 
 <p>postman/pets -> post /pets/create</p>
 
-<h2>Salvando pets no sistema</h2>
+<h3>Salvando pets no sistema</h3>
 
 <p>pr -> const verifyToken
     <ul><li>não queremos que alguem não autenticado salve um pet</li></ul>
@@ -263,7 +268,7 @@
 
 <p>pc.create -> //get pet owner = { const token = await getToken(req) ; const user = await getUserByToken(token) }  ; //create a pet = { const pet = new Pet({atributos + user}) } ; try{ const newPet = await pet.save() ; json {sucesso ; newPet} }catch(e){json erro}</p>
 
-<h2>Upload de múltiplas imagens</h2>
+<h3>Upload de múltiplas imagens</h3>
 
 <p>pr -> const {imgUpload} = require(helpers/image-upload)</p>
 
@@ -275,7 +280,7 @@
 
 <p>postman -> post.create = body-form_data</p>
 
-<h2>Função de resgatar todos os Pets</h2>
+<h3>Função de resgatar todos os Pets</h3>
 
 <p>pr -> get('/',pc.getAll ) </p>
 
@@ -283,7 +288,7 @@
 
 <p> postman -> get./pets/ </p>
 
-<h2>Resgatar todos os pets do usuário logado</h2>
+<h3>Resgatar todos os pets do usuário logado</h3>
 
 <p>pr -> get('/mypets', verifyToken, pc.getAllUserPets) </p>
 
@@ -291,7 +296,7 @@
 
 <p>postman</p>
 
-<h2>Resgatar todos os pets com processo de adoção pelo usuário</h2>
+<h3>Resgatar todos os pets com processo de adoção pelo usuário</h3>
 
 <p>pr -> get('/myadoptions',verifyToken,pc.getAllUserAdoptions)</p>
 
@@ -299,7 +304,7 @@
 
 <p>postman</p>
 
-<h2>Resgatar pet pelo id</h2>
+<h3>Resgatar pet pelo id</h3>
 
 <p>pr -> get('/:id',pc.getPetById)</p>
 
@@ -313,7 +318,7 @@
 
 <p>postman</p>
 
-<h2>Deletar um pet</h2>
+<h3>Deletar um pet</h3>
 
 <p>pr -> delete('/:id',verifyToken,pc.deletePet)</p>
 
@@ -321,7 +326,7 @@
 
 <p>postman</p>
 
-<h2>Atualização do pet</h2>
+<h3>Atualização do pet</h3>
 
 <p>pr -> patch('/:id',verifyToken,imageUpload.array('images'),pc.updatePet)</p>
 
@@ -331,3 +336,34 @@
 
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
+
+<h3>Agendando visita de adoção</h3>
+
+<p>pr -> patch('/schedule/:id',verifyToken,PetController.schedule) </p>
+
+<p>pr -> schedule(rr){ pegar o pet pelo id e checar se vem algum pet ; verificar se o pet é do usuário logado, se sim está errado (usado o método equals para verificar os ids) ; if(pet.adopter){ if(pet.adopter._id.equals(user._id){ status422.json({o usuário já agendou}) } ) } ; pet.adopter = {_id:user._id,name:user.name,image:user.image} ; await Pet.findByIdAndUpdate(id,pet) ; status200.json({sucesso, entre em contato}) }</p>
+
+<h3>Concluindo a adoção do pet</h3>
+
+<p>pr -> patch('/conlude/:id',verifyToken,pc.concludeAdoption)</p>
+
+<p>pc.concludeAdoption(rr){ const id ; verificar id ; const pet ; verificar pet ; const user ; verificar se o pet é do usuário, apenas o dono do pet pode executar esse método ; pet.available = false ; await Pet.findByIdAndUpdate(id,pet) ; status200.json({sucesso}) }</p>
+
+<h2>Client (side) / Front-end </h2>
+
+<h3>Início</h3>
+
+<p>na pasta ./client rodamos <code style="color: red ;">npx create-react-app .</code></p>
+
+<p>Depois do react instalado damos o npm start.</p>
+
+<p>instalamos os pacotes: 
+    <ul>
+        <li>axios: conexão com a api</li>
+        <li>events: enviar mensageria entre componentes</li>
+        <li>react-icons</li>
+        <li>react-router-dom: roteamento de páginas, permite criar páginas de uma forma simples</li>
+    </ul>
+</p>
+
+<p>na pasta client criamos o arquivo ".env.local" para criar como se fosse uma variável de ambiente para armazenar o endereço da api. Neste arquivo escrevemos " REACT_APP_API = 'http://localhost:5000/' "</p>
