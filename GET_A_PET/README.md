@@ -10,4 +10,6 @@ Sistema para adoção de pet. O sistema será dividido entre back e front-end. T
 
 ## Melhorias do projeto
 
-* Colocar opção de qual gênero é o pet e com qual o usuário se identifica
+* Colocar opção de gênero do pet e do usuário
+* incluir registro de visitas
+* registrar quem adotou o pet
