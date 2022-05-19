@@ -334,9 +334,6 @@
 
 <p>postman</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Agendando visita de adoção</h3>
 
 <p>pr -> patch('/schedule/:id',verifyToken,PetController.schedule) </p>
@@ -367,3 +364,82 @@
 </p>
 
 <p>na pasta client criamos o arquivo ".env.local" para criar como se fosse uma variável de ambiente para armazenar o endereço da api. Neste arquivo escrevemos " REACT_APP_API = 'http://localhost:5000/' "</p>
+
+<h3>Estruturando o projeto</h3>
+
+<p>em public tirou tudo, menos o index.html</p>
+
+<p>ainda em public colocou o icon de cachorrinho</p>
+
+<p>em src deixou apenas App.js (app), index.css e index.js</p>
+
+<p>em public/index.html alterou o title</p>
+
+<p>em app.js tirou os imports e no retorno da função App dentro de div.App ele colocou um h1 com o título</p>
+
+<p>em index.js ele tirou o reportWebVitals de todos os lugares</p>
+
+<p>criamos em src as pastas 
+    <ul>
+        <li>assets: pasta para arquivos estáticos</li>
+        <li>assets/img: colocar nele a imagem de logo</li>
+        <li>components: partes reutilizáveis do sistema</li>
+        <li>context: substitui ou evita o uso do redux, tendo o objetivo de gerar como se fossem pacotes de estilizações de acordo com a situação apresentada no momento do aplicação</li>
+        <li>hooks: criar "porções de código"</li>
+        <li>utils: igual ao helpers do server</li>
+    </ul> 
+</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h3>Inserindo o react-router</h3>
+
+<p>atualizar *, h1 e .bold no css</p>
+
+<p>em App.js ele fez
+
+    <pre>
+        import {
+            BrowserRouter as Router,
+            Routes,
+            Route,
+            Navigate,
+          } from 'react-router-dom'
+          
+          function App() {
+            return (
+              Router>
+                Routes>
+                  Route path="/" />
+                  Route path="/register" />
+                  Route path="/login" />
+                /Routes>
+              /Router>
+            )
+          }
+          
+          export default App
+    </pre>
+</p>
+
+<p>criou components/pages/Home.js (home)</p>
+
+<p>home -> { Home(){return( section{h1=Home} )} ; export default Home } </p>
+
+<p>criou components/pages/Auth/Login.js (login) e Register.js (register), baseados em home, alterando apenas estes termos principais por seus respectivos</p>
+
+<p>em App.js ele importou as páginas criadas e em cada Route ele colocou o atributo element que recebe um objeto que encapsula a página respectiva importada</p>
+
+<h3>Estruturando Navbar e footer</h3>
+
+<p>A partir de agora subentenderemos que, à priori, os códigos estarão dentro do return da função principal e a função principal será exportada a partir de export default, salvo disposições diversas. Importações serão feitas antes da declaração da função principal.</p>
+
+<p>criou components/layouts/Footer.js (footer) e Navbar.js (navbar) baseados em home</p>
+
+<p>Em App.js (app) importamos footer e navbar, sendo que Navbar fica antes dentro de Router, antes de Routes; Footer fica depois de Routes</p>
+
+<p>em navbar importou {Link} de react-router-dom codou a estrutura nav{div{img;h2} ; ul{li{Link}} } ; em Link colocou o atributo "to" que recebe a rota que será colocada na url e no innerHTML de Link o texto a ser exibido no link</p>
+
+<p>em footer vamos colocar a estrutura footer>p>span </p>
+
