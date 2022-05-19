@@ -207,6 +207,68 @@ module.exports = class PetControllers{
     res.status(200).json({message:'Pet atualizado com sucesso!'})
   }
 
+  static async schedule(req,res){
+    const id = req.params.id
+
+    if(!ObjectId.isValid(id)){
+      return res.status(422).json({message:"ID inválido"})
+    }
+
+    const pet = await Pet.findOne({_id:id})
+
+    if(!pet){
+      return res.status(404).json({message:"Nenhum pet encontrado, tente novamente mais tarde!"})
+    }
+
+    const user = await getUserByToken(getToken(req))
+
+    if(pet.owner._id.toString() === user._id.toString()){
+      return res.status(422).json({message:`Você é o dono de ${pet.name} e portanto não pode marcar visita consigo mesmo.`})
+    }
+
+    if(pet.adopter){
+      if(pet.adopter._id.equals(user._id)){
+        return res.status(422).json({message:`Você já agendou visita a este pet.`})
+      }
+    }
+
+    pet.adopter = {
+      _id:user._id,
+      name:user.name,
+      image:user.image
+    }
+
+    await Pet.findByIdAndUpdate(id,pet)
+
+    res.status(200).json({message:'Visita ao pet agendada com sucesso!'})
+  }
+
+  static async concludeAdoption(req,res){
+    const id = req.params.id
+
+    if(!ObjectId.isValid(id)){
+      return res.status(422).json({message:"ID inválido"})
+    }
+
+    const pet = await Pet.findOne({_id:id})
+
+    if(!pet){
+      return res.status(404).json({message:"Nenhum pet encontrado, tente novamente mais tarde!"})
+    }
+
+    const user = await getUserByToken(getToken(req))
+
+    if(pet.owner._id.toString() !== user._id.toString()){
+      return res.status(422).json({message:`Você, ${user.name}, não é dono de ${pet.name}`})
+    }
+
+    pet.available = false;
+
+    await Pet.findByIdAndUpdate(id,pet)
+
+    res.status(200).json({message:`Agora ${pet.name} tem um novo lar!`})
+  }
+
   static async deletePet(req,res){
     const id = req.params.id
 
