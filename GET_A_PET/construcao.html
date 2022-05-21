@@ -395,7 +395,7 @@
 
 <h3>Inserindo o react-router</h3>
 
-<p>atualizar *, h1 e .bold no css</p>
+<p>atualizar *, h1 e .bold em index.css</p>
 
 <p>em App.js ele fez
 
@@ -429,7 +429,7 @@
 
 <p>criou components/pages/Auth/Login.js (login) e Register.js (register), baseados em home, alterando apenas estes termos principais por seus respectivos</p>
 
-<p>em App.js ele importou as páginas criadas e em cada Route ele colocou o atributo element que recebe um objeto que encapsula a página respectiva importada</p>
+<p>em App.js ele importou as páginas criadas e em cada Route ele colocou o atributo element que recebe um objeto que encapsula a página respectiva importada. Nesse objeto o nome da página deve estar na notação de uma tag html.</p>
 
 <h3>Estruturando Navbar e footer</h3>
 
@@ -439,7 +439,11 @@
 
 <p>Em App.js (app) importamos footer e navbar, sendo que Navbar fica antes dentro de Router, antes de Routes; Footer fica depois de Routes</p>
 
-<p>em navbar importou {Link} de react-router-dom codou a estrutura nav{div{img;h2} ; ul{li{Link}} } ; em Link colocou o atributo "to" que recebe a rota que será colocada na url e no innerHTML de Link o texto a ser exibido no link</p>
+<p>em navbar importou {Link} de react-router-dom e Logo de assets/img e codou a estrutura nav{div{img;h2} ; ul{li{Link}} } ; em Link colocou o atributo "to" que recebe a rota que será colocada na url e no innerHTML de Link o texto a ser exibido no link
+    <ul>
+        <li>A estrutura de img é src={"caminho/da/imagem"} e alt="texto alternativo"</li>
+    </ul>
+</p>
 
 <p>em footer vamos colocar a estrutura footer>p>span </p>
 
