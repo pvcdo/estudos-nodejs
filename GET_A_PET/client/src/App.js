@@ -7,6 +7,7 @@ import {
 
 import Navbar from './components/layouts/Navbar'
 import Footer from './components/layouts/Footer'
+import Container from './components/layouts/Container'
 
 import Home from './components/pages/Home'
 import Register from './components/pages/Auth/Register'
@@ -16,11 +17,13 @@ function App() {
   return (
     <Router>
       <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/register" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-      </Routes>
+      <Container>  
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/login" element={<Login/>}/>
+        </Routes>
+        </Container>
       <Footer/>
     </Router>
   )

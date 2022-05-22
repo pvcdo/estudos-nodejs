@@ -390,9 +390,6 @@
     </ul> 
 </p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Inserindo o react-router</h3>
 
 <p>atualizar *, h1 e .bold em index.css</p>
@@ -447,3 +444,97 @@
 
 <p>em footer vamos colocar a estrutura footer>p>span </p>
 
+<h3>CSS no navbar e footer</h3>
+
+<p>criar layouts/Navbar.module.css e criar os estilos ".navbar", ".navbar_logo", ".navbar_logo img", ".navbar ul", ".navbar li, .navbar a", ".navbar li:hover", ".navbar a:hover" </p>
+
+<p>em navbar importar styles de './Navbar.module.css'</p>
+
+<p>ainda em navbar nossa nav receberá a className={styles.navbar}, a primeira div receberá styles.navbar_logo</p>
+
+<p>criar layouts/Footer.module.css e criar os estilos ".footer", </p>
+
+<p>em footer importar styles de './Footer.module.css'</p>
+
+<p>ainda em footer na tag footer colocar a className={styles.footer}</p>
+
+<h3>Criando componente de container</h3>
+
+<p>em app, depois de Navbar vamos colocar a tag Container encapsulando a Routes</p>
+
+<p>vamos importar Container (container) de layouts/Container</p>
+
+<p>criamos esse Container e nele importamos styles de './Container.modules.css' </p>
+
+<p>Em Container.modules.css nós criamos o estilo .container</p>
+
+<p>já em container vamos retornar main com a className={styles.container}
+    <ul>
+        <li>A função Container vai receber como parâmetro um objeto com o valor children</li>
+        <li>{children} será usada como valor dentro da tag main retornada pelo container</li>
+        <li>essa tag serve para indicar ao React que as tags filhas do elemento devem ser exibidas</li>
+    </ul>
+</p>
+
+<h3>Criando página e form de registro</h3>
+
+<p>em register vamos colocar, depois do h1, um form</p>
+
+<p>vamos criar components/form/Input.js (input) e Input.module.css (input-css), que será o módulo de elementos e input que usaremos no sistema</p>
+
+<pre>
+    import styles from './Input.module.css'
+
+    function Input({
+    type,
+    text,
+    name,
+    placeholder,
+    handleOnChange,
+    value,
+    multiple,
+    }) {
+    return (
+        div
+            label htmlFor={name}>{text}:/label>
+            input
+                type={type}
+                name={name}
+                id={name}
+                placeholder={placeholder}
+                onChange={handleOnChange}
+                value={value}
+                {...(multiple ? { multiple } : '')}
+        div
+        />
+    )
+    }
+
+    export default Input
+</pre>
+
+<p>Os atributos de Input serão determinados na chamada do módulo na página que o utilizar</p>
+
+<p>o "onChange" utilizado no input é nativo do react para a criação de um event listener no input</p>
+
+<p>em register importamos input e criamos inputs componentizados para nome, telefone, e-mail, senha, confirmação de senha</p>
+
+<p>depois dos componentizados criamos um input submit para "Cadastrar" os dados</p>
+
+<p>em input-css criamos a classe .form_control, ".form_control label", ".form_control input", ".form_control input::placeholder </p>
+
+<p>em input nós vamos encapsular todo o retorno em uma div com className={styles.form_control}</p>
+
+<p>vamos criar components/forms/Form.module.css (form-css) e importar isso em register</p>
+
+<p>em form-css vamos estilizar .form_container, ".form_container input[type='submit']", ".form_container input[type='submit']:hover", ".form_container p", ".form_container p a" </p>
+
+<p>a section de register receberá o className={styles.form_container}</p>
+
+<p>em register importamos {Link} de react-router-dom </p>
+
+<p>Ainda em register, antes do fim da section nós criamos um p que pergunta para o usuário se ele já tem conta, direcionando para a página de login a partir da tag Link</p>
+
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
