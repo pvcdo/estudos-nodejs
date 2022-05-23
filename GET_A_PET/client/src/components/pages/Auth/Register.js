@@ -8,7 +8,7 @@ function Register(){
   }
   return(
     <section className={styles.form_container}>
-      <h1>Register</h1>
+      <h1>Registrar</h1>
       <form>
         <Input
           text="Nome"

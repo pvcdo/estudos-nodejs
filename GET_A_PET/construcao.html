@@ -538,3 +538,123 @@
 
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
+
+<h3>Criando um objeto de usuário</h3>
+
+<p>importamos useState de react</p>
+
+<p>usamos useState dentro do Register, usando user e setUser como atributos do useState, sendo que o estado inicial de user é um objeto vazio</p>
+
+<p>na função handleChange nós vamos executar o método setUser, recebendo como primeiro argumento um spread de user e como segundo, a definição de um novo par atributo:valor, sendo atributo o e.target.name e o valor e.target.value</p>
+
+<p>nós criamos a função handleSubmit que executa e.preventDefault()</p>
+
+<p>no form do return nós definimos o atributo onSubmit passando a função handleSubmit</p>
+
+<h3>Criando hook de autenticação</h3>
+
+<p>criamos src/utils/api.js e fazemos:
+    <pre>
+        import axios from 'axios'
+
+        export default axios.create({
+            baseURL:'http://localhost:5000'
+        })
+    </pre>
+</p>
+
+<p>utils/api.js é usado para fazer a conexão com a api, o baseURL já foi usado para não precisarmos escrever isso nas muitas chamadas dessa função ao longo do projeto</p>
+
+<p>criamos src/hooks/useAuth.js (useAuth) e fazemos <pre>
+    import api from '../utils/api'
+
+    import { useState, useEffect } from 'react'
+    import { useHistory } from 'react-router-dom'
+
+    export default function useAuth() {
+        async function register(){
+            try {
+                const data = await api.post('/users/register', user).then((response) => {
+                    return response.data
+                })
+            } catch (error) {
+                // tratar erro
+                console.error(error)
+            }
+        }
+        
+        return {register}
+    }
+</pre></p>
+
+<p>pelo visto o axios cria uma requisição com o corpo configurado no segundo argumento do método post, mandando para a url especificada pela baseURL + a extensão passada como primeiro argumento</p>
+
+<h3>Criando contexto de usuário</h3>
+
+<p>criar src/context/UserContext.js essa é a convenção de nomenclatura de contextos no react</p>
+
+<p>Imagino que contexto é o conjunto específico de dados de um usuário, então, dependendo do usuário teremos um nome mostrado, cores diferentes, etc... Ainda carece de estudos para melhor entendimento.</p>
+
+<p>em UserContext fazemos:
+    <pre>
+        import React, { createContext } from "react";
+
+        import useAuth from "../hooks/useAuth";
+
+        const Context = createContext();
+
+        function UserProvider({ children }) {
+        const { register } = useAuth();
+
+        return (
+            Context.Provider
+            value={{ register }}
+            >
+            {children}
+            /Context.Provider>
+        );
+        }
+
+        export { Context, UserProvider };
+    </pre>
+</p>
+
+<p>em app nós importamos {UserProvider} de UserContext e encapsulamos tudo depois de Router com a tag UserProvider, dessa forma, todos os componentes encapsulados tem a possibilidade de acessar o contexto do usuário</p>
+
+<h3>Executando rota da API no formulário</h3>
+
+<p>em register nós vamos importar {Context} de UserContext, useContext de react,  </p>
+
+<p>ainda em register, antes da função handleChange eu desestruturo register de useContext(Context) </p>
+
+<p>em handleSubmit nós adicionamos register(user)</p>
+
+<p>para realizar testes a partir de agora o backend precisa estar em execução</p>
+
+<h3>Criando hook de flash message</h3>
+
+<p>criamos hooks/useFlashMessage.js</p>
+
+<p>criamos utils/bus.js importando EventEmitter de events e exportamos default new EventEmitter()</p>
+
+<p>bus é uma técnica comum para disparar eventos para componentes</p>
+
+<p>em useFlashMessage nós fazemos:
+    <pre>
+    import bus from '../utils/bus'
+
+    export default function useFlashMessage() {
+        function setFlashMessage(msg, type) {
+            bus.emit('flash', {
+            message: msg,
+            type: type,
+            })
+        }
+
+        return { setFlashMessage }
+    }
+    </pre>
+</p>
+
+<p>isso cria a estrutura para exibição de mensagens para o usuário, seja de sucesso, seja de erros</p>
+
