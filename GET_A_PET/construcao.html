@@ -541,7 +541,7 @@
 
 <h3>Criando um objeto de usuário</h3>
 
-<p>importamos useState de react</p>
+<p>em register importamos useState de react</p>
 
 <p>usamos useState dentro do Register, usando user e setUser como atributos do useState, sendo que o estado inicial de user é um objeto vazio</p>
 
@@ -572,7 +572,7 @@
     import { useHistory } from 'react-router-dom'
 
     export default function useAuth() {
-        async function register(){
+        async function register(user){
             try {
                 const data = await api.post('/users/register', user).then((response) => {
                     return response.data
