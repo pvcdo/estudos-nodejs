@@ -535,10 +535,6 @@
 
 <p>Ainda em register, antes do fim da section nós criamos um p que pergunta para o usuário se ele já tem conta, direcionando para a página de login a partir da tag Link</p>
 
-
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Criando um objeto de usuário</h3>
 
 <p>em register importamos useState de react</p>
@@ -657,4 +653,111 @@
 </p>
 
 <p>isso cria a estrutura para exibição de mensagens para o usuário, seja de sucesso, seja de erros</p>
+
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h3>Criando componente de mensagem</h3>
+
+<p>criar layout/Message.js (message) e Message.module.css (message-css)</p>
+
+<p>em message importamos useState de react e styles de message-css ; criamos a função Message e depois a exportamos</p>
+
+<p>dentro da função principal nós usamos um useState que começa como uma string vazia</p>
+
+<p>retornamos uma div.{styles.message styles[type]}</p>
+
+<pre>
+    <code>
+        import { useState } from "react";
+
+        import styles from "./Message.module.css";
+
+        function Message() {
+            let [type, setType] = useState("");
+            return (
+                div className={`${styles.message} ${styles[type]}`}>Minha mensagem/div>
+            )
+        export default Message;
+    </code>
+</pre>
+
+<p>em app nós importamos message e colocamos a tag de mensagem entre a navbar e o container</p>
+
+<p>mexemos no message-css</p>
+
+<h3>Finalizando componente de flash message</h3>
+
+<p>em message criamos dois states: visibility(false) e message('')</p>
+
+<p>no return nos usamos visibility antes da div de mensagem
+    <ul>isso fará com que a div só apareça caso o estado de visibility seja true</ul>
+</p>
+
+<p>o inner da div de mensagem será o state message</p>
+
+<p>importa e usa useEffect</p>
+
+<p>importa bus</p>
+
+<p>depois dos useState ele declara um useEffect, passando como segundo argumento um array vazio e como primeiro argumento uma arrow function que executa o seguinte: </p> 
+
+<pre>
+    bus.addListener('flash',({message,type}) => { 
+        setVisibility(true)
+        setMessage(message)
+        setType(type)
+
+        setTimeOut(()=>{
+            setVisibility(false)
+        },3000) 
+    })
+</pre>
+
+<p>em useAuth nos importamos useFlashMessage</p>
+
+<p>na função declaramos um let com uma mensagem de sucesso e uma com um type de success</p>
+
+<p>no catch nós redefinimos os lets para a mensagem vinda de error.response.data.message e o type será de error</p>
+
+<p>depois do try...catch nós vamos executar a função useFlashMessage passando a mensagem e o tipo como parâmetros</p>
+
+<h3>Autenticando usuário</h3>
+
+<p>em useAuth nós criamos um useState authenticated = (false)</p>
+
+<p>em useAuth criamos a async function authUser(data){}</p>
+
+<pre>
+    async function authUser(data){
+        setAuthenticated(true)
+        localStorage.setItem('token', JSON.stringfy(data.token))
+        useHistory().push('/') //redireciona para a rota /
+    }
+</pre>
+
+<p>no try de useAuth, depois da execução do then da promise executamos o método await authUser(data)</p>
+
+<p>vamos retornar authenticated de useAuth, além de register</p>
+
+<p>esse authenticated será recebido como value em Context.Provider em UserContext e também deve ser desestruturado de useAuth nesse context</p>
+
+<p>em useAuth, antes das funções definimos o seguinte useEffect</p>
+
+<pre>
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token){
+            api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
+            setAuthenticated(true)
+        }
+    },[])
+</pre>
+
+<p>substituir useHistory por useNavigate; onde dou useHistory().push('/') devo substituir por useNavigate('/')</p>
+
+
+
+
 
