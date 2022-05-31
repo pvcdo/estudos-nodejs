@@ -654,9 +654,7 @@
 
 <p>isso cria a estrutura para exibição de mensagens para o usuário, seja de sucesso, seja de erros</p>
 
-
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
+<p>emit é a emite um evento no sistema com o nome que nós determinamos, no caso determinamos o nome flash. Esse evento carrega informações básicas que são definidas no seu segundo parâmetro</p>
 
 <h3>Criando componente de mensagem</h3>
 
@@ -666,7 +664,7 @@
 
 <p>dentro da função principal nós usamos um useState que começa como uma string vazia</p>
 
-<p>retornamos uma div.{styles.message styles[type]}</p>
+<p>retornamos uma div estilizada com a mensagem</p>
 
 <pre>
     <code>
@@ -691,7 +689,7 @@
 
 <p>em message criamos dois states: visibility(false) e message('')</p>
 
-<p>no return nos usamos visibility antes da div de mensagem
+<p>no return nos conectamos visibility à da div de mensagem com o operador &&
     <ul>isso fará com que a div só apareça caso o estado de visibility seja true</ul>
 </p>
 
@@ -709,7 +707,7 @@
         setMessage(message)
         setType(type)
 
-        setTimeOut(()=>{
+        setTimeout(()=>{
             setVisibility(false)
         },3000) 
     })
@@ -717,11 +715,13 @@
 
 <p>em useAuth nos importamos useFlashMessage</p>
 
-<p>na função declaramos um let com uma mensagem de sucesso e uma com um type de success</p>
+<p>na exportação de useAuth nós desestruturamos o método setFlashMessage</p>
+
+<p>na função register, fora do try, nós declaramos um let com uma mensagem de sucesso e uma com um type de success</p>
 
 <p>no catch nós redefinimos os lets para a mensagem vinda de error.response.data.message e o type será de error</p>
 
-<p>depois do try...catch nós vamos executar a função useFlashMessage passando a mensagem e o tipo como parâmetros</p>
+<p>depois do try...catch nós vamos executar a função setFlashMessage passando a mensagem e o tipo como parâmetros</p>
 
 <h3>Autenticando usuário</h3>
 
@@ -737,11 +737,11 @@
     }
 </pre>
 
-<p>no try de useAuth, depois da execução do then da promise executamos o método await authUser(data)</p>
+<p>no try de register, depois da execução do then da promise executamos o método await authUser(data)</p>
 
 <p>vamos retornar authenticated de useAuth, além de register</p>
 
-<p>esse authenticated será recebido como value em Context.Provider em UserContext e também deve ser desestruturado de useAuth nesse context</p>
+<p>esse authenticated será desestruturado de useAuth na função UserProvider em UserContext e recebido como value em Context.Provider neste mesmo context </p>
 
 <p>em useAuth, antes das funções definimos o seguinte useEffect</p>
 
@@ -757,7 +757,7 @@
 
 <p>substituir useHistory por useNavigate; onde dou useHistory().push('/') devo substituir por useNavigate('/')</p>
 
+<p>tirar o manifest.json da página public/index.html</p>
 
-
-
-
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
