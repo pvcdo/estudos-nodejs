@@ -761,3 +761,82 @@
 
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
+
+<h3>Persistindo autenticação do usuário no front </h3>
+
+<p>navbar -> importar {Context} de UserContext e {useContext} de react -> na função declarar o const {authenticated} = useContext(Context) ->  
+    <ul>nós temos acesso ao contexto por termos envolvido a aplicação com o UserProvider</ul>
+    <ul>authenticated é setado como true quando passamos pelo hook do useAuth</ul>
+</p>
+
+<p>ainda na função de navbar nós vamos criar uma condicional logo após o link de Adotar que verifica o authenticated, sendo que no caso de não estar autenticado é renderizada uma tag p com inner "Logado" ou então, no caso de não estar autenticado, o conjunto de links de Entrar e Cadastrar</p>
+
+<h3>Função de logout</h3>
+
+<p>dentro da função de useAuth nós vamos criar a função logout onde vamos declarar constantes de mensagem, uma contendo o texto e outra o tipo (success)</p>
+
+<pre>
+    <code>
+        function logout() {
+          const msgText = 'Logout realizado com sucesso!'
+          const msgType = 'success'
+      
+          setAuthenticated(false)
+          localStorage.removeItem('token')
+          api.defaults.headers.Authorization = undefined
+          navigate('/')
+      
+          setFlashMessage(msgText, msgType)
+        }        
+    </code>
+</pre>
+
+<p>ainda na função de useAuth nós vamos exportar a função de logout</p>
+
+<p>importamos a função de logout em UserContext colocando-a também como um dos values de ContextProvider no contexto</p>
+
+<p>em navbar importar logout de useContext(Context)</p>
+
+<p>em navbar alterar a tag p que aparece quando o usuário está autenticado para uma li que executa o método logout quando do evento onClick </p>
+
+<h3>Formulário de login</h3>
+
+<p>na página de login nós vamos importar useState e useContext de react, importar {Link} de react-router-dom, importar Input de form/Input, importar styles também de form, importar {Context} de UserContext</p>
+
+<p>vamos retornar na função do login uma section com className={styles.form_container} que encapsula um h1 e um form que encapsula os módulos de Input para email e senha, tendo esses módulos o eventlistener handleOnChange={handleChange}</p>
+
+<p>a função handleChange deve ser declarada na função de login, mas antes do retorno</p>
+
+<p>depois dos Inputs é colocada uma tag input:submit(Entrar) e depois do form uma p com um Link que direciona para a página de regitro, caso o usuário ainda não seja registrado</p>
+
+<h3>Função de login</h3>
+
+<p>em useAuth criamos uma função assíncrona login(user) onde vamos declarar as let iniciais da mensagem de login e do seu tipo e depois vamos dar um try...catch(error) </p>
+
+<p>no try nós vamos fazer o seguinte</p>
+
+<pre>
+  <code>
+    const data = await api.post('/users/login', user).then((response) => {
+      return response.data
+    })
+
+    await authUser(data)
+  </code>
+</pre>
+
+<p>no catch vamos passar que a mensagem de login será error.response.data.message, com type error</p>
+
+<p>depois do try...catch nós executamos o setFlashMessage(message, type)</p>
+
+<p>passamos a função login como retorno de useAuth e usamos também em UserContext</p>
+
+<p>na página de login, em sua função, nós vamos declarar const [user,setUser] = useState({}) e const {login} = useContext(Context) </p>
+
+<p>logo depois dessas declarações nós declaramos a função handleChange(e) que executar o setUser({...user,[e.target.name]:e.target.value})</p>
+
+<p>o form do retorno terá o eventlistener onSubmit que executará a função handleSubmit</p>
+
+<p>a função handleSubmit(e) será declarada depois de handleChange, que vai executar e.preventDefault() e login(user) </p>
+
+
