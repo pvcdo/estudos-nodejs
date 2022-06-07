@@ -839,3 +839,62 @@
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
 
+<h3>Criando página de perfil</h3>
+
+<p>criar pages/User/Profile.js e Profile.module.css</p>
+
+<p>em Profile vamos copiar tudo da Home, alterando de Home para Profile onde é de direito</p>
+
+<p>em app vamos importar a página Profile e vamos criar uma rota para ela na função principal colocando o componente Profile no Router</p>
+
+<p>em navbar vamos criar o Link para a página de perfil quando o usuário está autenticado</p>
+
+<h3>Formulário de edição do usuário</h3>
+
+<p>iremos criar um formulário de edição de usuário</p>
+
+<p>no início da página profile vamos importar os styles de Profile.module.css e formStyles de components/form, importar também o componente de Input</p>
+
+<p>vamos importar useState e useEffect de react</p>
+
+<p>vamos criar um form.form_container com Inputs de imagem, email, nome, telefone, senha e confirmação de senha 
+    <ul>
+        <li>
+            o handleOnChange do Input de imagem receberá o método onFileChange, direntemente dos outros Inputs, que terão o método tradional handleChange
+        </li>
+        <li>todos os Inputs, com exceção de senha e sua confirmação terão um value={user.nome_do_campo}</li>
+    </ul>
+</p>
+
+<p>os métodos handleChange e onFileChange devem ser declarados antes do retorno</p>
+
+<p>antes dos métodos vamos criar const [user,setUser] = useState({}) para depois popularmos com os dados do usuário que serão carregados quando do carregamento da página, através do useEffect</p>
+
+<p>depois dos Inputs nós criamos um input:submit com o value="Editar"</p>
+
+<p>vamos definir algumas regras de css em Profile.module.css</p>
+
+<h3>Resgatando usuário para preencher o formulário</h3>
+
+<p>na página de profile, importamos a api a partir de utils</p>
+
+<p>ma função, nós declaramos token = localStorage.getItem('token') || ''</p>
+
+<p>depois utilizamos o useEffect da seguinte forma:</p>
+
+<pre>
+    <code>
+        useEffect(() => {
+            api.get('/users/checkuser', {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`,
+            },
+            })
+            .then((response) => {
+            setUser(response.data)
+            })
+        }, [token])
+    </code>
+</pre>
+
+<p>Interessante notar que o token é usado como parâmetro para o acionamento do useEffect</p>
