@@ -759,9 +759,6 @@
 
 <p>tirar o manifest.json da página public/index.html</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Persistindo autenticação do usuário no front </h3>
 
 <p>navbar -> importar {Context} de UserContext e {useContext} de react -> na função declarar o const {authenticated} = useContext(Context) ->  
@@ -769,7 +766,7 @@
     <ul>authenticated é setado como true quando passamos pelo hook do useAuth</ul>
 </p>
 
-<p>ainda na função de navbar nós vamos criar uma condicional logo após o link de Adotar que verifica o authenticated, sendo que no caso de não estar autenticado é renderizada uma tag p com inner "Logado" ou então, no caso de não estar autenticado, o conjunto de links de Entrar e Cadastrar</p>
+<p>ainda na função de navbar nós vamos criar uma condicional logo após o link de Adotar que verifica o authenticated, sendo que no caso de estar autenticado é renderizada uma tag p com inner "Logado" ou então, no caso de não estar autenticado, o conjunto de links de Entrar e Cadastrar</p>
 
 <h3>Função de logout</h3>
 
@@ -839,4 +836,6 @@
 
 <p>a função handleSubmit(e) será declarada depois de handleChange, que vai executar e.preventDefault() e login(user) </p>
 
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
 
