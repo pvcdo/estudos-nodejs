@@ -7,32 +7,39 @@
 
 <h3>Início</h3>
 <p>pasta server (server) -> npm i bcrypt cookie-parser cors express jsonwebtoken mongoose multer nodemon
-    <ul>
-        <li>bcrypt = criptografia de senhas</li>
-        <li>cookie-parser = </li>
-        <li>cors = para podermos mandar requisições para o nosso mesmo domínio. Quando lidamos com front e back há conflitos que este módulo trata</li>
-        <li>jsonwebtoken = autenticação de usuários</li>
-        <li>multer = upload de fotos (singular e multiplos)</li>
-    </ul>
+<ul>
+  <li>bcrypt = criptografia de senhas</li>
+  <li>cookie-parser = </li>
+  <li>cors = para podermos mandar requisições para o nosso mesmo domínio. Quando lidamos com front e back há conflitos
+    que este módulo trata</li>
+  <li>jsonwebtoken = autenticação de usuários</li>
+  <li>multer = upload de fotos (singular e multiplos)</li>
+</ul>
 </p>
-<p>server -> pastas mvc (menos a de views), db, helpers (funções auxiliares para serem acessadas em várias rotas), public, public/img/users, public/img/pets, routes</p>
-<p>index = const express ; const cors ; const app ; app.use(express.json()) ; app.use(cors({credentials: true, origin: 'http://localhost:3000'})) ; app.use(express.static('public')) ; app.listen(5000)
-    <ul>
-        <li>Não precisaremos de express.urlencoded porque a comunicação será toda por json</li>
-        <li>em cors, o origin é o ip do front-end. Como o front e o back estão em localhost o navegador acusaria um erro, que é solucionado com esse middleware</li>
-    </ul>
+<p>server -> pastas mvc (menos a de views), db, helpers (funções auxiliares para serem acessadas em várias rotas),
+  public, public/img/users, public/img/pets, routes</p>
+<p>index = const express ; const cors ; const app ; app.use(express.json()) ; app.use(cors({credentials: true, origin:
+  'http://localhost:3000'})) ; app.use(express.static('public')) ; app.listen(5000)
+<ul>
+  <li>Não precisaremos de express.urlencoded porque a comunicação será toda por json</li>
+  <li>em cors, o origin é o ip do front-end. Como o front e o back estão em localhost o navegador acusaria um erro, que
+    é solucionado com esse middleware</li>
+</ul>
 </p>
 <p>package.json -> script start nodemon</p>
 
 <h3>Criando models</h3>
 
 <p>db/conn.js = { const mongoose ; mongoose.connect(uri) then {console ; module.exports = mongoose} }</p>
-<p>models/User.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}
-    <ul>
-        <li>o timestamps vai criar os campos createdAt e updatedAt, registrando quando o dado foi criado e atualizado, respectivamente</li>
-    </ul>
+<p>models/User.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new
+  Schema({atributos}, {timestamps: true})) ; module.exports = User}
+<ul>
+  <li>o timestamps vai criar os campos createdAt e updatedAt, registrando quando o dado foi criado e atualizado,
+    respectivamente</li>
+</ul>
 </p>
-<p>models/Pet.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new Schema({atributos}, {timestamps: true})) ; module.exports = User}</p>
+<p>models/Pet.js = { const mongoose ; const {Schema} = mongoose ; const User = mongoose.model('nome banco', new
+  Schema({atributos}, {timestamps: true})) ; module.exports = User}</p>
 
 <h3>Criando rotas de usuários</h3>
 
@@ -40,30 +47,34 @@
 <p>controllers/UserController.js (uc)</p>
 <p>index -> app.use('/users',require('./routes/UserRoutes'))</p>
 <p>UserRoutes = { const router ; router.post('/register', uc.register) ; module.exports = router }</p>
-<p>uc = { const User = require(model) ; exports = class UserController { static async register { res.json 'Estamos registrando um usuário' } } }</p>
+<p>uc = { const User = require(model) ; exports = class UserController { static async register { res.json 'Estamos
+  registrando um usuário' } } }</p>
 <p>no postman criar a collection pro projeto, dentro dessa collection outras duas, uma para Users e outra para Pets</p>
 <p>criar a variável url com o valor http://localhost:5000</p>
 <p>testar a rota register de user no postman</p>
 
 <h3>Validação de usuários</h3>
 
-<p>uc.register -> receber os atributos de usuário a partir de req.body ; validar se: 
-    <ul>
-        <li>todos atributos vieram</li>
-        <li>senha e confirmação de senha iguais</li>
-        <li>usuário já existe no banco de dados (User.findOne({email})</li>
-    </ul>
+<p>uc.register -> receber os atributos de usuário a partir de req.body ; validar se:
+<ul>
+  <li>todos atributos vieram</li>
+  <li>senha e confirmação de senha iguais</li>
+  <li>usuário já existe no banco de dados (User.findOne({email})</li>
+</ul>
 </p>
 <p>todas falhas de verificação retornam um status de 422</p>
 
 <h3>Registrando usuário no banco</h3>
 
 <p>uc -> import bcrypt</p>
-<p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try new_user = await user.save();  res.status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
+<p>uc.register -> {... ; salt ; passwordHash ; user = new User({atributos {... , password: passwordHash}}) ; try
+  new_user = await user.save(); res.status(201).json({message, new_user}), catch(e) status(500).json({message})} </p>
 
 <h3>Retornando o token JWT (json web token)</h3>
 
-<p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token = jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user._id})} ; module.exports = createUserToken }</p>
+<p>criar helpers/create-user-token.js = { require(jsonwebtoken) ; function createUserToken(user,req,res){const token =
+  jwt.sign({name:user.name,id:user._id},"nossosecret") ; res.status(200).json({message,token,userId:user._id})} ;
+  module.exports = createUserToken }</p>
 
 <p>uc -> require create-user-token</p>
 
@@ -73,68 +84,76 @@
 
 <p>ur -> post('/login', uc.login)</p>
 
-<p>uc ->  async login { const email, password = req.body ; validações email e senha ; checar User.findOne({email}) ; checar bcrypt.compare(senha_front, user.password) /*o primeiro atributo é a senha que foi fornecida no formulário de login, o segundo a senha que está no banco de dados para aquele usuário*/ ; await createUserToken(user) }</p>
+<p>uc -> async login { const email, password = req.body ; validações email e senha ; checar User.findOne({email}) ;
+  checar bcrypt.compare(senha_front, user.password) /*o primeiro atributo é a senha que foi fornecida no formulário de
+  login, o segundo a senha que está no banco de dados para aquele usuário*/ ; await createUserToken(user) }</p>
 
 <h3>Verificando usuário pelo token</h3>
 
-<p>uc -> async checkUser { let currentUser ; console.log(req.headers.authorization) ;/*as: auth*/ if(req.headers.authorization){}else{currentUser = null} ; req.status(200).send(currentUser) ; } </p>
+<p>uc -> async checkUser { let currentUser ; console.log(req.headers.authorization) ;/*as: auth*/
+  if(req.headers.authorization){}else{currentUser = null} ; req.status(200).send(currentUser) ; } </p>
 
 <p>ur -> get('checkUser', uc.checkUser)</p>
 
-<p>postman -> get {{url}}/users/checkUser ; get-a-pet => variables => TOKEN => token de post users/login ; get checkUser => authorization => type = bearer token = {{TOKEN}} /*ao enviar deve aparecer o token no cmd*/ </p>
+<p>postman -> get {{url}}/users/checkUser ; get-a-pet => variables => TOKEN => token de post users/login ; get checkUser
+  => authorization => type = bearer token = {{TOKEN}} /*ao enviar deve aparecer o token no cmd*/ </p>
 
-<p>helpers/get-token.js -> { const getToken(req){ const authHeader = req.headers.authorization ; const token = authHeader.split 1 ; return token } ; module.exports = getToken } </p>
+<p>helpers/get-token.js -> { const getToken(req){ const authHeader = req.headers.authorization ; const token =
+  authHeader.split 1 ; return token } ; module.exports = getToken } </p>
 
 <p>uc -> import helpers/get-token ; import jwt</p>
 
-<p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await User.findById(decoded.id) ; currentUser.password = undefined }</p>
+<p>uc.checkUser -> auth: {const = getToken(req) ; const decoded = jwt.verify(token,'nossosecret') ; currentUser = await
+  User.findById(decoded.id) ; currentUser.password = undefined }</p>
 
 <h3>Pegar usuário pelo id</h3>
 
 <p>ur -> get('/:id',uc.getUserById)</p>
 
-<p>uc -> async getUserById { const id = req.params ; const user = await User.findById(id).select("-password") ; if(!user){res.status(422).json("nao encontrado") return } ; res.status(200).json(user)  } 
-    <ul>
-        <li>o método select usado no findById indica que vamos excluir o campo password do retorno do método findById</li>
-        <li>outra forma já abordada de não termos o password exposto é atribuirmos undefined à user.password</li>
-    </ul>
+<p>uc -> async getUserById { const id = req.params ; const user = await User.findById(id).select("-password") ;
+  if(!user){res.status(422).json("nao encontrado") return } ; res.status(200).json(user) }
+<ul>
+  <li>o método select usado no findById indica que vamos excluir o campo password do retorno do método findById</li>
+  <li>outra forma já abordada de não termos o password exposto é atribuirmos undefined à user.password</li>
+</ul>
 </p>
 
 <h3>Verificação do token do usuário</h3>
 
 <p>ur -> patch('/update/:id',uc.updateUser)
-    <ul>
-        <li>patch é um método http usado para atualizar dados</li>
-    </ul>
+<ul>
+  <li>patch é um método http usado para atualizar dados</li>
+</ul>
 </p>
 
-<p>Vamos criar uma função helper para verificar o token do usuário, caso exista um token e este seja válido o usuário poderá entrar na rota de update</p>
+<p>Vamos criar uma função helper para verificar o token do usuário, caso exista um token e este seja válido o usuário
+  poderá entrar na rota de update</p>
 
 <p>//verify-token.js
-    const jwt = require("jsonwebtoken");
-    const getToken = require("./get-token")
+  const jwt = require("jsonwebtoken");
+  const getToken = require("./get-token")
 
-    // middleware to validate token
-    const checkToken = (req, res, next) => {
-        if(!req.headers.authorization){
-            return res.status(401).json({ message: "Acesso negado!" });
-        } 
+  // middleware to validate token
+  const checkToken = (req, res, next) => {
+  if(!req.headers.authorization){
+  return res.status(401).json({ message: "Acesso negado!" });
+  }
 
-        const token = getToken(req)
-        if(!token){
-            return res.status(401).json({ message: "Acesso negado!" });
-        }
+  const token = getToken(req)
+  if(!token){
+  return res.status(401).json({ message: "Acesso negado!" });
+  }
 
-        try {
-            const verified = jwt.verify(token, "nossosecret");
-            req.user = verified;
-            next(); // to continue the flow
-        } catch (err) {
-            res.status(400).json({ message: "O Token é inválido!" });
-        }
-    };
+  try {
+  const verified = jwt.verify(token, "nossosecret");
+  req.user = verified;
+  next(); // to continue the flow
+  } catch (err) {
+  res.status(400).json({ message: "O Token é inválido!" });
+  }
+  };
 
-    module.exports = checkToken;
+  module.exports = checkToken;
 </p>
 
 <p>ur -> import verify-token</p>
@@ -146,33 +165,37 @@
 <h3>Atualizações usuário</h3>
 
 <p>// helpers/get-user-by-token.js
-    const jwt = require("jsonwebtoken");
-    const User = require("../models/User")
+  const jwt = require("jsonwebtoken");
+  const User = require("../models/User")
 
-    const getUserByToken = async (token) => {
-        if(!token){
-            return res.status(401).json({ message: "Acesso negado!" });
-        } 
+  const getUserByToken = async (token) => {
+  if(!token){
+  return res.status(401).json({ message: "Acesso negado!" });
+  }
 
-        const verified = jwt.verify(token,"nossosecret")
-        const _id = verified.id
-        const user = await User.findOne({_id})
-        return user
-    };
+  const verified = jwt.verify(token,"nossosecret")
+  const _id = verified.id
+  const user = await User.findOne({_id})
+  return user
+  };
 
-    module.exports = getUserByToken;
+  module.exports = getUserByToken;
 </p>
 
 <p>uc -> import get-user-by-token</p>
 
-<p>uc.updateUser = { const id = params ; const user = await get-user-by-token(get-token(req)) ; const {name,email,phone,password,confirm_password} = body ; let image = "" ; validações de name, email e phone dos const.body ; após cada validação o valor do atributo do usuário será atualizado para o valor enviado pelo body } </p>
+<p>uc.updateUser = { const id = params ; const user = await get-user-by-token(get-token(req)) ; const
+  {name,email,phone,password,confirm_password} = body ; let image = "" ; validações de name, email e phone dos
+  const.body ; após cada validação o valor do atributo do usuário será atualizado para o valor enviado pelo body } </p>
 
 <p>postman</p>
 
-<p>uc.updateUser = { ... ; validação de password e confirm ; try{ await User.findOneAndUpdate({_id:id}, {$set:user}, {new:true}) }catch(e){res de erro} } 
-    <ul>
-        <li>no objeto $set:user eu entendo que serão atualizados todos os atributos do documento encontrado pelo filtro que foi passado como primeiro parâmetro do método findOneAndUpdate</li>
-    </ul>
+<p>uc.updateUser = { ... ; validação de password e confirm ; try{ await User.findOneAndUpdate({_id:id}, {$set:user},
+  {new:true}) }catch(e){res de erro} }
+<ul>
+  <li>no objeto $set:user eu entendo que serão atualizados todos os atributos do documento encontrado pelo filtro que
+    foi passado como primeiro parâmetro do método findOneAndUpdate</li>
+</ul>
 </p>
 
 <p>postman tentando dar login com dados velhos e novos</p>
@@ -180,57 +203,59 @@
 <h3>Upload de imagem</h3>
 
 <p>// helper/image-upload.js
-    const multer = require("multer");
-    const path = require("path");
+  const multer = require("multer");
+  const path = require("path");
 
-    // Destination to store image
-    const imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        let folder = "";
+  // Destination to store image
+  const imageStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  let folder = "";
 
-        console.log(req)
+  console.log(req)
 
-        if (req.baseUrl.includes('users')) {
-        folder = "users";
-        } else if (req.baseUrl.includes('pets')) {
-        folder = "pets";
-        }
-        cb(null, `public/img/${folder}/`);
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-    });
+  if (req.baseUrl.includes('users')) {
+  folder = "users";
+  } else if (req.baseUrl.includes('pets')) {
+  folder = "pets";
+  }
+  cb(null, `public/img/${folder}/`);
+  },
+  filename: (req, file, cb) => {
+  cb(null, Date.now() + path.extname(file.originalname));
+  },
+  });
 
-    const imageUpload = multer({
-    storage: imageStorage,
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg)$/)) {
-        // upload only png and jpg format
-        return cb(new Error("Por favor, envie apenas png ou jpg!"));
-        }
-        cb(undefined, true);
-    },
-    });
+  const imageUpload = multer({
+  storage: imageStorage,
+  fileFilter(req, file, cb) {
+  if (!file.originalname.match(/\.(png|jpg)$/)) {
+  // upload only png and jpg format
+  return cb(new Error("Por favor, envie apenas png ou jpg!"));
+  }
+  cb(undefined, true);
+  },
+  });
 
-    module.exports = { imageUpload };
-    <ul>
-        <li>usou regex para validar se a imagem enviada era jpg ou png</li>
-    </ul>
+  module.exports = { imageUpload };
+<ul>
+  <li>usou regex para validar se a imagem enviada era jpg ou png</li>
+</ul>
 </p>
 
 <p>ur -> const {imgUpload} = require image-upload</p>
 
 <p>ur.patch('/update/:id',...,imgUpload.single('image'),...}
-    <ul>
-        <li>o método single é usado para imagens únicas, ainda utilizaremos envio de várias imagens para os pets através do multer</li>
-        <li>no caso o middleware imgUpload vai ver se foi recebido pelo formulário</li>
-    </ul>
+<ul>
+  <li>o método single é usado para imagens únicas, ainda utilizaremos envio de várias imagens para os pets através do
+    multer</li>
+  <li>no caso o middleware imgUpload vai ver se foi recebido pelo formulário</li>
+</ul>
 </p>
 
 <p>uc.updateUser -> { ... ; apagar let image ; if(req.file){user.image = req.file.filename} }</p>
 
-<p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente de text que é o padrão)</p>
+<p>postman.updateUser = alterar envio do body de raw para form-data ; alterar o tipo da key image para file (diferente
+  de text que é o padrão)</p>
 
 <h3>Iniciando rota de pets</h3>
 
@@ -253,7 +278,9 @@
 <h3>Salvando pets no sistema</h3>
 
 <p>pr -> const verifyToken
-    <ul><li>não queremos que alguem não autenticado salve um pet</li></ul>
+<ul>
+  <li>não queremos que alguem não autenticado salve um pet</li>
+</ul>
 </p>
 
 <p>pr -> post('create',verifyToken,...)</p>
@@ -266,17 +293,22 @@
 
 <p>pc -> //helpers = { const getToken ; const getUserByToken }</p>
 
-<p>pc.create -> //get pet owner = { const token = await getToken(req) ; const user = await getUserByToken(token) }  ; //create a pet = { const pet = new Pet({atributos + user}) } ; try{ const newPet = await pet.save() ; json {sucesso ; newPet} }catch(e){json erro}</p>
+<p>pc.create -> //get pet owner = { const token = await getToken(req) ; const user = await getUserByToken(token) } ;
+  //create a pet = { const pet = new Pet({atributos + user}) } ; try{ const newPet = await pet.save() ; json {sucesso ;
+  newPet} }catch(e){json erro}</p>
 
 <h3>Upload de múltiplas imagens</h3>
 
 <p>pr -> const {imgUpload} = require(helpers/image-upload)</p>
 
-<p>pr -> post('create',...,imgUpload.array('images'),...)  </p>
+<p>pr -> post('create',...,imgUpload.array('images'),...) </p>
 
-<p>pc.create -> { const images = req.files ; verificar se images veio na requisição ; //depois de new Pet = { images.forEach((image) => { pet.images.push(image.filename) }) } } </p>
+<p>pc.create -> { const images = req.files ; verificar se images veio na requisição ; //depois de new Pet = {
+  images.forEach((image) => { pet.images.push(image.filename) }) } } </p>
 
-<p>helpers/image-upload -> incrementar o nome da imagem, uma vez que as imagens são upadas muito rapidamente e o nome é baseado no horário de envio (ele usou Math.random para solucionar isso e eu adicionei os 5 primeiros caracteres do token do usuário)</p>
+<p>helpers/image-upload -> incrementar o nome da imagem, uma vez que as imagens são upadas muito rapidamente e o nome é
+  baseado no horário de envio (ele usou Math.random para solucionar isso e eu adicionei os 5 primeiros caracteres do
+  token do usuário)</p>
 
 <p>postman -> post.create = body-form_data</p>
 
@@ -284,7 +316,8 @@
 
 <p>pr -> get('/',pc.getAll ) </p>
 
-<p>pc.getAll(r,r){ const pets = await Pet.find().sort('-createdAt') //nesse caso ele vai ordenar do mais último cadastrado ao primeiro (Z à A) ; json{sucesso, pets} }</p>
+<p>pc.getAll(r,r){ const pets = await Pet.find().sort('-createdAt') //nesse caso ele vai ordenar do mais último
+  cadastrado ao primeiro (Z à A) ; json{sucesso, pets} }</p>
 
 <p> postman -> get./pets/ </p>
 
@@ -292,7 +325,8 @@
 
 <p>pr -> get('/mypets', verifyToken, pc.getAllUserPets) </p>
 
-<p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets = Pet.find({'user_id':user_id}).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
+<p> pc.getAllUserPets(r,r){ const token ; const user = getUserByToken ; const pets =
+  Pet.find({'user_id':user_id}).sort('-createdAt') ; json({msg: sucesso, pets}) } </p>
 
 <p>postman</p>
 
@@ -309,12 +343,14 @@
 <p>pr -> get('/:id',pc.getPetById)</p>
 
 <p>pc -> //helpers = { const ObjectId = require('mongoose').Types.ObjectId }
-    <ul>
-        <li>é o tipo ObjectId do mongoose, que dá a possibilidade de verificarmos se um id é válido para a estrutura do mongoDB</li>
-    </ul>
+<ul>
+  <li>é o tipo ObjectId do mongoose, que dá a possibilidade de verificarmos se um id é válido para a estrutura do
+    mongoDB</li>
+</ul>
 </p>
 
-<p>pc ->getPetById(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; status.json sucesso+pet } </p>
+<p>pc ->getPetById(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await
+  Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; status.json sucesso+pet } </p>
 
 <p>postman</p>
 
@@ -322,7 +358,10 @@
 
 <p>pr -> delete('/:id',verifyToken,pc.deletePet)</p>
 
-<p>pc ->deletePet(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; token ; const user = getUserByToken ; if(pet.owner._id.toString() !== user._id.toString()){ status.json erro } ; await Pet.findByIdAndRemove(id) ; status200.json sucesso } </p>
+<p>pc ->deletePet(rr){ const id = req.params ; if(!ObjectId.isValid(id)){status422.json erro} ; const pet = await
+  Pet.findOne({_id:id}) ; if(!pet){ status404.json erro } ; token ; const user = getUserByToken ;
+  if(pet.owner._id.toString() !== user._id.toString()){ status.json erro } ; await Pet.findByIdAndRemove(id) ;
+  status200.json sucesso } </p>
 
 <p>postman</p>
 
@@ -330,7 +369,11 @@
 
 <p>pr -> patch('/:id',verifyToken,imageUpload.array('images'),pc.updatePet)</p>
 
-<p>pc -> updatePet(rr){ const id ; const {atributos do pet} = req.body ; const images = req.files ; const updateData = {} ; pegar o pet e checar se o pet existe ; checar se o pet é do usuário logado ; verificar cada campo que vem do body, caso passe ele entra em updateData ; a verificação do images é se o array tem tamanho diferente de 0, sendo maior que 0 { updateData.images = [] ; images.forEach((image) => { updateData.images.push(image.filename) }) } ; await Pet.findByIdAndUpdate(id,updateData) ; status.json sucesso } </p>
+<p>pc -> updatePet(rr){ const id ; const {atributos do pet} = req.body ; const images = req.files ; const updateData =
+  {} ; pegar o pet e checar se o pet existe ; checar se o pet é do usuário logado ; verificar cada campo que vem do
+  body, caso passe ele entra em updateData ; a verificação do images é se o array tem tamanho diferente de 0, sendo
+  maior que 0 { updateData.images = [] ; images.forEach((image) => { updateData.images.push(image.filename) }) } ; await
+  Pet.findByIdAndUpdate(id,updateData) ; status.json sucesso } </p>
 
 <p>postman</p>
 
@@ -338,13 +381,18 @@
 
 <p>pr -> patch('/schedule/:id',verifyToken,PetController.schedule) </p>
 
-<p>pr -> schedule(rr){ pegar o pet pelo id e checar se vem algum pet ; verificar se o pet é do usuário logado, se sim está errado (usado o método equals para verificar os ids) ; if(pet.adopter){ if(pet.adopter._id.equals(user._id){ status422.json({o usuário já agendou}) } ) } ; pet.adopter = {_id:user._id,name:user.name,image:user.image} ; await Pet.findByIdAndUpdate(id,pet) ; status200.json({sucesso, entre em contato}) }</p>
+<p>pr -> schedule(rr){ pegar o pet pelo id e checar se vem algum pet ; verificar se o pet é do usuário logado, se sim
+  está errado (usado o método equals para verificar os ids) ; if(pet.adopter){ if(pet.adopter._id.equals(user._id){
+  status422.json({o usuário já agendou}) } ) } ; pet.adopter = {_id:user._id,name:user.name,image:user.image} ; await
+  Pet.findByIdAndUpdate(id,pet) ; status200.json({sucesso, entre em contato}) }</p>
 
 <h3>Concluindo a adoção do pet</h3>
 
 <p>pr -> patch('/conlude/:id',verifyToken,pc.concludeAdoption)</p>
 
-<p>pc.concludeAdoption(rr){ const id ; verificar id ; const pet ; verificar pet ; const user ; verificar se o pet é do usuário, apenas o dono do pet pode executar esse método ; pet.available = false ; await Pet.findByIdAndUpdate(id,pet) ; status200.json({sucesso}) }</p>
+<p>pc.concludeAdoption(rr){ const id ; verificar id ; const pet ; verificar pet ; const user ; verificar se o pet é do
+  usuário, apenas o dono do pet pode executar esse método ; pet.available = false ; await Pet.findByIdAndUpdate(id,pet)
+  ; status200.json({sucesso}) }</p>
 
 <h2>Client (side) / Front-end </h2>
 
@@ -354,16 +402,17 @@
 
 <p>Depois do react instalado damos o npm start.</p>
 
-<p>instalamos os pacotes: 
-    <ul>
-        <li>axios: conexão com a api</li>
-        <li>events: enviar mensageria entre componentes</li>
-        <li>react-icons</li>
-        <li>react-router-dom: roteamento de páginas, permite criar páginas de uma forma simples</li>
-    </ul>
+<p>instalamos os pacotes:
+<ul>
+  <li>axios: conexão com a api</li>
+  <li>events: enviar mensageria entre componentes</li>
+  <li>react-icons</li>
+  <li>react-router-dom: roteamento de páginas, permite criar páginas de uma forma simples</li>
+</ul>
 </p>
 
-<p>na pasta client criamos o arquivo ".env.local" para criar como se fosse uma variável de ambiente para armazenar o endereço da api. Neste arquivo escrevemos " REACT_APP_API = 'http://localhost:5000/' "</p>
+<p>na pasta client criamos o arquivo ".env.local" para criar como se fosse uma variável de ambiente para armazenar o
+  endereço da api. Neste arquivo escrevemos " REACT_APP_API = 'http://localhost:5000/' "</p>
 
 <h3>Estruturando o projeto</h3>
 
@@ -379,15 +428,16 @@
 
 <p>em index.js ele tirou o reportWebVitals de todos os lugares</p>
 
-<p>criamos em src as pastas 
-    <ul>
-        <li>assets: pasta para arquivos estáticos</li>
-        <li>assets/img: colocar nele a imagem de logo</li>
-        <li>components: partes reutilizáveis do sistema</li>
-        <li>context: substitui ou evita o uso do redux, tendo o objetivo de gerar como se fossem pacotes de estilizações de acordo com a situação apresentada no momento do aplicação</li>
-        <li>hooks: criar "porções de código"</li>
-        <li>utils: igual ao helpers do server</li>
-    </ul> 
+<p>criamos em src as pastas
+<ul>
+  <li>assets: pasta para arquivos estáticos</li>
+  <li>assets/img: colocar nele a imagem de logo</li>
+  <li>components: partes reutilizáveis do sistema</li>
+  <li>context: substitui ou evita o uso do redux, tendo o objetivo de gerar como se fossem pacotes de estilizações de
+    acordo com a situação apresentada no momento do aplicação</li>
+  <li>hooks: criar "porções de código"</li>
+  <li>utils: igual ao helpers do server</li>
+</ul>
 </p>
 
 <h3>Inserindo o react-router</h3>
@@ -396,7 +446,7 @@
 
 <p>em App.js ele fez
 
-    <pre>
+<pre>
         import {
             BrowserRouter as Router,
             Routes,
@@ -424,29 +474,46 @@
 
 <p>home -> { Home(){return( section{h1=Home} )} ; export default Home } </p>
 
-<p>criou components/pages/Auth/Login.js (login) e Register.js (register), baseados em home, alterando apenas estes termos principais por seus respectivos</p>
+<p>criou components/pages/Auth/Login.js (login) e Register.js (register), baseados em home, alterando apenas estes
+  termos principais por seus respectivos</p>
 
-<p>em App.js ele importou as páginas criadas e em cada Route ele colocou o atributo element que recebe um objeto que encapsula a página respectiva importada. Nesse objeto o nome da página deve estar na notação de uma tag html.</p>
+<p>em App.js ele importou as páginas criadas e em cada Route ele colocou o atributo element que recebe um objeto que
+  encapsula a página respectiva importada. Nesse objeto o nome da página deve estar na notação de uma tag html.</p>
 
 <h3>Estruturando Navbar e footer</h3>
 
-<p>A partir de agora subentenderemos que, à priori, os códigos estarão dentro do return da função principal e a função principal será exportada a partir de export default, salvo disposições diversas. Importações serão feitas antes da declaração da função principal.</p>
+<p>A partir de agora subentenderemos que, à priori, os códigos estarão dentro do return da função principal e a função principal será exportada a partir de export default, salvo disposições diversas. Importações serão feitas antes da declaração da função principal. Também entenderemos que todas as criações de página seguirão o padrão a seguir:</p>
+
+<pre>
+  function Nome(){
+    return(
+      section>
+        h1>Nome /h1>
+      /section>
+    )
+  }
+  export default Nome
+</pre>
 
 <p>criou components/layouts/Footer.js (footer) e Navbar.js (navbar) baseados em home</p>
 
-<p>Em App.js (app) importamos footer e navbar, sendo que Navbar fica antes dentro de Router, antes de Routes; Footer fica depois de Routes</p>
+<p>Em App.js (app) importamos footer e navbar, sendo que Navbar fica antes dentro de Router, antes de Routes; Footer
+  fica depois de Routes</p>
 
-<p>em navbar importou {Link} de react-router-dom e Logo de assets/img e codou a estrutura nav{div{img;h2} ; ul{li{Link}} } ; em Link colocou o atributo "to" que recebe a rota que será colocada na url e no innerHTML de Link o texto a ser exibido no link
-    <ul>
-        <li>A estrutura de img é src={"caminho/da/imagem"} e alt="texto alternativo"</li>
-    </ul>
+<p>em navbar importou {Link} de react-router-dom e Logo de assets/img e codou a estrutura nav{div{img;h2} ; ul{li{Link}}
+  } ; em Link colocou o atributo "to" que recebe a rota que será colocada na url e no innerHTML de Link o texto a ser
+  exibido no link
+<ul>
+  <li>A estrutura de img é src={"caminho/da/imagem"} e alt="texto alternativo"</li>
+</ul>
 </p>
 
 <p>em footer vamos colocar a estrutura footer>p>span </p>
 
 <h3>CSS no navbar e footer</h3>
 
-<p>criar layouts/Navbar.module.css e criar os estilos ".navbar", ".navbar_logo", ".navbar_logo img", ".navbar ul", ".navbar li, .navbar a", ".navbar li:hover", ".navbar a:hover" </p>
+<p>criar layouts/Navbar.module.css e criar os estilos ".navbar", ".navbar_logo", ".navbar_logo img", ".navbar ul",
+  ".navbar li, .navbar a", ".navbar li:hover", ".navbar a:hover" </p>
 
 <p>em navbar importar styles de './Navbar.module.css'</p>
 
@@ -469,18 +536,19 @@
 <p>Em Container.modules.css nós criamos o estilo .container</p>
 
 <p>já em container vamos retornar main com a className={styles.container}
-    <ul>
-        <li>A função Container vai receber como parâmetro um objeto com o valor children</li>
-        <li>{children} será usada como valor dentro da tag main retornada pelo container</li>
-        <li>essa tag serve para indicar ao React que as tags filhas do elemento devem ser exibidas</li>
-    </ul>
+<ul>
+  <li>A função Container vai receber como parâmetro um objeto com o valor children</li>
+  <li>{children} será usada como valor dentro da tag main retornada pelo container</li>
+  <li>essa tag serve para indicar ao React que as tags filhas do elemento devem ser exibidas</li>
+</ul>
 </p>
 
 <h3>Criando página e form de registro</h3>
 
 <p>em register vamos colocar, depois do h1, um form</p>
 
-<p>vamos criar components/form/Input.js (input) e Input.module.css (input-css), que será o módulo de elementos e input que usaremos no sistema</p>
+<p>vamos criar components/form/Input.js (input) e Input.module.css (input-css), que será o módulo de elementos e input
+  que usaremos no sistema</p>
 
 <pre>
     import styles from './Input.module.css'
@@ -517,31 +585,37 @@
 
 <p>o "onChange" utilizado no input é nativo do react para a criação de um event listener no input</p>
 
-<p>em register importamos input e criamos inputs componentizados para nome, telefone, e-mail, senha, confirmação de senha</p>
+<p>em register importamos input e criamos inputs componentizados para nome, telefone, e-mail, senha, confirmação de
+  senha</p>
 
 <p>depois dos componentizados criamos um input submit para "Cadastrar" os dados</p>
 
-<p>em input-css criamos a classe .form_control, ".form_control label", ".form_control input", ".form_control input::placeholder </p>
+<p>em input-css criamos a classe .form_control, ".form_control label", ".form_control input", ".form_control
+  input::placeholder </p>
 
 <p>em input nós vamos encapsular todo o retorno em uma div com className={styles.form_control}</p>
 
 <p>vamos criar components/forms/Form.module.css (form-css) e importar isso em register</p>
 
-<p>em form-css vamos estilizar .form_container, ".form_container input[type='submit']", ".form_container input[type='submit']:hover", ".form_container p", ".form_container p a" </p>
+<p>em form-css vamos estilizar .form_container, ".form_container input[type='submit']", ".form_container
+  input[type='submit']:hover", ".form_container p", ".form_container p a" </p>
 
 <p>a section de register receberá o className={styles.form_container}</p>
 
 <p>em register importamos {Link} de react-router-dom </p>
 
-<p>Ainda em register, antes do fim da section nós criamos um p que pergunta para o usuário se ele já tem conta, direcionando para a página de login a partir da tag Link</p>
+<p>Ainda em register, antes do fim da section nós criamos um p que pergunta para o usuário se ele já tem conta,
+  direcionando para a página de login a partir da tag Link</p>
 
 <h3>Criando um objeto de usuário</h3>
 
 <p>em register importamos useState de react</p>
 
-<p>usamos useState dentro do Register, usando user e setUser como atributos do useState, sendo que o estado inicial de user é um objeto vazio</p>
+<p>usamos useState dentro do Register, usando user e setUser como atributos do useState, sendo que o estado inicial de
+  user é um objeto vazio</p>
 
-<p>na função handleChange nós vamos executar o método setUser, recebendo como primeiro argumento um spread de user e como segundo, a definição de um novo par atributo:valor, sendo atributo o e.target.name e o valor e.target.value</p>
+<p>na função handleChange nós vamos executar o método setUser, recebendo como primeiro argumento um spread de user e
+  como segundo, a definição de um novo par atributo:valor, sendo atributo o e.target.name e o valor e.target.value</p>
 
 <p>nós criamos a função handleSubmit que executa e.preventDefault()</p>
 
@@ -550,7 +624,7 @@
 <h3>Criando hook de autenticação</h3>
 
 <p>criamos src/utils/api.js e fazemos:
-    <pre>
+<pre>
         import axios from 'axios'
 
         export default axios.create({
@@ -559,9 +633,11 @@
     </pre>
 </p>
 
-<p>utils/api.js é usado para fazer a conexão com a api, o baseURL já foi usado para não precisarmos escrever isso nas muitas chamadas dessa função ao longo do projeto</p>
+<p>utils/api.js é usado para fazer a conexão com a api, o baseURL já foi usado para não precisarmos escrever isso nas
+  muitas chamadas dessa função ao longo do projeto</p>
 
-<p>criamos src/hooks/useAuth.js (useAuth) e fazemos <pre>
+<p>criamos src/hooks/useAuth.js (useAuth) e fazemos
+<pre>
     import api from '../utils/api'
 
     import { useState, useEffect } from 'react'
@@ -581,18 +657,21 @@
         
         return {register}
     }
-</pre></p>
+</pre>
+</p>
 
-<p>pelo visto o axios cria uma requisição com o corpo configurado no segundo argumento do método post, mandando para a url especificada pela baseURL + a extensão passada como primeiro argumento</p>
+<p>pelo visto o axios cria uma requisição com o corpo configurado no segundo argumento do método post, mandando para a
+  url especificada pela baseURL + a extensão passada como primeiro argumento</p>
 
 <h3>Criando contexto de usuário</h3>
 
 <p>criar src/context/UserContext.js essa é a convenção de nomenclatura de contextos no react</p>
 
-<p>Imagino que contexto é o conjunto específico de dados de um usuário, então, dependendo do usuário teremos um nome mostrado, cores diferentes, etc... Ainda carece de estudos para melhor entendimento.</p>
+<p>Imagino que contexto é o conjunto específico de dados de um usuário, então, dependendo do usuário teremos um nome
+  mostrado, cores diferentes, etc... Ainda carece de estudos para melhor entendimento.</p>
 
 <p>em UserContext fazemos:
-    <pre>
+<pre>
         import React, { createContext } from "react";
 
         import useAuth from "../hooks/useAuth";
@@ -615,11 +694,12 @@
     </pre>
 </p>
 
-<p>em app nós importamos {UserProvider} de UserContext e encapsulamos tudo depois de Router com a tag UserProvider, dessa forma, todos os componentes encapsulados tem a possibilidade de acessar o contexto do usuário</p>
+<p>em app nós importamos {UserProvider} de UserContext e encapsulamos tudo depois de Router com a tag UserProvider,
+  dessa forma, todos os componentes encapsulados tem a possibilidade de acessar o contexto do usuário</p>
 
 <h3>Executando rota da API no formulário</h3>
 
-<p>em register nós vamos importar {Context} de UserContext, useContext de react,  </p>
+<p>em register nós vamos importar {Context} de UserContext, useContext de react, </p>
 
 <p>ainda em register, antes da função handleChange eu desestruturo register de useContext(Context) </p>
 
@@ -636,7 +716,7 @@
 <p>bus é uma técnica comum para disparar eventos para componentes</p>
 
 <p>em useFlashMessage nós fazemos:
-    <pre>
+<pre>
     import bus from '../utils/bus'
 
     export default function useFlashMessage() {
@@ -654,7 +734,8 @@
 
 <p>isso cria a estrutura para exibição de mensagens para o usuário, seja de sucesso, seja de erros</p>
 
-<p>emit é a emite um evento no sistema com o nome que nós determinamos, no caso determinamos o nome flash. Esse evento carrega informações básicas que são definidas no seu segundo parâmetro</p>
+<p>emit é a emite um evento no sistema com o nome que nós determinamos, no caso determinamos o nome flash. Esse evento
+  carrega informações básicas que são definidas no seu segundo parâmetro</p>
 
 <h3>Criando componente de mensagem</h3>
 
@@ -690,7 +771,7 @@
 <p>em message criamos dois states: visibility(false) e message('')</p>
 
 <p>no return nos conectamos visibility à da div de mensagem com o operador &&
-    <ul>isso fará com que a div só apareça caso o estado de visibility seja true</ul>
+<ul>isso fará com que a div só apareça caso o estado de visibility seja true</ul>
 </p>
 
 <p>o inner da div de mensagem será o state message</p>
@@ -699,7 +780,8 @@
 
 <p>importa bus</p>
 
-<p>depois dos useState ele declara um useEffect, passando como segundo argumento um array vazio e como primeiro argumento uma arrow function que executa o seguinte: </p> 
+<p>depois dos useState ele declara um useEffect, passando como segundo argumento um array vazio e como primeiro
+  argumento uma arrow function que executa o seguinte: </p>
 
 <pre>
     bus.addListener('flash',({message,type}) => { 
@@ -741,7 +823,8 @@
 
 <p>vamos retornar authenticated de useAuth, além de register</p>
 
-<p>esse authenticated será desestruturado de useAuth na função UserProvider em UserContext e recebido como value em Context.Provider neste mesmo context </p>
+<p>esse authenticated será desestruturado de useAuth na função UserProvider em UserContext e recebido como value em
+  Context.Provider neste mesmo context </p>
 
 <p>em useAuth, antes das funções definimos o seguinte useEffect</p>
 
@@ -761,16 +844,20 @@
 
 <h3>Persistindo autenticação do usuário no front </h3>
 
-<p>navbar -> importar {Context} de UserContext e {useContext} de react -> na função declarar o const {authenticated} = useContext(Context) ->  
-    <ul>nós temos acesso ao contexto por termos envolvido a aplicação com o UserProvider</ul>
-    <ul>authenticated é setado como true quando passamos pelo hook do useAuth</ul>
+<p>navbar -> importar {Context} de UserContext e {useContext} de react -> na função declarar o const {authenticated} =
+  useContext(Context) ->
+<ul>nós temos acesso ao contexto por termos envolvido a aplicação com o UserProvider</ul>
+<ul>authenticated é setado como true quando passamos pelo hook do useAuth</ul>
 </p>
 
-<p>ainda na função de navbar nós vamos criar uma condicional logo após o link de Adotar que verifica o authenticated, sendo que no caso de estar autenticado é renderizada uma tag p com inner "Logado" ou então, no caso de não estar autenticado, o conjunto de links de Entrar e Cadastrar</p>
+<p>ainda na função de navbar nós vamos criar uma condicional logo após o link de Adotar que verifica o authenticated,
+  sendo que no caso de estar autenticado é renderizada uma tag p com inner "Logado" ou então, no caso de não estar
+  autenticado, o conjunto de links de Entrar e Cadastrar</p>
 
 <h3>Função de logout</h3>
 
-<p>dentro da função de useAuth nós vamos criar a função logout onde vamos declarar constantes de mensagem, uma contendo o texto e outra o tipo (success)</p>
+<p>dentro da função de useAuth nós vamos criar a função logout onde vamos declarar constantes de mensagem, uma contendo
+  o texto e outra o tipo (success)</p>
 
 <pre>
     <code>
@@ -794,21 +881,27 @@
 
 <p>em navbar importar logout de useContext(Context)</p>
 
-<p>em navbar alterar a tag p que aparece quando o usuário está autenticado para uma li que executa o método logout quando do evento onClick </p>
+<p>em navbar alterar a tag p que aparece quando o usuário está autenticado para uma li que executa o método logout
+  quando do evento onClick </p>
 
 <h3>Formulário de login</h3>
 
-<p>na página de login nós vamos importar useState e useContext de react, importar {Link} de react-router-dom, importar Input de form/Input, importar styles também de form, importar {Context} de UserContext</p>
+<p>na página de login nós vamos importar useState e useContext de react, importar {Link} de react-router-dom, importar
+  Input de form/Input, importar styles também de form, importar {Context} de UserContext</p>
 
-<p>vamos retornar na função do login uma section com className={styles.form_container} que encapsula um h1 e um form que encapsula os módulos de Input para email e senha, tendo esses módulos o eventlistener handleOnChange={handleChange}</p>
+<p>vamos retornar na função do login uma section com className={styles.form_container} que encapsula um h1 e um form que
+  encapsula os módulos de Input para email e senha, tendo esses módulos o eventlistener handleOnChange={handleChange}
+</p>
 
 <p>a função handleChange deve ser declarada na função de login, mas antes do retorno</p>
 
-<p>depois dos Inputs é colocada uma tag input:submit(Entrar) e depois do form uma p com um Link que direciona para a página de regitro, caso o usuário ainda não seja registrado</p>
+<p>depois dos Inputs é colocada uma tag input:submit(Entrar) e depois do form uma p com um Link que direciona para a
+  página de regitro, caso o usuário ainda não seja registrado</p>
 
 <h3>Função de login</h3>
 
-<p>em useAuth criamos uma função assíncrona login(user) onde vamos declarar as let iniciais da mensagem de login e do seu tipo e depois vamos dar um try...catch(error) </p>
+<p>em useAuth criamos uma função assíncrona login(user) onde vamos declarar as let iniciais da mensagem de login e do
+  seu tipo e depois vamos dar um try...catch(error) </p>
 
 <p>no try nós vamos fazer o seguinte</p>
 
@@ -828,13 +921,16 @@
 
 <p>passamos a função login como retorno de useAuth e usamos também em UserContext</p>
 
-<p>na página de login, em sua função, nós vamos declarar const [user,setUser] = useState({}) e const {login} = useContext(Context) </p>
+<p>na página de login, em sua função, nós vamos declarar const [user,setUser] = useState({}) e const {login} =
+  useContext(Context) </p>
 
-<p>logo depois dessas declarações nós declaramos a função handleChange(e) que executar o setUser({...user,[e.target.name]:e.target.value})</p>
+<p>logo depois dessas declarações nós declaramos a função handleChange(e) que executar o
+  setUser({...user,[e.target.name]:e.target.value})</p>
 
 <p>o form do retorno terá o eventlistener onSubmit que executará a função handleSubmit</p>
 
-<p>a função handleSubmit(e) será declarada depois de handleChange, que vai executar e.preventDefault() e login(user) </p>
+<p>a função handleSubmit(e) será declarada depois de handleChange, que vai executar e.preventDefault() e login(user)
+</p>
 
 <h3>Criando página de perfil</h3>
 
@@ -842,7 +938,8 @@
 
 <p>em Profile vamos copiar tudo da Home, alterando de Home para Profile onde é de direito</p>
 
-<p>em app vamos importar a página Profile e vamos criar uma rota para ela na função principal colocando o componente Profile no Router</p>
+<p>em app vamos importar a página Profile e vamos criar uma rota para ela na função principal colocando o componente
+  Profile no Router</p>
 
 <p>em navbar vamos criar o Link para a página de perfil quando o usuário está autenticado</p>
 
@@ -850,22 +947,25 @@
 
 <p>iremos criar um formulário de edição de usuário</p>
 
-<p>no início da página profile vamos importar os styles de Profile.module.css e formStyles de components/form, importar também o componente de Input</p>
+<p>no início da página profile vamos importar os styles de Profile.module.css e formStyles de components/form, importar
+  também o componente de Input</p>
 
 <p>vamos importar useState e useEffect de react</p>
 
-<p>vamos criar um form.form_container com Inputs de imagem, email, nome, telefone, senha e confirmação de senha 
-    <ul>
-        <li>
-            o handleOnChange do Input de imagem receberá o método onFileChange, diferentemente dos outros Inputs, que terão o método tradional handleChange
-        </li>
-        <li>todos os Inputs, com exceção de senha e sua confirmação terão um value={user.nome_do_campo}</li>
-    </ul>
+<p>vamos criar um form.form_container com Inputs de imagem, email, nome, telefone, senha e confirmação de senha
+<ul>
+  <li>
+    o handleOnChange do Input de imagem receberá o método onFileChange, diferentemente dos outros Inputs, que terão o
+    método tradional handleChange
+  </li>
+  <li>todos os Inputs, com exceção de senha e sua confirmação terão um value={user.nome_do_campo}</li>
+</ul>
 </p>
 
 <p>os métodos handleChange e onFileChange devem ser declarados antes do retorno</p>
 
-<p>antes dos métodos vamos criar const [user,setUser] = useState({}) para depois popularmos com os dados do usuário que serão carregados quando do carregamento da página, através do useEffect</p>
+<p>antes dos métodos vamos criar const [user,setUser] = useState({}) para depois popularmos com os dados do usuário que
+  serão carregados quando do carregamento da página, através do useEffect</p>
 
 <p>depois dos Inputs nós criamos um input:submit com o value="Editar"</p>
 
@@ -899,3 +999,193 @@
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
 
+
+<h3>Atualizando dados do usuário</h3>
+
+<p>em handleChange eu vou executar o método setUser({...user,[e.target.name]:e.target.value})</p>
+
+<p>em onFileChange vamos executar o mesmo método, porém a única diferença é substituir value por files[0]</p>
+
+<p>importar useFlashMessage e desestruturar setFlashMessage dela</p>
+
+<p>criar a função assíncrona handleSubmit da seguinte forma:</p>
+
+<pre>
+  <code>
+    async function handleSubmit(e){
+      e.preventDefault()
+      let msgType = 'success'
+
+      const formData = new FormData()
+  
+      await Object.keys(user).forEach((key) =>
+      formData.append(key, user[key]),
+      )
+  
+      const data = await api.patch(`/users/edit/${user._id}`, formData, {
+          headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+          'Content-Type': 'multipart/form-data',
+          },
+      })
+      .then((response) => {
+          console.log(response.data)
+          return response.data
+      })
+      .catch((err) => {
+          console.log(err)
+          msgType = 'error'
+          return err.response.data
+      })
+
+      setFlashMessage(data.message, msgType)
+    }
+      
+  </code>
+</pre>
+
+<h3>Atualização de imagem do usuário</h3>
+
+<p>criar o state preview( )
+  <ul>
+    <li>preview é a imagem que está sendo selecionada para o carregamento, mas que ainda não está inserida como imagem atual do usuário no banco de dados</li>
+  </ul>
+</p>
+
+<p>depois do título da página nós vamos fazer uma condicional para mostrar a imagem conforme código abaixo:</p>
+
+<pre>
+  <code>
+    {(user.image || preview) && (
+      img  
+        src={
+          preview
+            ? URL.createObjectURL(preview)
+            : `${process.env.REACT_APP_API}/images/users/${user.image}`
+        }
+        alt={user.name}
+      />
+    )}
+  </code>
+</pre>
+
+<p>em onFileChange nós adicionamos o método setPreview(e.target.files[0]) </p>
+
+<h3>Criando componente de imagem</h3>
+
+<p>criar layout/RoundedImage.js e RoundedImage.module.css</p>
+
+<p>em RoundedImage vamos importar styles de module.css e na função vamos receber um objeto {src,alt,width}</p>
+
+<p>o return da função principal é uma img com os seguintes atributos:</p>
+
+<pre>
+  <code>
+    img
+      className={`${styles.rounded_image} ${styles[width]}`}
+      src={src}
+      alt={alt}
+    />
+  </code>
+</pre>
+
+<p>arrumar o css em module.css</p>
+
+<p>em Profile vamos alterar a tag img da imagem do usuário para a tag RoundedImage, devidamente importada</p>
+
+<h3>Criando página de lista de pets</h3>
+
+<p>criar pages/Pet/MyPets.js onde colocaremos os pets nossos que iremos por para adoção</p>
+
+<p>na navbar vamos criar um Link para mypets que será uma rota de pet e em app uma rota para mypets</p>
+
+<p>na página mypets vamos importar useState e useEffect, {Link} de react-router-dom </p>
+
+<p>na função vamos criar o state pets([])</p>
+
+<p>no retorno vamos criar uma div depois do título onde vamos renderizar uma tag p="Meus pets cadastrados" se pets.length > 0 ou uma tag p="Não há pets cadastrados" se pets.length === 0 </p>
+
+<p>vamos envolver o título h1 em uma div, onde além desse h1 haverá um Link para a página de cadastro de pets = '/pet/add'="Cadastrar pet"</p>
+
+<h3>Página de cadastro do pet</h3>
+
+<p>vamos criar pages/Pet/AddPet.js e AddPet.module.css, colocando uma rota para ela em App</p>
+
+<p>no retorno de addpet vou fazer:</p>
+
+<pre>
+  <code>
+    section>
+      div>
+        h1> Cadastre um pet
+        p>
+  </code>
+</pre>
+
+<p>css de AddPet.module.css, depois importar esses estilos para addpet e utilizá-los nessa página</p>
+
+<p>importar a api de utils, useState, useNavigate, useFlashMessage</p>
+
+<h3>Início do form de pet</h3>
+
+<p>vamos criar components/form/PetForm.js</p>
+
+<p>em petform vamos importar useState, Form.module.css e Input</p>
+
+<p>a função vai receber as props { handleSubmit, petData, btnText } </p>
+
+<p>na função vamos definir as consts a seguir:</p>
+
+<pre>
+  const [pet, setPet] = useState(petData || {})
+  const [preview, setPreview] = useState([])
+  const colors = ['Branco', 'Preto', 'Cinza', 'Caramelo']
+</pre>
+
+<p>no return vamos criar um form."formStyles.form_container" com Inputs de imagens, nome, idade, peso 
+  <ul>
+    <li>o Input de imagens vai ter o parâmetro multiple={true} indicando que haverá o envio de múltiplas imagens</li>
+    <li>se Input for de imagem handleOnChange=onFileChange, se não, =handleChange<li>
+    <li>com exceção do Input de imagem, os Inputs terão value={pet.atributo ||''} e placeholder</li>
+  </ul>
+</p>
+
+<p>ao final teremos um input submit = "Cadastrar Pet"</p>
+
+<p>importamos petform em addpet e usamos sua tag no fim do retorno de addpet</p>
+
+<p>criar form/Select.js e Select.module.css</p>
+
+<p>em select vamos importar os styles de module.css, onde já podemos colocar os códigos</p>
+
+<p>a função vai receber as props { text, name, options, handleOnChange, value} </p>
+
+<p>o retorno será o seguinte:</p>
+
+<pre>
+  div className={styles.form_control}>
+    label htmlFor={name}>{text}:/label>
+    select
+      name={name}
+      id={name}
+      onChange={handleOnChange}
+      value={value || ''}
+    >
+      option>Selecione uma opção/option>
+      {options.map((option) => (
+        option value={option} key={option}>
+          {option}
+        /option>
+      ))}
+    /select>
+  /div>
+</pre>
+
+<ul>Detalhes do map do retorno de select
+  <li>importante notar que no map de options nós usamos parênteses e não chaves para executar a função de callback, isso acontece por estarmos retornando .jsx quando trabalhamos com react</li>
+  <li>outro detalhe é essa key. Quando estamos trabalhando com um elemento que se repete em react temos que usar esse atributo, que é como se fosse um id dessa opção</li>
+</ul>
+
+<p>em petform vamos criar a função handleColor</p>
+
+<p>importar select para petform e colocá-lo antes do input:submit</p>
