@@ -17,7 +17,7 @@ function Message() {
 
       setTimeout(()=>{
           setVisibility(false)
-      },1000) 
+      },3000) 
     })
   },[]/*colocamos o array vazio para indicar que não é pro useEffect ficar observando constantemente nenhuma prop*/)
 
