@@ -836,9 +836,6 @@
 
 <p>a função handleSubmit(e) será declarada depois de handleChange, que vai executar e.preventDefault() e login(user) </p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Criando página de perfil</h3>
 
 <p>criar pages/User/Profile.js e Profile.module.css</p>
@@ -860,7 +857,7 @@
 <p>vamos criar um form.form_container com Inputs de imagem, email, nome, telefone, senha e confirmação de senha 
     <ul>
         <li>
-            o handleOnChange do Input de imagem receberá o método onFileChange, direntemente dos outros Inputs, que terão o método tradional handleChange
+            o handleOnChange do Input de imagem receberá o método onFileChange, diferentemente dos outros Inputs, que terão o método tradional handleChange
         </li>
         <li>todos os Inputs, com exceção de senha e sua confirmação terão um value={user.nome_do_campo}</li>
     </ul>
@@ -878,14 +875,14 @@
 
 <p>na página de profile, importamos a api a partir de utils</p>
 
-<p>ma função, nós declaramos token = localStorage.getItem('token') || ''</p>
+<p>na função principal, nós declaramos token = localStorage.getItem('token') || ''</p>
 
 <p>depois utilizamos o useEffect da seguinte forma:</p>
 
 <pre>
     <code>
         useEffect(() => {
-            api.get('/users/checkuser', {
+            api.get('/users/checkUser', {
             headers: {
                 Authorization: `Bearer ${JSON.parse(token)}`,
             },
@@ -898,3 +895,7 @@
 </pre>
 
 <p>Interessante notar que o token é usado como parâmetro para o acionamento do useEffect</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+

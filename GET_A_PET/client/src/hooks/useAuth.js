@@ -32,7 +32,6 @@ export default function useAuth() {
 
       await authUser(data)
     } catch (error) {
-      // tratar erro
       message = error.response.data.message
       type = "error"
     }
