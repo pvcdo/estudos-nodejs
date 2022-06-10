@@ -996,13 +996,9 @@
 
 <p>Interessante notar que o token é usado como parâmetro para o acionamento do useEffect</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
-
 <h3>Atualizando dados do usuário</h3>
 
-<p>em handleChange eu vou executar o método setUser({...user,[e.target.name]:e.target.value})</p>
+<p>em Profile.js no método handleChange eu vou executar o método setUser({...user,[e.target.name]:e.target.value})</p>
 
 <p>em onFileChange vamos executar o mesmo método, porém a única diferença é substituir value por files[0]</p>
 
@@ -1044,6 +1040,8 @@
   </code>
 </pre>
 
+<p>colocar a função handleSubmit na espera do submit do form </p>
+
 <h3>Atualização de imagem do usuário</h3>
 
 <p>criar o state preview( )
@@ -1061,7 +1059,7 @@
         src={
           preview
             ? URL.createObjectURL(preview)
-            : `${process.env.REACT_APP_API}/images/users/${user.image}`
+            : `${process.env.REACT_APP_API}/img/users/${user.image}`
         }
         alt={user.name}
       />
@@ -1093,6 +1091,9 @@
 
 <p>em Profile vamos alterar a tag img da imagem do usuário para a tag RoundedImage, devidamente importada</p>
 
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
 <h3>Criando página de lista de pets</h3>
 
 <p>criar pages/Pet/MyPets.js onde colocaremos os pets nossos que iremos por para adoção</p>
@@ -1122,7 +1123,7 @@
   </code>
 </pre>
 
-<p>css de AddPet.module.css, depois importar esses estilos para addpet e utilizá-los nessa página</p>
+<p>arrumar o css de AddPet.module.css, depois importar esses estilos para addpet e utilizá-los nessa página</p>
 
 <p>importar a api de utils, useState, useNavigate, useFlashMessage</p>
 
@@ -1146,7 +1147,7 @@
   <ul>
     <li>o Input de imagens vai ter o parâmetro multiple={true} indicando que haverá o envio de múltiplas imagens</li>
     <li>se Input for de imagem handleOnChange=onFileChange, se não, =handleChange<li>
-    <li>com exceção do Input de imagem, os Inputs terão value={pet.atributo ||''} e placeholder</li>
+    <li>com exceção do Input de imagem, os Inputs terão value={pet.atributo || ''} e placeholder</li>
   </ul>
 </p>
 
