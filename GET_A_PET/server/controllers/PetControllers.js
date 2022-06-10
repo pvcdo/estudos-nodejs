@@ -93,7 +93,7 @@ module.exports = class PetControllers{
     const id = req.params.id
 
     if(!ObjectId.isValid(id)){
-      return res.status(422).json({message:"ID inválido"})
+      return res.status(422).json({message:"ID inválido em getpet"})
     }
 
     const pet = await Pet.findOne({_id:id})
@@ -109,6 +109,7 @@ module.exports = class PetControllers{
   }
 
   static async getAllUserPets(req,res){
+    //console.log("Estamos em getAllUserPets")
     //get user
     const token = getToken(req)
     const user = await getUserByToken(token)
@@ -144,7 +145,7 @@ module.exports = class PetControllers{
     const {name,age,weight,color} = req.body
 
     if(!ObjectId.isValid(id)){
-      return res.status(422).json({message:"ID inválido"})
+      return res.status(422).json({message:"ID inválido em updatepet"})
     }
 
     const pet = await Pet.findOne({_id:id})
@@ -211,7 +212,7 @@ module.exports = class PetControllers{
     const id = req.params.id
 
     if(!ObjectId.isValid(id)){
-      return res.status(422).json({message:"ID inválido"})
+      return res.status(422).json({message:"ID inválido em schedule"})
     }
 
     const pet = await Pet.findOne({_id:id})
@@ -247,7 +248,7 @@ module.exports = class PetControllers{
     const id = req.params.id
 
     if(!ObjectId.isValid(id)){
-      return res.status(422).json({message:"ID inválido"})
+      return res.status(422).json({message:"ID inválido em conclude adoption"})
     }
 
     const pet = await Pet.findOne({_id:id})
@@ -273,7 +274,7 @@ module.exports = class PetControllers{
     const id = req.params.id
 
     if(!ObjectId.isValid(id)){
-      return res.status(422).json({message:"ID inválido"})
+      return res.status(422).json({message:"ID inválido em deletepet"})
     }
 
     const pet = await Pet.findOne({_id:id})

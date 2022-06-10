@@ -10,13 +10,13 @@ const {imageUpload} = require('../helpers/image-upload')
 router.post('/create',verifyToken,imageUpload.array('images'),PetControllers.create)
 
 router.get('/',PetControllers.getAll)
-router.get('/:id',PetControllers.getPet)
 router.get('/mypets',verifyToken,PetControllers.getAllUserPets)
 router.get('/myadoptions',verifyToken,PetControllers.getAllUserAdoptions)
+router.get('/:id',PetControllers.getPet)
 
-router.patch('/:id',verifyToken,imageUpload.array('images'),PetControllers.updatePet)
 router.patch('/schedule/:id',verifyToken,PetControllers.schedule)
 router.patch('/conclude/:id',verifyToken,PetControllers.concludeAdoption)
+router.patch('/:id',verifyToken,imageUpload.array('images'),PetControllers.updatePet)
 
 router.delete('/:id',verifyToken,PetControllers.deletePet)
 

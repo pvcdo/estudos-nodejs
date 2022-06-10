@@ -1199,7 +1199,7 @@
 
 <p>em Form.module.css vamos criar regras para o form de pets, e vamos aplicar no petform</p>
 
-<p>no form, antes dos inputs nós vamos colocar uma div que exibirá as imagens enviadas por preview ou as imagens já cadastradas do pet ou absolutamente nada. O código para isso é o seguinte:</p>
+<p>no form, antes dos Inputs nós vamos colocar uma div que exibirá as imagens enviadas por preview ou as imagens já cadastradas do pet ou absolutamente nada. O código para isso é o seguinte:</p>
 
 <pre>
   div className={formStyles.preview_pet_images}>
@@ -1241,7 +1241,7 @@
 
   const formData = new FormData()
 
-  await Object.keys(pet).forEach((key) => {
+  Object.keys(pet).forEach((key) => {
     if (key === 'images') {
       for (let i = 0; i menor que pet[key].length; i++) {
         formData.append(`images`, pet[key][i])
