@@ -70,7 +70,7 @@ function PetForm({handleSubmit, petData, btnText}){
         value={pet.color || ''} 
       />
 
-      <input type="submit" value="Cadastrar"/>
+      <input type="submit" value={btnText}/>
     </form>
   )
 }

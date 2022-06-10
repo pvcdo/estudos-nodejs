@@ -15,7 +15,7 @@ function AddPet(){
       <div className= {styles.addpet_header}>
         <h1> Cadastre um pet</h1>
       </div>
-      <PetForm />
+      <PetForm btnText="Cadastrar pet"/>
     </section>
   )
 }

@@ -1091,9 +1091,6 @@
 
 <p>em Profile vamos alterar a tag img da imagem do usuário para a tag RoundedImage, devidamente importada</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Criando página de lista de pets</h3>
 
 <p>criar pages/Pet/MyPets.js onde colocaremos os pets nossos que iremos por para adoção</p>
@@ -1190,3 +1187,152 @@
 <p>em petform vamos criar a função handleColor</p>
 
 <p>importar select para petform e colocá-lo antes do input:submit</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h3>Terminando o formulário de pet</h3>
+
+<p>em petform vamos completar o onFileChange, onHandleChange e handleColor e o onFormSubmit</p>
+
+<p>importante notar que no onFileChange temos que colocar o método setPreview que vai popular o array de preview, inicialmente vazio. Para tanto, temos que transformar o retorno de e.target.files em um array, a partir de Array.from, uma vez que aquele retorno é de uma lista de arquivos e não um array propriamente dito</p>
+
+<p>em Form.module.css vamos criar regras para o form de pets, e vamos aplicar no petform</p>
+
+<p>no form, antes dos inputs nós vamos colocar uma div que exibirá as imagens enviadas por preview ou as imagens já cadastradas do pet ou absolutamente nada. O código para isso é o seguinte:</p>
+
+<pre>
+  div className={formStyles.preview_pet_images}>
+    {preview.length > 0
+      ? preview.map((image, index) => (
+          img
+            src={URL.createObjectURL(image)}
+            alt={pet.name}
+            key={`${pet.name}+${index}`}
+          />
+        ))
+      : pet.images &&
+        pet.images.map((image, index) => (
+          img
+            src={`${process.env.REACT_APP_API}/img/pets/${image}`}
+            alt={pet.name}
+            key={`${pet.name}+${index}`}
+          />
+        ))}
+  /div>
+</pre>
+
+<h3>Conclusão da tela de adicionar pet</h3>
+
+<p>em addpet vamos criar a async function registerPet(pet) que será passada como valor do parâmetro handleSubmit na tag PetForm </p>
+
+<p>vamos declarar em addpet as consts:</p>
+
+<pre>
+  const [token] = useState(localStorage.getItem('token') || '')
+  const { setFlashMessage } = useFlashMessage()
+  const navigate = useNavigate()
+</pre>
+
+<p>na função registerPet vamos fazer:</p>
+
+<pre>
+  let msgType = 'success'
+
+  const formData = new FormData()
+
+  await Object.keys(pet).forEach((key) => {
+    if (key === 'images') {
+      for (let i = 0; i menor que pet[key].length; i++) {
+        formData.append(`images`, pet[key][i])
+      }
+    } else {
+      formData.append(key, pet[key])
+    }
+  })
+
+  const data = await api
+    .post(`/pets/create`, formData, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      return response.data
+    })
+    .catch((err) => {
+      msgType = 'error'
+      return err.response.data
+    })
+
+  setFlashMessage(data.message, msgType)
+  if(msgType !== 'error'){
+    navigate('/pet/mypets')
+  }
+</pre>
+
+<ul>algumas considerações da função registerPet
+  <li>formData é usado, assim como no caso do perfil do usuário, para conseguirmos passar imagens</li>
+  <li>no populamento de formData há a separação entre as imagens e os outros dados, isso se dá porque pode vir mais de uma imagem do pet, que devem ser agrupadas juntas em um array</li>
+</ul>
+
+<h3>Requisição para pegar pets cadastrados</h3>
+
+<p>em mypets vamos importar RoundedImage, api e useFlashMessage</p>
+
+<p>em mypets vamos declarar o token e setFlashMessage</p>
+
+<p>vamos usar useEffect para carregar os pets do usuário logado da seguinte forma</p>
+
+<pre>
+  useEffect(() => {
+    api
+      .get('/pets/mypets', {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setPets(response.data.pets)
+      })
+  }, [token])
+</pre>
+
+<h3>Exibindo os pets na dashboard</h3>
+
+<p>vamos criar pages/Pet/Dashboard.module.css e importar em mypets</p>
+
+<p>em mypets vamos substituir o texto "Meus pets cadastrados." pelo seguinte map de pets:</p>
+
+<pre>
+  pets.map((pet) => (
+    div key={pet._id}>
+      RoundedImage
+        src={`${process.env.REACT_APP_API}/img/pets/${pet.images[0]}`}
+        alt={pet.name}
+        width="px75"
+      />
+      span>{pet.name}/span>
+      div>
+        {pet.available ? (
+          >
+            {pet.adopter && (
+              button>
+                Concluir adoção
+              /button>
+            )}
+
+            Link to={`/pet/edit/${pet._id}`}>Editar/Link>
+            button>
+              Excluir
+            /button>
+          />
+        ) : (
+          p>Pet já adotado/p>
+        )}
+      /div>
+    /div>
+  )
+</pre>
+
