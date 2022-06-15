@@ -19,8 +19,6 @@ function AddPet(){
 
     const formData = new FormData()
 
-    console.log("temos " + pet["images"].length + " imagens do cão")
-
     Object.keys(pet).forEach(key => {
       if(key === 'images'){
         for(let i = 0; i < pet[key].length; i++){

@@ -1188,9 +1188,6 @@
 
 <p>importar select para petform e colocá-lo antes do input:submit</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Terminando o formulário de pet</h3>
 
 <p>em petform vamos completar o onFileChange, onHandleChange e handleColor e o onFormSubmit</p>
@@ -1336,3 +1333,182 @@
   )
 </pre>
 
+<h3>CSS da dashboard</h3>
+
+<p>em Dashboard.module.css vamos criar o css e depois vamos ir aplicando as classes nos respectivos elementos de MyPets</p>
+
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<h3>Removendo pet do sistema</h3>
+
+<p>em mypets criamos a função assíncrona removePet(id), onde vamos fazer o seguinte:</p>
+
+<pre>
+  async function removePet(id) {
+    let msgType = 'success'
+
+    api.delete(`/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        const updatedPets = pets.filter((pet) => pet._id !== id) //pega o array de pets que está renderizado na tela e filtro por aqueles que tem o id diferente do pet deletado
+        setPets(updatedPets) //altero o array dos pets renderizados para o updatedPets, o qual não tem o pet deletado do banco de dados.
+        //a técnica acima faz o tratamento da exibição apenas do front-end, poupando tráfego de rede
+        return response.data
+      })
+      .catch((err) => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    setFlashMessage(data.message, msgType)
+  }
+</pre>
+
+<p>no botão de Excluir vamos colocar um atributo onClick passando o método removePet dentro de uma função anônima</p>
+
+<h3>Página de edição do pet</h3>
+
+<p>em mypets, no Link de Editar, vamos colocar o path `/pet/edit/$pet._id}`</p>
+
+<p>criar a página pages/Pet/EditPet.js</p>
+
+<p>em editpet vamos importar a api, useState, useEffect, styles de addpet.module.css, petform, useFlashMessage, importar também useParams de react-router-dom</p>
+
+<p>useParams é usado para trabalharmos com os dados passados na url</p>
+
+<p>em app vamos colocar nas rotas a página editpet com o path 'pet/edit/:id'</p>
+
+<p>no retorno vamos colocar uma div de cabeçalho com um h1</p>
+
+<p>na função de editpet vamos declarar:</p>
+
+<pre>
+  const [pet, setPet] = useState({})
+  const [token] = useState(localStorage.getItem('token') || '')
+  const { id } = useParams() //isso funciona porque no app nós chamamos essa página através do path com :id, que é referenciado na desestruturação
+  const { setFlashMessage } = useFlashMessage()
+</pre>
+
+<p>depois dessas variáveis vamos declarar o useEffect a seguir:</p>
+
+<pre>
+  useEffect(() => {
+    api.get(`/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setPet(response.data.pet)
+      })
+  }, [token, id])
+</pre>
+
+<p>criar o método updatePet(pet){}</p>
+
+<p>no retorno de editpet fazemos:</p>
+
+<pre>
+  section>
+    div className={styles.addpet_header}>
+      h1>Editando o Pet: {pet.name}/h1>
+      p>Depois da edição os dados serão atualizados no sistema/p>
+    /div>
+    {pet.name && (
+      PetForm handleSubmit={updatePet} petData={pet} btnText="Editar" />
+    )}
+  /section>
+</pre>
+
+<p>no método updatePet nós fazemos:</p>
+
+<pre>
+  let msgType = 'success'
+
+  const formData = new FormData()
+
+  Object.keys(pet).forEach((key) => {
+    if (key === 'images') {
+      for (let i = 0; i menor que pet[key].length; i++) {
+        formData.append(/*`images` teste*/ key, pet[key][i])
+      }
+    } else {
+      formData.append(key, pet[key])
+    }
+  })
+
+  const data = await api.patch(`pets/${pet._id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(token)}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      return response.data
+    })
+    .catch((err) => {
+      msgType = 'error'
+      return err.response.data
+    })
+
+  setFlashMessage(data.message, msgType)
+</pre>
+
+<p>no updatePet do server, vamos modificar a validação do envio de imagens por parte do usuário, colocando que haverá alteração do array de imagens apenas se o usuário tiver enviado imagens (images.length > 0)</p>
+
+<h3>Resgatando os pets na home</h3>
+
+<p>em home, importamos api, Link, useState, useEffect</p>
+
+<p>criar pages/Home.module.css</p>
+
+<p>criar o state pet([])</p>
+
+<p>fazemos useEffect da seguinte maneira:</p>
+
+<pre>
+  useEffect(() => {
+    api.get('/pets').then((response) => {
+      setPets(response.data.pets)
+    })
+  }, [])
+</pre>
+
+<p>no retorno da home nós vamos colocar uma div de cabeçalho na section, onde teremos um h1 e um p </p>
+
+<p>depois da div de cabeçalho vamos criar uma div com uma condicional para exibição dos pets cadastrados (pets.length > 0) através de um pets.forEach ou uma p indicando que não há pets cadastrados</p>
+
+<p>no forEach de exibição vamos retornar uma div com uma div(que exibirá a imagem), o nome do pet, peso, um ternário verificando se o pet está disponível (available) ou não</p>
+
+<p>na verificação de available, caso esteja disponível vamos colocar retornar um Link para "/pet/${pet._id}"</p>
+
+<p>vamos arrumar o css de Home.module.css e colocar no elementos respectivos</p>
+
+<p>a imagem do pet vai ser dada pelo estilo css inline a seguir:</p>
+
+<pre>
+{{backgroundImage: `url({process.env.REACT_APP_API}/img/pets/${pet.images[0]})`}}
+</pre>
+
+<h3>Página de detalhes do pet</h3>
+
+<p>criar pages/Pet.PetDetails.js onde vamos criar a função PetDetails que retorna um h1 e ao final vamos exportar PetDetails</p>
+
+<p>criar PetDetails.module.css e vamos importá-la em petdetails</p>
+
+<p>em app vamos colocar a rota de petdetails para "/pet/:id"</p>
+
+<p>em petdetails vamos importar a api, useState, useEffect, useParams, Link, useFlashMessage </p>
+
+<p>na função vamos declarar: </p>
+
+<pre>
+  const [pet, setPet] = useState({})
+  const { id } = useParams()
+  const { setFlashMessage } = useFlashMessage()
+  const [token] = useState(localStorage.getItem('token') || '')
+</pre>
