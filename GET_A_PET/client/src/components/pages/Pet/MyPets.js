@@ -1,3 +1,5 @@
+//incluir atualização do front quando a adoção for concluída, sem que seja feito o refresh da página, apenas usando useEffect, por exemplo
+
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
@@ -76,8 +78,7 @@ function MyPets(){
                   </>
                 ):(
                   <p>Pet já adotado</p>
-                )
-                }
+                )}
               </div>
             </div>
           ))

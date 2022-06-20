@@ -1583,5 +1583,37 @@
 
 <p>ainda na página de adoções (myadoptions), vamos retornar uma section com uma div de cabeçalho e outra div com a lista de pets com visita marcada pelo usuário. A lista será alimentada por um map caso pets.length > 0 </p>
 
+<h3>Conclusão da adoção</h3>
+
+<p>em mypets, nós vamos definir o método concludeAdoption(pet._id) que será associado ao clique no botão de concluir adoção. 
+  <ul>
+    <li>
+      <strong>vale lembrar que para criar a associação de um método com parâmetros a um botão sem executar esse método na montagem da página, é necessário passarmos esse método no onClick dentro de uma função anônima </strong>
+    </li>
+  </ul> 
+</p>
+
+<pre>
+  async function concludeAdoption(id) {
+    let msgType = 'success'
+
+    const data = await api
+      .patch(`/pets/conclude/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        return response.data
+      })
+      .catch((err) => {
+        console.log(err)
+        msgType = 'error'
+        return err.response.data
+      })
+
+    setFlashMessage(data.message, msgType)
+  }
+</pre>
 
 
