@@ -1479,9 +1479,6 @@
 
 <p>depois da div de cabeçalho vamos criar uma div com uma condicional para exibição dos pets cadastrados (pets.length > 0) através de um pets.map ou uma p indicando que não há pets cadastrados</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <p>no map de exibição vamos retornar uma div com uma div(que exibirá a imagem), o nome do pet, peso, um ternário verificando se o pet está disponível (available) ou não</p>
 
 <p>na verificação de available, caso esteja disponível vamos colocar retornar um Link para "/pet/${pet._id}"</p>
@@ -1523,4 +1520,68 @@
   }, [id])
 </pre>
 
-<p></p>
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<p>em petdetails vamos retornar um fragment com uma condicional onde, caso haja pet.name, vamos renderizar uma section que vai ter uma div de cabeçalho e uma div com os dados do pet através de um map</p>
+
+<p>depois dos detalhes, ainda dentro da section, vamos verificar por meio de um ternário se há token, havendo colocamos um botão de solicitação de visita, se não, informar que é necessário estar logado para adotar</p>
+
+<p>vamos criar os estilos css em PetDetails.module.css colocando as respectivas regras nos elementos html de petdetails<p>
+
+<h3>Função de solicitar visita</h3>
+
+<p>em petdetails vamos criar a função assíncrona schedule, ela será associada ao botão de solicitação de visita do pet </p>
+
+<pre>
+  async function schedule() {
+    let msgType = 'success'
+
+    const data = await api
+      .patch(`pets/schedule/${pet._id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        return response.data
+      })
+      .catch((err) => {
+        msgType = 'error'
+        return err.response.data
+      })
+
+    setFlashMessage(data.message, msgType)
+  }
+</pre>
+
+<h3>Criando página de adoções</h3>
+
+<p>criar pages/Pet/MyAdoptions.js, colocando-a nas rotas de app</p>
+
+<p>vamos colocar essa página também como link na navbar para quando o usuário estiver logado</p>
+
+<p>na página myadoptions vamos importar styles de dashboard.module.css, api, useState, useEffect, RoundedImage</p>
+
+<p>vamos declarar na função as seguintes constantes e useEffect</p>
+
+<pre>
+  const [pets, setPets] = useState([])
+  const [token] = useState(localStorage.getItem('token') || '')
+
+  useEffect(() => {
+    api.get('/pets/myadoptions', {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      })
+      .then((response) => {
+        setPets(response.data.pets)
+      })
+  }, [token])
+</pre>
+
+<p>ainda na página de adoções (myadoptions), vamos retornar uma section com uma div de cabeçalho e outra div com a lista de pets com visita marcada pelo usuário. A lista será alimentada por um map caso pets.length > 0 </p>
+
+
+

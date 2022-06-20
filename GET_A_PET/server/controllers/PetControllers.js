@@ -135,7 +135,7 @@ module.exports = class PetControllers{
       })
     }else{
       res.status(200).json({
-        message: `${user.name} ainda não adotou nenhum amiguinho :(`
+        message: `${user.name} ainda não solicitou adoção de nenhum amiguinho :(`
       })
     }
   }
