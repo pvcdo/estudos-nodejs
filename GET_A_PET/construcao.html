@@ -1337,9 +1337,6 @@
 
 <p>em Dashboard.module.css vamos criar o css e depois vamos ir aplicando as classes nos respectivos elementos de MyPets</p>
 
-<!-- PRATICAR A PARTIR DAQUI -->
-<!-- *************************************************************** -->
-
 <h3>Removendo pet do sistema</h3>
 
 <p>em mypets criamos a função assíncrona removePet(id), onde vamos fazer o seguinte:</p>
@@ -1382,7 +1379,7 @@
 
 <p>em app vamos colocar nas rotas a página editpet com o path 'pet/edit/:id'</p>
 
-<p>no retorno vamos colocar uma div de cabeçalho com um h1</p>
+<p>no retorno de editpet vamos colocar uma div de cabeçalho com um h1</p>
 
 <p>na função de editpet vamos declarar:</p>
 
@@ -1466,7 +1463,7 @@
 
 <p>criar pages/Home.module.css</p>
 
-<p>criar o state pet([])</p>
+<p>criar o state pets([])</p>
 
 <p>fazemos useEffect da seguinte maneira:</p>
 
@@ -1480,9 +1477,12 @@
 
 <p>no retorno da home nós vamos colocar uma div de cabeçalho na section, onde teremos um h1 e um p </p>
 
-<p>depois da div de cabeçalho vamos criar uma div com uma condicional para exibição dos pets cadastrados (pets.length > 0) através de um pets.forEach ou uma p indicando que não há pets cadastrados</p>
+<p>depois da div de cabeçalho vamos criar uma div com uma condicional para exibição dos pets cadastrados (pets.length > 0) através de um pets.map ou uma p indicando que não há pets cadastrados</p>
 
-<p>no forEach de exibição vamos retornar uma div com uma div(que exibirá a imagem), o nome do pet, peso, um ternário verificando se o pet está disponível (available) ou não</p>
+<!-- PRATICAR A PARTIR DAQUI -->
+<!-- *************************************************************** -->
+
+<p>no map de exibição vamos retornar uma div com uma div(que exibirá a imagem), o nome do pet, peso, um ternário verificando se o pet está disponível (available) ou não</p>
 
 <p>na verificação de available, caso esteja disponível vamos colocar retornar um Link para "/pet/${pet._id}"</p>
 
@@ -1496,7 +1496,7 @@
 
 <h3>Página de detalhes do pet</h3>
 
-<p>criar pages/Pet.PetDetails.js onde vamos criar a função PetDetails que retorna um h1 e ao final vamos exportar PetDetails</p>
+<p>criar pages/Pet/PetDetails.js onde vamos criar a função PetDetails que retorna um h1 e ao final vamos exportar PetDetails</p>
 
 <p>criar PetDetails.module.css e vamos importá-la em petdetails</p>
 
@@ -1512,3 +1512,15 @@
   const { setFlashMessage } = useFlashMessage()
   const [token] = useState(localStorage.getItem('token') || '')
 </pre>
+
+<p>depois das declarações vamos usar o useEffect para pegar os pets:</p>
+
+<pre>
+  useEffect(() => {
+    api.get(`/pets/${id}`).then((response) => {
+      setPet(response.data.pet)
+    })
+  }, [id])
+</pre>
+
+<p></p>

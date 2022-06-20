@@ -25,6 +25,26 @@ function MyPets(){
     })
   },[token])
 
+  async function removePet(id){
+    let msgType = 'success'
+
+    const data = api.delete(`/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+    }).then((response) => {
+      const updatedPets = pets.filter((pet) => pet._id !== id) //pega o array de pets que está renderizado na tela e filtro por aqueles que tem o id diferente do pet deletado
+      setPets(updatedPets) //altero o array dos pets renderizados para o updatedPets, o qual não tem o pet deletado do banco de dados.
+      //a técnica acima faz o tratamento da exibição apenas do front-end, poupando tráfego de rede
+      return response.data
+    }).catch((err) => {
+      msgType = 'error'
+      return err.response.data
+    })
+
+    setFlashMessage(data.message, msgType)
+  }
+
   return(
     <section>
       <div className={styles.petslist_header}>
@@ -50,7 +70,7 @@ function MyPets(){
                       </button>
                     )}
                     <Link to={`/pet/edit/${pet._id}`}>Editar</Link>
-                    <button>
+                    <button onClick={()=>{removePet(pet._id)}}>
                       Excluir
                     </button>
                   </>
