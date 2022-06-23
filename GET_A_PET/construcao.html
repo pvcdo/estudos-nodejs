@@ -1523,7 +1523,7 @@
 <!-- PRATICAR A PARTIR DAQUI -->
 <!-- *************************************************************** -->
 
-<p>em petdetails vamos retornar um fragment com uma condicional onde, caso haja pet.name, vamos renderizar uma section que vai ter uma div de cabeçalho e uma div com os dados do pet através de um map</p>
+<p>em petdetails vamos retornar um fragment com uma condicional onde, caso haja pet.name, vamos renderizar uma section que vai ter uma div de cabeçalho e depois tags com os dados do pet</p>
 
 <p>depois dos detalhes, ainda dentro da section, vamos verificar por meio de um ternário se há token, havendo colocamos um botão de solicitação de visita, se não, informar que é necessário estar logado para adotar</p>
 
@@ -1531,7 +1531,7 @@
 
 <h3>Função de solicitar visita</h3>
 
-<p>em petdetails vamos criar a função assíncrona schedule, ela será associada ao botão de solicitação de visita do pet </p>
+<p>em petdetails vamos criar a função assíncrona schedule, ela será associada ao clique botão de solicitação de visita do pet </p>
 
 <pre>
   async function schedule() {
@@ -1585,7 +1585,7 @@
 
 <h3>Conclusão da adoção</h3>
 
-<p>em mypets, nós vamos definir o método concludeAdoption(pet._id) que será associado ao clique no botão de concluir adoção. 
+<p>em mypets, nós vamos definir o método assíncrono concludeAdoption(id) que será associado ao clique no botão de concluir adoção, sendo passado como parâmetro o pet._id. 
   <ul>
     <li>
       <strong>vale lembrar que para criar a associação de um método com parâmetros a um botão sem executar esse método na montagem da página, é necessário passarmos esse método no onClick dentro de uma função anônima </strong>

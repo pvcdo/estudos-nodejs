@@ -7,10 +7,15 @@ import { useState, useEffect } from "react"
 
 function Home(){
   const [pets, setPets] = useState([])
+  const [token] = useState(localStorage.getItem('token') || '')
+  const [user,setUser] = useState({})
 
   useEffect(() => {
     api.get('/pets').then((response) => {
       setPets(response.data.pets)
+    })
+    api.get('/users/checkUser').then((response) => {
+      setUser(response.data)
     })
   }, [])
 
@@ -38,6 +43,10 @@ function Home(){
               ) : (
                 <p className={styles.adopted_text}>Adotado!</p>
               )}
+              {/* VER SE O PET JÁ FOI AGENDADO PELO USUÁRIO LOGADO
+                user._id === pet.adopter._id ?
+                (<p>Agendado!</p>):(<></>)
+              */}
             </div>
           ))
         }
