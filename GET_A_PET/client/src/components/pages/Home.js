@@ -7,15 +7,10 @@ import { useState, useEffect } from "react"
 
 function Home(){
   const [pets, setPets] = useState([])
-  const [token] = useState(localStorage.getItem('token') || '')
-  const [user,setUser] = useState({})
 
   useEffect(() => {
     api.get('/pets').then((response) => {
       setPets(response.data.pets)
-    })
-    api.get('/users/checkUser').then((response) => {
-      setUser(response.data)
     })
   }, [])
 
