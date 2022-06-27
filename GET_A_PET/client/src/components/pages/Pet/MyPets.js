@@ -3,6 +3,8 @@
 import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
+import { useNavigate, useParams } from 'react-router-dom'
+
 import RoundedImage from '../../layouts/RoundedImage'
 
 import api from '../../../utils/api'
@@ -12,8 +14,10 @@ import useFlashMessage from '../../../hooks/useFlashMessage'
 import styles from './Dashboard.module.css'
 
 function MyPets(){
+  const {id} = useParams()
   const [token] = useState(localStorage.getItem('token') || '')
   const {setFlashMessage} = useFlashMessage()
+  const navigate = useNavigate()
   
   const [pets, setPets] = useState([])
 
@@ -26,6 +30,11 @@ function MyPets(){
       setPets(response.data.pets)
     })
   },[token])
+
+  useEffect(()=>{
+    const pet = pets.filter((pet)=>pet._id === id)
+    setFlashMessage(`${pet.name} tem um novo lar`, 'success')
+  },[id])
 
   async function removePet(id){
     let msgType = 'success'
@@ -51,11 +60,12 @@ function MyPets(){
     let msgType = 'success'
 
     const data = await api
-      .patch(`/pets/conclude/${id}`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(token)}`,
-        },
-      })
+      .patch(`/pets/conclude/${id}`,undefined,{ 
+          headers: {
+            Authorization: `Bearer ${JSON.parse(token)}`,
+          },
+        }
+      )
       .then((response) => {
         return response.data
       })
@@ -64,7 +74,7 @@ function MyPets(){
         msgType = 'error'
         return err.response.data
       })
-
+    navigate(`/pet/mypets/concludeAdoption/${id}`)
     setFlashMessage(data.message, msgType)
   }
 

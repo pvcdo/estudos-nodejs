@@ -8,7 +8,6 @@ const checkToken = (req,res,next)=>{
     return res.status(401).json({ message: "Acesso negado: Sem req.headers.authorization" });
   }
   const token = getToken(req)
-  console.log(token)
   if(!token){
     return res.status(401).json({ message: "Acesso negado: authorization sem token!" });
   }

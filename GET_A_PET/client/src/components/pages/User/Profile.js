@@ -67,7 +67,7 @@ function Profile(){
 
   return(
     <section>
-      <form onSubmit={handleSubmit} className={formStyles.form_container}>
+      
         <div className={styles.profile_header}>
           <h1>Perfil</h1>
           {(user.image || preview) && (
@@ -81,6 +81,7 @@ function Profile(){
             />
           )}
         </div>
+        <form onSubmit={handleSubmit} className={formStyles.form_container}>
         <Input
           type="file"
           text="Imagem"

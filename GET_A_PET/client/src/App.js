@@ -42,6 +42,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/user/profile" element={<Profile/>}/>
             <Route path="/pet/mypets" element={<MyPets/>}/>
+            <Route path="/pet/mypets/concludeAdoption/:id" element={<MyPets/>}/>
             <Route path="/pet/myadoptions" element={<MyAdoptions/>}/>
             <Route path="/pet/add" element={<AddPet/>}/>
             <Route path="/pet/edit/:id" element={<EditPet/>}/>

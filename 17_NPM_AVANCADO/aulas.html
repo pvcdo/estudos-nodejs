@@ -1,0 +1,67 @@
+<h1>Apêndice A - avançando no NPM</h1>
+
+<h2>Introdução</h2>
+
+<p>Comandos não muito comuns, para resolver problemas e aumentar produtividade.</p>
+
+<h2>Verificando a versão do NPM</h2>
+
+<p>npm [node] -v</p>
+
+<h2>Criar projetos rapidamente</h2>
+
+<p>npm init -y</p>
+
+<h2>Configuração de módulo</h2>
+
+<ol>
+  <li>criar a pasta do projeto</li>
+  <li>antes de iniciar o projeto vamos na pasta e damos o comando <b>npm config set chave-a-configurar valor</b> </li>
+  <li>ex 1.: <b>npm config set init-author-name Paulo</b></li>
+  <li>ex 2.: <b>npm config set init-author-email paulo@teste.com</b></li>
+  <li>ex 3.: <b>npm config set init-licence MIT</b></li>
+</ol>
+
+<p>quando criarmos um projeto com npm init -y nosso projeto irá com esses dados</p>
+
+<p><a href="https://docs.npmjs.com/cli/v8/using-npm/config">Aqui</a> podemos ver todas as configurações possíveis de serem feitas em um novo projeto npm</p>
+
+<h2>Exibindo configurações do npm</h2>
+
+<p>npm get</p>
+
+<h2>Deletando valores de configuração</h2>
+
+<p>npm config delete chave-a-deletar</p>
+
+<h2>Instalação de módulo global</h2>
+
+<p>Podemos ter acesso a módulos em qualquer projeto utilizando a instalação global. A instalação global permite que não instalemos diretamente no projeto módulos não necessários para a execução deste projeto, por exemplo, módulos de teste, que usamos no desenvolvimento, mas que não são necessários para que o usuário consiga usar corretamente o sistema. </p>
+
+<p>npm i modulo-global -g</p>
+
+<p>o pacote não aparece no package.json, mas é possível utilizá-lo, sendo assim, quando outro dev for rodar o projeto clonado, não haverá a instalação dos módulos globais utilizados, sendo que estes deverão ser linkados de maneira manual ou de outra forma por este dev</p>
+
+<p>para rodar um programa que faz uso de um módulo global nós temos que primeiro dar o comando <b>npm link modulo-global</b> e depois sim rodar o projeto com o <b>node programa.js</b></p>
+
+<h2>Remover módulos globais</h2>
+
+<p>npm remove modulo-global -g</p>
+
+<h2>Listando módulos instalados</h2>
+
+<p>npm list(ls) [--depth=n &|| -g]</p>
+
+<p>depth indica a "profundidade" da dependência, começando em n=0, onde são listadas as dependências imediatas do projeto</p>
+
+<p>-g são os módulos de dependência global, podemos associar com o depth</p>
+
+<h2>Limpando dependências não utilizadas</h2>
+
+<p>se apagarmos uma dependência escrita no package.json podemos dar o comando <b>npm prune</b> para o npm verificar quais dependências podem ser deletadas sem problemas </p>
+
+<h2>Procurando módulos pelo terminal</h2>
+
+<p>npm search palavra-chave</p>
+
+<p>recebemos uma lista com informações que batem com a palavra-chave passada, seja no nome do módulo, sua descrição, autor e uma própria lista de palavras chave</p>
