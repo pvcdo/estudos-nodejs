@@ -65,3 +65,50 @@
 <p>npm search palavra-chave</p>
 
 <p>recebemos uma lista com informações que batem com a palavra-chave passada, seja no nome do módulo, sua descrição, autor e uma própria lista de palavras chave</p>
+
+<h2>Verificando quais módulos podem ser atualizados</h2>
+
+<p>npm outdated - checa se os módulos no package.json estão atualizados</p>
+
+<p>npm update - atualiza os módulos que necessitam</p>
+
+<h2>Verificando e limpando cache do npm</h2>
+
+<p>muitos problemas da internet são o cache, uma vez que podem estar apresentadas informações não mais válidas na tela por estas estarem em cache, muitos sites utilizam cache para aliviar o fluxo de requisições para o servidor </p>
+
+<p>npm cache verify - resumo sobre o cache, seu tamanho, localização entre outros</p>
+
+<p>npm cache clean --force - limpeza do cache</p>
+
+<h2>Identificando vulnerabilidades</h2>
+
+<p>npm audit - gera um relatório de vulnerabilidades do projeto</p>
+
+<h2>Corrigindo vulnerabilidades</h2>
+
+<p>npm audit fix - corrige as vulnerabilidades. Usando o sufixo --force nós forçamos a solução do problema, já que algumas vezes o audit fix não consegue resolver o problema</p>
+
+<h2>Conhecendo pacotes com o npm view</h2>
+
+<p>npm view "modulo" - traz informações sobre o pacote</p>
+
+<h2>Acessando documentação do pacote</h2>
+
+<p>npm docs "modulo" - leva direto para a documentação do pacote, abrindo o browser</p>
+<p>npm home "modulo"- leva para a página home do módulo na internet, na maioria dos casos é ambígua ao docs</p>
+
+<h2>Reduzindo duplicação de pacotes</h2>
+
+<p>npm dedupe - organiza os repositórios do node_modules de modo a manter o mínimo necessário de versões de módulos instalados</p>
+
+<h2>Instalando pacotes sem salvar nas dependências</h2>
+
+<p>às vezes não queremos "sujar" nosso package.json com módulos que estamos apenas testando</p>
+
+<p>npm install "modulo" --no-save</p>
+
+<h2>Verificando scripts do projeto</h2>
+
+<p>scripts são os comandos preestabelecidos que definimos para que o npm escreva pra gente na linha de comando</p>
+
+<p>npm run - lista os scripts</p>
