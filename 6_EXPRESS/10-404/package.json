@@ -11,9 +11,9 @@
   "author": "Matheus <matheus@horadecodar.com.br> (http://www.horadecodar.com.br/)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.19"
   }
 }
